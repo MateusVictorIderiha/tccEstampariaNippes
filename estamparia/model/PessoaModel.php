@@ -14,9 +14,9 @@
 
 namespace estamparia\model;
 
-use estamparia\libs\CrudEstamparia;
+use estamparia\libs\Crud;
 
-abstract class PessoaModel extends CrudEstamparia {
+abstract class PessoaModel extends Crud {
 
     //put your code here
     protected $nome;

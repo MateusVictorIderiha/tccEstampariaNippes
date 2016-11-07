@@ -11,66 +11,69 @@
  * @author Mateus
  */
 
-namespace estamparia\libs;
+namespace estamparia\model;
 
 use estamparia\model\PessoaModel;
 
 abstract class UsuarioModel extends PessoaModel {
 
     //put your code here
-    //private $dadosBanco;
     private $cookieSeguranca;
-    protected $usuarioLogin;
-    protected $senhaLogin;
-    protected $email;
+    protected $idUsuario;
+    protected $postUsuarioLogin;
+    protected $postSenhaLogin;
+    protected $login; // Uma das formas de login do usuario, Cliente é o email
     protected $tabela = "tcc_usuario";
-    protected $consultaColunaId = "cpf_usuario";
+    protected $consultaColunaId = "id_usuario";
     protected $nivel = "uc";
 
     public function __construct($usuario = null, $senha = null) {
         parent::__construct();
-        
-        if(!empty($usuario) and !empty($senha)){
+
+        if(!empty($usuario) and ! empty($senha)) {
             $lista = $this->validaUsuario($usuario, $senha);
-            if($lista){
-                $this->usuarioLogin = $usuario;
-                $this->senhaLogin = $lista["senha"];
+            if($lista) {
+                $this->idUsuario = $lista["id_usuario"];
+                $this->postUsuarioLogin = $usuario;
+                $this->login = $lista["login"];
+                $this->postSenhaLogin = $this->Md5EncodeSenha($senha);
                 $this->cpf = $lista["cpf_usuario"];
                 $this->nome = $lista["nome"];
             }
         }
     }
-    
-    public function encriptSenha($senha) {
-        return md5($senha);
+
+    public function Md5EncodeSenha($senha) {
+        $senhaMd5 = md5($senha);
+        $encriptografado = base64_encode($senhaMd5);
+        return $encriptografado;
     }
-    
-    public function validaUsuario($usuario, $senha){
+
+    public function validaUsuario($usuario, $senha) {
         $comando = $this->banco->prepare("SELECT * from $this->tabela where "
-                . "(cpf_cliente=:cpf_cliente or email=:email) and senha=:senha");
-        $comando->bindParam(":cpf_cliente", $usuario);
-        $comando->bindParam(":email", $usuario);
+                . "(cpf_usuario=:cpf_usuario or login=:login) and senha=:senha");
+        $comando->bindParam(":cpf_usuario", $usuario);
+        $comando->bindParam(":login", $usuario);
         $comando->bindParam(":senha", $senha);
         $comando->execute();
         $login = $comando->fetch(\PDO::FETCH_ASSOC);
 
-        if(count($login) == 1) {
+        if($login) {
             return $login;
         } else {
             return false;
         }
     }
-    
+
     public function expulsaUsuario() {
         header("location:../view/home.phtml");
     }
 
     public function loginSessao($postUsuario, $postSenha) {
-        $login = $this->validaUsuario($postUsuario, $this->encriptSenha($postSenha));
-        if($login){
-            $_SESSION["usuario"] = $login[0]["cpf_cliente"];
-            $_SESSION["senha"] = $login[0]["senha"];
-            
+        $login = $this->validaUsuario($postUsuario, md5($postSenha));
+        if($login) {
+            $_SESSION["usuario"] = $login[0]["id_usuario"];
+            $_SESSION["senha"] = base64_encode($login[0]["senha"]);
         }
     }
 
@@ -82,23 +85,30 @@ abstract class UsuarioModel extends PessoaModel {
     }
 
     public function loginCookie($postUsuario, $postSenha) {
-        $login = $this->validaUsuario($postUsuario, $this->encriptSenha($postSenha));
-        if($login){
-            $_COOKIE["usuario"] = $postUsuario;
-            $_COOKIE["senha"] = $this->encriptSenha($postSenha);
+        $login = $this->validaUsuario($postUsuario, md5($postSenha));
+        if($login) {
+            $_COOKIE["usuario"] = $login[0]["id_usuario"];
+            $_COOKIE["senha"] = base64_encode($login[0]["senha"]);
         }
     }
 
     public function logoutCookie() {
-        if(isset($_COOKIE["usuario"]) and isset($_COOKIE["senha"])){
+        if(isset($_COOKIE["usuario"]) and isset($_COOKIE["senha"])) {
             unset($_COOKIE["usuario"]);
             unset($_COOKIE["senha"]);
+            header("location:");
         }
     }
-
-    public function verificaLogin() {
-        if(isset($this->usuarioLogin) and isset($this->senhaLogin)) {
-            if($this->validaUsuario($this->usuarioLogin, $this->senhaLogin)){
+/*
+ * varifica se o usuario logado no momento está valido
+ * se passa as variaveis globais COOKIE ou SESSION para a verificação
+ */
+    public function verificaLogin($login, $senha) {
+        if(isset($this->postUsuarioLogin) and isset($this->postSenhaLogin)
+                and isset($login) and isset($senha)
+                and $this->postUsuarioLogin == $login
+                and $this->postSenhaLogin == $senha) {
+            if($this->validaUsuario($login, base64_decode($senha))) {
                 return true;
             } else {
                 $this->expulsaUsuario();
@@ -125,10 +135,10 @@ abstract class UsuarioModel extends PessoaModel {
         return $this->banco->lastInsertId();  // está retornando sempre string'0' talvez seja por que Tabela Cliente não é autoincrement
     }
 
-    public function editar($cpf) {
+    public function editar($id) {
         $comando = $this->banco->prepare("UPDATE $this->tabela SET "
                 . "cpf_usuario=:cpf_usuario,email=:email,senha=:senha,RG=:rg,"
-                . "dataNascimento=:dataNascimento,nome=:nome WHERE $this->consultaColunaId=$cpf");
+                . "dataNascimento=:dataNascimento,nome=:nome WHERE $this->consultaColunaId=$id");
         $comando->bindParam(":cpf_usuario", $this->cpf);
         $comando->bindParam(":email", $this->email);
         $comando->bindParam(":senha", $this->senha);
@@ -138,4 +148,13 @@ abstract class UsuarioModel extends PessoaModel {
         $comando->execute();
     }
 
+    public function mostrarInformacoes() {
+        $informacoes[] = $this->idUsuario;
+        $informacoes[] = $this->login; // Email
+        $informacoes[] = $this->nivel;
+        $informacoes[] = $this->cpf;
+        $informacoes[] = $this->nome;
+        $informacoes[] = $this->dataNascimento;
+        return $informacoes;
+    }
 }

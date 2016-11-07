@@ -14,9 +14,9 @@
 
 namespace estamparia\model;
 
-use estamparia\libs\CrudEstamparia;
+use estamparia\libs\Crud;
 
-class CorModel extends CrudEstamparia {
+class CorModel extends Crud {
 
     //put your code here
     // ainda se tem que arrumar a LOGICA DAS CLASSES Cor, PadraoDaCor e CodigoDaCor

@@ -1,0 +1,22 @@
+{
+    "name": "mateus/estamparia",
+    "description": "Trabalho de conclusao de curso, do curso tecnico em informatica para internet, para a estamparia Nippes",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Mateus Victor Ideriha Rego",
+            "email": "Mateus.rego@etec.sp.gov.br"
+        }
+    ],
+    "require": {
+        "php": ">=5.2.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "estamparia\\controller\\": "estamparia/controller",
+            "estamparia\\libs\\": "estamparia/libs",
+            "estamparia\\model\\": "estamparia/model",
+            "estamparia\\view\\": "estamparia/view"
+        }
+    }
+}

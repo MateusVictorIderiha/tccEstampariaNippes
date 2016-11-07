@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" type="text/css" media="all" href="../bootstrap/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="../bootstrap/jquery-ui/jquery-ui.css" />
+
+        <script src="../bootstrap/js/jquery.js" ></script>
+        <script src="../bootstrap/js/bootstrap.js" ></script> 
+        <script src="../bootstrap/jquery-ui/jquery-ui.js" ></script>
+        <script src="../javascript.js" ></script>
+
+        <link href="css/estilo.css" rel="stylesheet" type="text/css" media="screen">
+        <link href="css/estiloadm.css" rel="stylesheet" type="text/css" media="screen">
+
+        <title>Nippes Estamparia</title>
+    </head>
+    <body>	
+        <header>
+            <figure>
+                <img class="logotipo" src="img/logo.png" width="150px" height="50px" />
+            </figure>
+            <figure class="user">
+                <img src="img/user.png" width="50px" height="50px" />
+            </figure>
+            <h1 class="admin"><a href="#">Admin<h1>
+                        </header>
+                        <nav class="espacoentre">
+                            <ul>																																												<br>
+                                <li><a class="espacoentre" href="ADMprodutos.html"> PRODUTOS</a></li>
+                                <li><a class="espacoentre" href="ADMcliente.html"> CLIENTE</a></li>
+                                <li><a class="espacoentre" href="ADMcontato.html"> CONTATO</a></li>
+                                <li><a class="espacoentre" href="ADMID.html"> ID INFORM</a></li>
+                                <li><a class="espacoentre" href="ADMpromocao.html"> PROMOÇÕES</a></li>
+                                <li><a class="espacoentre" href="ADMvenda.html"> ORCAMENTOS</a></li>
+                            </ul>
+                        </nav>		
+                        <article>
+                            <h1 class="titlecad">Cadastrar Funcionario</h1>				
+                            <form class="form" method="POST" action="cadastrar.php">
+                                <fieldset class="col-md-10 scheduler-border">
+                                    <fieldset>
+                                        <legend>Informações Pessoais</legend>
+                                        <div class="form-group">
+                                            <label for="nome">Nome completo: </label>
+                                            <input type="text" class="form-control focused" id="nome" name="nome" data-toggle="tooltip" title="Preencha seu nome completo" data-placement="bottom" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cpf">CPF: </label>
+                                            <input type="text" class="form-control focused" id="cpf" name="cpf" data-toggle="tooltip" title="Preencha seu CPF" data-placement="bottom" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sexo">Sexo: </label>
+                                            <select class="form-control focused" id="sexo" name="sexo" data-toggle="tooltip" title="Informe seu sexo masculino/feminino" data-placement="bottom" >
+                                                <option value="0">Selecione uma opição...</option>
+                                                <option value="fem">Feminino</option>
+                                                <option value="mas">Masculino</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="datepicker1">Data de nascimento </label>
+                                            <div class='input-group date'>
+                                                <input type='text' id="datepicker1" class="form-control" data-toggle="tooltip" title="Informe sua data de nascimento" data-placement="bottom" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>	
+                                        <div class="form-group">
+                                            <label for="telefone">Telefone: </label>
+                                            <input type="text" class="form-control focused" id="telefone" name="tel" data-toggle="tooltip" title="Informe seu telefone" data-placement="bottom" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="telefone">Telefone 2: </label>
+                                            <input type="text" class="form-control focused" id="telefone2" name="tel2" data-toggle="tooltip" title="Informe outro telefone(opicional)" data-placement="bottom" />
+                                        </div>
+                                        <fieldset>
+                                            <legend>Endereço </legend>
+                                            <div class="form-group">
+                                                <label for="cep">CEP: </label>
+                                                <input type="text" class="form-control focused" id="cep" name="cep" data-toggle="tooltip" title="Informe o CEP da sua Rua/Cidade" data-placement="bottom" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cep">Rua: </label>
+                                                <input type="text" class="form-control focused" id="rua" name="rua" data-toggle="tooltip" title="Informe sua Rua" data-placement="bottom" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cep">Número: </label>
+                                                <input type="text" class="form-control focused" id="numero" name="numero" data-toggle="tooltip" title="Informe o número da sua moradia" data-placement="bottom" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cep">Cidade: </label>
+                                                <input type="text" class="form-control focused" id="cidade" name="cidade" data-toggle="tooltip" title="Informe a Cidade" data-placement="bottom" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cep">Estado: </label>
+                                                <input type="text" class="form-control focused" id="estado" name="estado" data-toggle="tooltip" title="Informe o estado" data-placement="bottom" />
+                                            </div>
+                                        </fieldset>
+                                    </fieldset>
+                                    <fieldset>
+                                        <legend>Informações da conta</legend>
+                                        <div class="form-group">
+                                            <label for="email">E-mail: </label>
+                                            <input type="text" class="form-control focused" id="email" name="email" data-toggle="tooltip" title="Preencha seu e-mail/LOGIN" data-placement="bottom" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="RepetirEmail">Confirme seu e-mail: </label>
+                                            <input type="text" class="form-control focused" id="RepetirEmail" name="ReEmail" data-toggle="tooltip" title="Confirme seu e-mail/LOGIN" data-placement="bottom" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="senha">Senha: </label>
+                                            <input type="password" class="form-control focused" id="senha" name="senha" data-toggle="tooltip" title="Preencha sua senha" data-placement="bottom" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="RepetirSenha">Confirme sua senha: </label>
+                                            <input type="password" class="form-control focused" id="RepetirSenha" name="ReSenha" data-toggle="tooltip" title="Confirme sua senha" data-placement="bottom" />
+                                        </div>
+                                    </fieldset>
+                                    <div class="form-group">
+                                        <input class="col-md-8 btn btn-primary" type="submit" value="Cadastrar Funcionario" data-toggle="tooltip" title="Clique aqui para cadastrar um funcionario" data-placement="bottom" />
+                                    </div>
+                                </fieldset>					
+                            </form>
+                        </article>
+                        <aside>
+                            <h1 class="cadastro">Funcionários Cadastrados</h1>
+                            <figure>
+                                <img class="funcionarioscadastro" src="img/perfil.png" title="Camisa"/>
+                                <figcaption>
+                                    <p>	Nome: </a>
+                                    <p>	CPF: </a></p>
+                                    <p>	Telefone: </a></p>
+                                    <p>	Cor: </a></p>
+                                    <p>	Endereço: </a></p>
+                                    <p>	E-mail: </a></p>
+                                </figcaption>
+                            </figure>		
+                            <div class="form-group">
+                                <input class="col-md-0.2 btn btn-primary botaoedit marginleft" type="submit" value="Editar" data-toggle="tooltip" title="Edite alguma informação"" data-placement="bottom" />
+                                <input class="col-md-0.2 col-md-0.2 btn botaoedit btn-primary3" type="submit" value="Excluir" data-toggle="tooltip" title="Exclua a Camiseta" data-placement="bottom" />
+                            </div>
+                            <figure>
+                                <img class="funcionarioscadastro" src="img/perfil.png" title="Camisa"/>
+                                <figcaption>
+                                    <p>	Nome: </a>
+                                    <p>	CPF: </a></p>
+                                    <p>	Telefone: </a></p>
+                                    <p>	Cor: </a></p>
+                                    <p>	Endereço: </a></p>
+                                    <p>	E-mail: </a></p>
+                                </figcaption>
+                            </figure>				
+                            <div class="form-group">
+                                <input class="col-md-0.2 btn btn-primary botaoedit marginleft" type="submit" value="Editar" data-toggle="tooltip" title="Edite alguma informação"" data-placement="bottom" />
+                                <input class="col-md-0.2 col-md-0.2 btn botaoedit btn-primary3" type="submit" value="Excluir" data-toggle="tooltip" title="Exclua a Camiseta" data-placement="bottom" />
+                            </div>
+                            <figure>
+                                <img class="funcionarioscadastro" src="img/perfil.png" title="Camisa"/>
+                                <figcaption>
+                                    <p>	Nome: </a>
+                                    <p>	CPF: </a></p>
+                                    <p>	Telefone: </a></p>
+                                    <p>	Cor: </a></p>
+                                    <p>	Endereço: </a></p>
+                                    <p>	E-mail: </a></p>
+                                </figcaption>
+                            </figure>		
+                            <div class="form-group">
+                                <input class="col-md-0.2 btn btn-primary botaoedit marginleft" type="submit" value="Editar" data-toggle="tooltip" title="Edite alguma informação"" data-placement="bottom" />
+                                <input class="col-md-0.2 col-md-0.2 btn botaoedit btn-primary3" type="submit" value="Excluir" data-toggle="tooltip" title="Exclua a Camiseta" data-placement="bottom" />
+                            </div>
+                            <figure>
+                                <img class="funcionarioscadastro" src="img/perfil.png" title="Camisa"/>
+                                <figcaption>
+                                    <p>	Nome: </a>
+                                    <p>	CPF: </a></p>
+                                    <p>	Telefone: </a></p>
+                                    <p>	Cor: </a></p>
+                                    <p>	Endereço: </a></p>
+                                    <p>	E-mail: </a></p>
+                                </figcaption>
+                            </figure>		
+                            <div class="form-group">
+                                <input class="col-md-0.2 btn btn-primary botaoedit marginleft" type="submit" value="Editar" data-toggle="tooltip" title="Edite alguma informação"" data-placement="bottom" />
+                                <input class="col-md-0.2 col-md-0.2 btn botaoedit btn-primary3" type="submit" value="Excluir" data-toggle="tooltip" title="Exclua a Camiseta" data-placement="bottom" />
+                            </div>
+                            <figure>
+                                <img class="funcionarioscadastro" src="img/perfil.png" title="Camisa"/>
+                                <figcaption>
+                                    <p>	Nome: </a>
+                                    <p>	CPF: </a></p>
+                                    <p>	Telefone: </a></p>
+                                    <p>	Cor: </a></p>
+                                    <p>	Endereço: </a></p>
+                                    <p>	E-mail: </a></p>
+                                </figcaption>
+                            </figure>		
+                            <div class="form-group">
+                                <input class="col-md-0.2 btn btn-primary botaoedit marginleft" type="submit" value="Editar" data-toggle="tooltip" title="Edite alguma informação"" data-placement="bottom" />
+                                <input class="col-md-0.2 col-md-0.2 btn botaoedit btn-primary3" type="submit" value="Excluir" data-toggle="tooltip" title="Exclua a Camiseta" data-placement="bottom" />
+                            </div>
+                        </aside>
+                        </body>
+                        </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <!--
+                        <form class="form" method="POST" action="CadCamiseta.php">
+                        <fieldset class="col-md-2 scheduler-border">
+                        <legend class="scheduler-border">Cadastrar camisetas</legend>
+                        <fieldset>
+                                <legend>Camiseta</legend>
+                                <div class="form-group">
+                                        <label for="modelo">Modelo camiseta: </label>
+                                        <input type="text" class="form-control focused" id="modelo" name="modelo" data-toggle="tooltip" title="Preencha o modelo da camiseta" data-placement="bottom" />
+                                </div>
+                                <div class="form-group">
+                                        <label for="tipo">Tipo: </label>
+                                        <input type="text" class="form-control focused" id="tipo" name="tipo" data-toggle="tooltip" title="Preencha o tipo da camiseta" data-placement="bottom" />
+                                </div>
+                                <div class="form-group">
+                                        <label for="marca">marca: </label>
+                                        <input type="text" id="marca" class="form-control focused" name="marca" data-toggle="tooltip" title="Informe o marca da camiseta" data-placement="bottom" />
+                                </div>
+                                <div class="form-group">
+                                        <label for="cor">Cor: </label>
+                                        <input type="color" class="form-control focused" id="cor" name="cor" data-toggle="tooltip" title="Informe se quer uma cor especifica na gola ou na manga" data-placement="bottom" />
+                                </div>
+                                <div class="form-group">
+                                        <label for="tamanho">Tamanho: </label>
+                                        <input type="text" class="form-control focused" id="tamanho" name="tamanho" data-toggle="tooltip" title="Informe o tamanho da camiseta" data-placement="bottom" />
+                                </div>
+                        </fieldset> -->
+
+
+                        </body>
+                        </html>

@@ -14,9 +14,9 @@
 
 namespace estamparia\model;
 
-use estamparia\libs\CrudEstamparia;
+use estamparia\libs\Crud;
 
-class PromocaoModel extends CrudEstamparia {
+class PromocaoModel extends Crud {
 
     //put your code here
     private $idPromocao;

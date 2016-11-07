@@ -13,9 +13,9 @@
 
 namespace estamparia\libs;
 
-use estamparia\libs\CrudEstamparia;
+use estamparia\libs\Crud;
 
-class ValidadorLogin extends CrudEstamparia {
+class ValidadorLogin extends Crud {
 
     //put your code here
     private $usuario;

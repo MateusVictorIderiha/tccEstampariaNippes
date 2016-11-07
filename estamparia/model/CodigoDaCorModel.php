@@ -15,16 +15,16 @@
 
 namespace estamparia\model;
 
-use estamparia\libs\CrudEstamparia;
+use estamparia\libs\Crud;
 
-class CodigoDaCorModel extends CrudEstamparia {
+class CodigoDaCorModel extends Crud {
 
     //put your code here
     private $idCodigo;
     private $codigo;
-    private $idPadraCor;
+    private $padraoCor;
     private $idCor;
-    protected $tabela = "Codigo";
+    protected $tabela = "tcc_codigo";
 
     public function getIdCodigo() {
         return $this->idCodigo;
@@ -34,8 +34,8 @@ class CodigoDaCorModel extends CrudEstamparia {
         return $this->codigo;
     }
 
-    public function getIdPadraCor() {
-        return $this->idPadraCor;
+    public function getPadraoCor() {
+        return $this->padraoCor;
     }
 
     public function getIdCor() {
@@ -50,8 +50,8 @@ class CodigoDaCorModel extends CrudEstamparia {
         $this->codigo = $codigo;
     }
 
-    public function setIdPadraCor($idPadraCor) {
-        $this->idPadraCor = $idPadraCor;
+    public function setPadraoCor($padraoCor) {
+        $this->padraoCor = $padraoCor;
     }
 
     public function setIdCor($idCor) {

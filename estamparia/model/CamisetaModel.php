@@ -19,31 +19,7 @@ use estamparia\model\ProdutoModel;
 final class CamisetaModel extends ProdutoModel {
 
     //put your code here
-    protected $idTipoProduto = "Camiseta";
+    protected $idTipoProduto = "1";
     protected $tabela = "Produto";
-
-    public function getIdTipoProduto() {
-        return $this->idTipoProduto;
-    }
-
-    public function getTabela() {
-        return $this->tabela;
-    }
-
-    public function setIdTipoProduto($idTipoProduto) {
-        $this->idTipoProduto = $idTipoProduto;
-    }
-
-    public function setTabela($tabela) {
-        $this->tabela = $tabela;
-    }
-
-    public function editar($id) {
-        
-    }
-
-    public function inserir() {
-        
-    }
 
 }

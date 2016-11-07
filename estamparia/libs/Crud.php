@@ -21,7 +21,13 @@ abstract class Crud {
     protected $tabela;
     protected $consultaColunaId; // armazena o nome da coluna(campo) ID da tabela
 
-    function __construct(PDO $conexao) {
+    function __construct() {
+        $servidor = "localhost";
+        $banco = "TccEstamparia";
+        $dsn = "mysql:host=$servidor; dbname=$banco";
+        $usuario = "root";
+        $senha = "root";
+        $conexao = new \PDO($dsn, $usuario, $senha);
         $this->banco = $conexao;
     }
 
@@ -29,6 +35,8 @@ abstract class Crud {
 
     abstract public function editar($id);
 
+    abstract public function mostrarInformacoes();
+    
     public function deletar($id) {
         $comando = $this->banco->prepare("DELETE FROM $this->tabela WHERE "
                 . "$this->consultaColunaId=$id");
@@ -41,16 +49,16 @@ abstract class Crud {
                 . "$this->consultaColunaId=$id"); //PREPARA os dados para fazer um COMANDO de banco de dados
         $comando->execute();
         $lista = $comando->fetch(\PDO::FETCH_ASSOC);   //Retorna os Valores em um VETOR ou ARRAY
-        
-        if(count($lista) != 0){
+
+        if($lista) {
             return $lista;
         } else {
             return false;
         }
-       /* foreach ($lista as $chave => $valor) {
-            echo $chave . ": " . $valor . "<br />";
-        }
-        echo "<br /><hr />";*/
+        /* foreach ($lista as $chave => $valor) {
+          echo $chave . ": " . $valor . "<br />";
+          }
+          echo "<br /><hr />"; */
     }
 
     public function consultarTudo() {

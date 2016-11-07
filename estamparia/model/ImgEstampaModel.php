@@ -14,11 +14,11 @@
 
 namespace estamparia\model;
 
-use estamparia\libs\CrudEstamparia;
+use estamparia\libs\Crud;
 use estamparia\model\LocalEstampaModel;
 use estamparia\model\ModeloEstampaModel;
 
-class ImgEstampaModel extends CrudEstamparia {
+class ImgEstampaModel extends Crud {
 
     //put your code here
     private $idImgEstampa; //Chave PRIMARIA PK

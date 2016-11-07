@@ -14,46 +14,32 @@
 
 namespace estamparia\model;
 
-use estamparia\libs\CrudEstamparia;
+use estamparia\libs\Crud;
 
-class ContatoModel extends CrudEstamparia {
+class ContatoModel extends Crud {
 
     //put your code here
     private $idContato;
     private $contato; // contato em si
-    private $idTipoContato; // id do tipo contato, exemplo: email, telefone
-    private $cpfCliente;
-    protected $tabela = "contato";
+    private $tipoContato; // id do tipo contato, exemplo: email, telefone
+    private $idCliente;
+    protected $tabela = "tcc_contato";
     protected $consultaColunaId = "id_contato";
 
     public function __construct($idContato = null) {
         parent::__construct();
-        if(!empty($idContato)){
+        
+        if(!empty($idContato)) {
             $lista = $this->consultar($idContato);
             if($lista) {
                 $this->idContato = $lista["id_contato"];
-                $this->idTipoContato = $lista["id_tipoContato"];
+                $this->tipoContato = $lista["tipo"];
                 $this->contato = $lista["contato"];
-                $this->cpfCliente = $lista["cpf_cliente"];
+                $this->idCliente = $lista["id_usuario"];
             }
         }
     }
-    
-    public function retornarIdContatoUsuario($cpf) {
-        $idContatos = array();
-        $comando = $this->banco->prepare("SELECT $this->consultaColunaId FROM "
-                . "$this->tabela WHERE cpf_cliente = $cpf");
-        $comando->execute();
-        $lista = $comando->fetch(\PDO::FETCH_ASSOC);
-        
-        if(count($lista) != 0) {
-            foreach ($lista as $resultadoIdContato) {
-                $idContatos = $resultadoIdContato;
-            }
-            return $idContatos;
-        }
-    }
-    
+
     public function getIdContato() {
         return $this->idContato;
     }
@@ -62,12 +48,12 @@ class ContatoModel extends CrudEstamparia {
         return $this->contato;
     }
 
-    public function getIdTipoContato() {
-        return $this->idTipoContato;
+    public function getTipoContato() {
+        return $this->tipoContato;
     }
 
-    public function getCpfCliente() {
-        return $this->cpfCliente;
+    public function getIdCliente() {
+        return $this->idCliente;
     }
 
     public function setIdContato($idContato) {
@@ -78,31 +64,57 @@ class ContatoModel extends CrudEstamparia {
         $this->contato = $contato;
     }
 
-    public function setIdTipoContato($idTipoContato) {
-        $this->idTipoContato = $idTipoContato;
+    public function setTipoContato($tipoContato) {
+        $this->tipoContato = $tipoContato;
     }
 
-    public function setCpfCliente($cpfCliente) {
-        $this->cpfCliente = $cpfCliente;
+    public function setIdCliente($idCliente) {
+        $this->idCliente = $idCliente;
     }
-
+    
+    public function retornarIdContatoUsuario($id, $tipoContato = null) {
+        if($tipoContato == null) {
+            $comando = $this->banco->prepare("SELECT $this->consultaColunaId FROM "
+                    . "$this->tabela WHERE id_usuario = $id");
+            $comando->execute();
+            $lista = $comando->fetchAll(\PDO::FETCH_ASSOC);
+        } else {
+            $comando = $this->banco->prepare("SELECT $this->consultaColunaId FROM "
+                    . "$this->tabela WHERE id_usuario = $id and tipo = $tipoContato");
+            $comando->execute();
+            $lista = $comando->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        if($lista) {
+            return $lista;
+        } else {
+            return "id inexistente";
+        }
+    }
+    
     public function editar($id_contato) {
         $comando = $this->banco->prepare("UPDATE contato SET id_tipo=:id_tipo,"
                 . "contato=:contato,cpf_cliente=:cpf_cliente WHERE id_contato=$id_contato");
-        $comando->bindParam(":id_tipo", $this->idTipoContato);
+        $comando->bindParam(":id_tipo", $this->tipoContato);
         $comando->bindParam(":contato", $this->contato);
-        $comando->bindParam(":cpf_cliente", $this->cpfCliente);
+        $comando->bindParam(":cpf_cliente", $this->idCliente);
         $comando->execute();
     }
 
     public function inserir() {
         $comando = $this->banco->prepare("INSERT INTO $this->tabela(contato, id_tipo,"
-                . " cpf_cliente) values(:contato,:id_tipo,:cpf_cliente)");
+                . " id_cliente) values(:contato,:id_tipo,:id_cliente)");
         $comando->bindParam(":contato", $this->contato);
-        $comando->bindParam(":id_tipo", $this->idTipoContato);
-        $comando->bindParam(":cpf_cliente", $this->cpfCliente);
+        $comando->bindParam(":id_tipo", $this->tipoContato);
+        $comando->bindParam(":id_cliente", $this->idCliente);
         $comando->execute();
         return $this->banco->lastInsertId();
     }
-
+    
+    public function mostrarInformacoes() {
+        $informacoes[] = $this->idContato;
+        $informacoes[] = $this->contato;
+        $informacoes[] = $this->tipoContato;
+        $informacoes[] = $this->idCliente;
+        return $informacoes;
+    }
 }

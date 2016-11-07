@@ -16,14 +16,14 @@ namespace estamparia\model;
 
 use estamparia\model\CepModel;
 
-class EnderecoModel extends CepModel {
+final class EnderecoModel extends CepModel {
 
     //put your code here
     private $idEndereco;
     private $numeroDaCasa;
     private $complemento;
-    private $cpfCliente;
-    private $cep;
+    private $idCliente;
+    private $idCep;
     protected $tabela = "tcc_endereco";
     protected $consultaColunaId = "id_endereco";
 
@@ -32,40 +32,26 @@ class EnderecoModel extends CepModel {
 
         if(!empty($idEndereco)) {
             $lista = $this->consultar($idEndereco);
-            /* $comando = $this->banco->prepare("SELECT * FROM $this->tabela WHERE id_endereco = $idEndereco");
-              $comando->execute();
-              $lista = $comando->fetch(\PDO::FETCH_ASSOC); */
-
             if($lista) {
-                $endereco->idEndereco = $lista["id_endereco"];
-                $endereco->numeroDaCasa = $lista["numero"];
-                $endereco->complemento = $lista["complemento"];
-                $endereco->cpfCliente = $lista["cpf_cliente"];
-                $endereco->cep = $lista["cep"];
-            } else {
-                echo "id inexistente";
+                $this->idEndereco = $lista["id_endereco"];
+                $this->numeroDaCasa = $lista["numero"];
+                $this->complemento = $lista["complemento"];
+                $this->idCliente = $lista["id_usuario"];
+                $this->idCep = $lista["id_cep"];
             }
         }
     }
 
-    public function retornarIdEnderecoUsuario($cpf) {
-        $idEnderecos = array();
-        $comando = $this->banco->prepare("SELECT $this->consultaColunaId FROM $this->tabela WHERE cpf_cliente = $cpf");
+    public function retornarIdEnderecoUsuario($id) {
+        $comando = $this->banco->prepare("SELECT $this->consultaColunaId FROM $this->tabela "
+                . "WHERE id_usuario = $id");
         $comando->execute();
-        $lista = $comando->fetch(\PDO::FETCH_ASSOC);
+        $lista = $comando->fetchAll(\PDO::FETCH_ASSOC);
 
-        if(count($lista) != 0) {
-            foreach ($lista as $resultadoIdEndereco) {
-                /*            $endereco = new EnderecoModel();
-                  $endereco->idEndereco = $lista["id_endereco"];
-                  $endereco->numeroDaCasa = $lista["numero"];
-                  $endereco->complemento = $lista["complemento"];
-                  $endereco->cpfCliente = $lista["cpf_cliente"];
-                  $endereco->cep = $lista["cep"];
-                 */
-                $idEnderecos = $resultadoIdEndereco;
-            }
-            return $idEnderecos;
+        if($lista) {
+            return $lista;
+        } else {
+            return "id inexistente";
         }
     }
 
@@ -81,12 +67,12 @@ class EnderecoModel extends CepModel {
         return $this->complemento;
     }
 
-    public function getCpfCliente() {
-        return $this->cpfCliente;
+    public function getIdCliente() {
+        return $this->idCliente;
     }
 
-    public function getCep() {
-        return $this->cep;
+    public function getIdCep() {
+        return $this->idCep;
     }
 
     public function setIdEndereco($idEndereco) {
@@ -101,12 +87,8 @@ class EnderecoModel extends CepModel {
         $this->complemento = $complemento;
     }
 
-    public function setCpfCliente($cpfCliente) {
-        $this->cpfCliente = $cpfCliente;
-    }
-
-    public function setCep($cep) {
-        $this->cep = $cep;
+    public function setIdCep($idCep) {
+        $this->idCep = $idCep;
     }
 
     public function editar($id_endereco) {
@@ -131,6 +113,15 @@ class EnderecoModel extends CepModel {
 
         $comando->execute();
         return $this->banco->lastInsertId();
+    }
+
+    public function mostrarInformacoes() {
+        $informacoes[] = $this->idEndereco;
+        $informacoes[] = $this->numeroDaCasa;
+        $informacoes[] = $this->complemento;
+        $informacoes[] = $this->idCep;
+        $informacoes[] = $this->idCliente;
+        return $informacoes;
     }
 
 }

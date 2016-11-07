@@ -1,0 +1,127 @@
+@charset "utf-8";
+/* VER LINK DEPOIS (FORMULARIOS)https://www.html5rocks.com/pt/tutorials/forms/html5forms/ site para pesquisa e suporta tag http://caniuse.com/ lista http://fmbip.com/litmus */
+/*comentários background:url('../img/fundo4.png'); background |  */
+
+* {
+    margin:0;
+    padding:0;
+}
+
+html{
+    min-height: 100%;
+    max-height: 100%
+}
+body{
+    overflow-x:hidden;  /* (tirar barra de rolagem horizontal) */	
+    background-color:gray;
+    font-family:"Century Gothic", AppleGothic, sans-serif;
+}
+
+header, nav, section, article, footer, aside{
+    display:block;
+}
+
+nav ul{
+    list-style:none;
+}
+
+nav ul li{
+    float:left;
+}
+
+nav ul li a{
+    display:block;
+    padding: 0 30px;
+    font-size:14px;
+    color: #ffffff;
+}
+
+figure.banner{
+    padding-top:2%;
+    padding-bottom:2%;
+}
+
+figure.banner p{
+    color:black;
+    text-align: justify; 
+}
+.font250{
+    font-size:250%;
+    color:ffffff;
+}
+
+.formapreto{
+    background-color: #4e4d4d;
+    padding:12px;
+    font-size:18px;
+    color: #ffffff;
+}
+
+.emcima{
+    color: #ffffff;
+    margin-left: 60%;
+    margin-top:-20px;
+    background-color:#000000;
+}
+
+.century{
+    font-family:"Century Gothic", AppleGothic, sans-serif;
+}
+
+.font33px{
+    font-size:33px;
+}
+
+.font13px{
+    color:white;
+    font-size:13px;
+}
+
+.carrinho{
+    top:-37px;
+    left:55%;
+}
+
+.padding10{
+    padding:10px;
+}
+
+.relative{
+    position:relative;
+}
+
+.absolute{
+    position:absolute;
+}
+
+.textcenter{
+    text-align:center;
+}
+
+.meio{
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.centro{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.imagens{
+    width: 6%;
+    color:black;
+    font-size:20px;
+    display: inline-table;
+    margin: 0px 10px 10px 10px;
+}
+
+.rodape{
+    background-color: black;
+    color:white;
+    width:100%;
+    bottom:0;
+    left:0;
+    clear: both; 	
+}

@@ -14,9 +14,9 @@
 
 namespace estamparia\model;
 
-use estamparia\libs\CrudEstamparia;
+use estamparia\libs\Crud;
 
-abstract class CepModel extends CrudEstamparia {
+abstract class CepModel extends Crud {
 
     //put your code here
     private $cep;
@@ -25,7 +25,12 @@ abstract class CepModel extends CrudEstamparia {
     private $rua;
     private $bairro;
     protected $tabela = "Cep";
+    protected $consultaColunaId = "id_cep";
 
+    public function __construct() {
+        parent::__construct();
+    }
+    
     function getCep() {
         return $this->cep;
     }

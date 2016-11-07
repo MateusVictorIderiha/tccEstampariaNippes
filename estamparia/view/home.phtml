@@ -1,26 +1,171 @@
-<!DOCTYPE html>
-<!--
-Copyright 2016 Mateus.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
-<html>
+<!doctype html>
+<html lang="pt-BR">
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="stylesheet" type="text/css" media="all" href="bootstrap/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="bootstrap/jquery-ui/jquery-ui.css" />
+
+        <script src="bootstrap/js/jquery.js" ></script>
+        <script src="bootstrap/js/bootstrap.js" ></script> 
+        <script src="bootstrap/jquery-ui/jquery-ui.js" ></script>
+        <script src="javascript.js" ></script>
+
+
+        <link href="css/estilo.css" rel="stylesheet" type="text/css" media="screen">
+        <title>Nippes Estamparia</title>
     </head>
+
     <body>
-        <div>TODO write content</div>
+                            <!-- <button><img src="img/lupa.png" width="15px"/></button> -->
+                            <!-- <input type="image" name="pesquisar" src="img/lupa.png"  width="20px" alt="Botão Pesquisar"/></p> -->
+        <header class="century">
+            <nav>
+                <figure class="fig">
+                    <img class="logotipo" src="img/logo.png" width="100px" height="25px" /> <b class="font15px">| ESTAMPARIA </b>
+                    <ul class="cabecalhotopo">
+                        <li><a href="cadastro.html"> LOGIN | CRIE SUA CONTA</a></li>
+                        <li><a>Facebook | Google </a></li>
+                    </ul>			
+                    <br>
+                </figure>			
+                <ul class="cabecalho">
+                    <li><a href="home.html" style="text-decoration:none"> HOME </a></li>
+                    <li><a href="pedidos.html" style="text-decoration:none"> PEDIDOS</a></li>
+                    <li><a href="catalogo.html" style="text-decoration:none"> CATÁLOGO</a></li>
+                    <li><a href="faleconosco.html" style="text-decoration:none"> CONTATO</a></li>
+                    <li class="margin-left40"><a href="cadastro.html" style="text-decoration:none"></a></li>					
+                    <div class="padding10">
+                        <input type="text"/>
+                        <button>I</button>
+                    </div>				
+                    <img class="carrinho" src="img/carrinho2.png" width="30px"/>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="banner">
+            <div id="myCarousel" class="carousel slide container alturaSlide col-lg-12" data-ride="carousel">
+                <ol class="carousel-indicators container padding">
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                    <li data-target="#myCarousel" data-slide-to="3"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox" >
+                    <div class="item container alturaSlide">
+                        <img src="img/imagens/img5.jpg" alt="img2" />
+                    </div>
+                    <div class="item active container alturaSlide">
+                        <img src="imagens/img8.png" alt="img2" />
+                    </div>
+                    <div class="item container alturaSlide">
+                        <img src="imagens/img8.png" alt="img2" />
+                    </div>
+                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>	
+                </div>
+            </div>
+        </section>	
+        <section class="textcenter">
+            <header>
+                <h1 class="font33px">Conheça nossas promoçoes e nossas variedades de estampas!</h1>
+            </header>
+            <figure class="figcaptionlateral">
+                <img width="300px" height="300px" src="img/home/home1.jpg" title="Camisa"/>
+                <figcaption>
+                    <a href="#">	A partir de <b>R$64,90</b> </a>
+                </figcaption>
+            </figure>	
+            <figure class="figcaptionlateral">
+                <img width="300px" height="300px" src="img/home/home2.jpg" title="Camisa" />
+                <figcaption>
+                    <a href="#">A partir de <b>R$64,90</b></a>
+                </figcaption>
+            </figure>	
+            <figure class="figcaptionlateral">
+                <img width="300px" height="300px" src="img/home/home3.jpg" title="Camisa" />
+                <figcaption>
+                    <a href="#">A partir de <b>R$64,90</b></a>
+                </figcaption>
+            </figure>	
+            <figure class="figcaptionlateral">
+                <img width="300px" height="300px" src="img/home/home4.jpg" title="Camisa" />
+                <figcaption>
+                    <a href="#">A partir de <b>R$64,90</b></a>
+                </figcaption>
+            </figure>	
+            <section class="imagenspromo">
+                <figure>
+                    <img width="600px" height="300px" src="img/banner1.jpg" title="Camisa"/>
+                    <figcaption>
+                        <a href="#">	NIPPES ESTAMPAS</a>
+                        <p class="textjustify textblack">Nada melhor que renovar seu guarda-roupa com as nossas novidades. Transforme-se com os produtos que trazem as últimas tendências de qualidade</p>
+                    </figcaption>
+                </figure>
+
+                <figure>
+                    <img width="600px" height="300px" src="img/banner2.jpg" title="Camisa" />
+                    <figcaption>
+                        <a href="#">NIPPES ESTAMPAS</b></a>
+                        <p class="textjustify textblack">Nada melhor que renovar seu guarda-roupa com as nossas novidades. Transforme-se com os produtos que trazem as últimas tendências de qualidade</p>
+                    </figcaption>
+                </figure>	
+            </section>
+        </section>
+
+
+
+        <!--
+<section>
+        <h1>NOVIDADES</h1>
+</section>
+
+
+
+
+ C
+        <body class="catalogo">
+<header class="transparente container-fluid row">
+        <nav class="menu col-xs-12 col-sm-12 col-md-12 col-lg-12 meio">
+                <figure class="col-xs-6 col-sm-6 col-md-6 col-lg-6 offset-xs-6 offset-sm-6 offset-md-6 offset-lg-6">
+                        <img class="logotipo" src="img/logo.png" width="100px" height="25px" />
+                </figure>
+                <ul class="meio">
+                        <li><a href="home.html" class="selecionado col-lg-1"> Home</a></li> 
+                        <li><a href="pedidos.html" class="col-lg-1"> Pedidos</a></li>
+                        <li><a href="catalogo.html" class="col-lg-1"> Catálogo</a></li>
+                        <li><a href="cadastro.html" class="cadastro col-lg-3"> 			LOGIN | CRIE SUA CONTA</a></li>
+                </ul>
+        </nav>
+</header>	
+
+
+
+
+        --> 
+
+
+
+
+        <footer class="rodape">
+            <legend><p class="textcenter">© RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM </p></legend>
+            <figure class="textcenter">
+
+                <figcaption class="textcenter">CONECTE-SE</figcaption>
+                <img src="img/iconeeees.png" width="300px" height="75px" alt="icones"  class="textcenter" />
+            </figure> <p class="textcenter"> Home | Catalogo | Pedidos | Login | Sobre Nós </p>
+            <p class="textcenter gray"> © RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM 
+
+
+        </footer>
+
+
     </body>
 </html>

@@ -21,7 +21,6 @@ final class FuncionarioModel extends UsuarioModel {
     //put your code here
 
     protected $nivel = "ufnippes";
-    
 
     public function getSenha() {
         return $this->senha;
