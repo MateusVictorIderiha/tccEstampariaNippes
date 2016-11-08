@@ -74,6 +74,23 @@ class ProdutoModel extends Crud {
         }
     }
     
+    public function consultarEstoque($idProduto) {
+        $comando = $this->banco->prepare("SELECT * FROM tcc_estoque WHERE "
+                . "id_estoque=$idProduto");
+        $comando->execute();
+        $listaEstoque = $comando->fetch(\PDO::FETCH_ASSOC);
+        
+        if($listaEstoque){
+            return $listaEstoque;
+        } else{
+            return false;
+        }
+    }
+    
+    public function consultarProdutoComEstoque($idProduto) {
+        $listaProduto = $this->consultar($idProduto);
+        
+    }
     
     public function inserir() {
         $comando = $this->banco->prepare("INSERT INTO $this->tabela(`nome`, `preco`,

@@ -201,10 +201,12 @@ class VendaModel extends Crud {
         }
     }
 
+
+    
     public function editar($id) {
         
     }
-
+    
     public function inserir() {
         $comando = $this->banco->prepare("INSERT INTO `tcc_produtovenda`"
                 . "(`quantidade`, `preco`, `foto`, `id_ModEstampa`, `id_produto`,"

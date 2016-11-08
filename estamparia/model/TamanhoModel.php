@@ -24,6 +24,17 @@ class TamanhoModel extends Crud {
     protected $tabela = "tcc_tamanho";
     protected $consultaColunaId = "id_tamanho";
 
+    public function __construct($idTamanho) {
+        parent::__construct();
+        if (!empty($idTamanho)) {
+            $lista = $this->consultar($idTamanho);
+            if ($lista) {
+                $this->idTamanho = $lista["id_tamanho"];
+                $this->tamanho = $lista["tamanho"];
+            }
+        }
+    }
+
     public function getIdTamanho() {
         return $this->idTamanho;
     }
