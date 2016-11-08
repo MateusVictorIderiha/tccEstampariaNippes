@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		 <link rel="stylesheet" type="text/css" media="all" href="bootstrap/css/bootstrap.css" />
+		<script type="text/javascript" src="bootstrap/js/jquery.js" ></script>
+		<script type="text/javascript" src="bootstrap/js/bootstrap.js" ></script> 
+		
+		<link href="css/estilo.css" rel="stylesheet" type="text/css" media="screen">
+		<title>Nippes Estamparia</title>
+	</head>
+	
+	<body>
+		<header class="century">
+			<nav>
+				<figure class="fig">
+					<img class="logotipo" src="img/logo.png" width="100px" height="25px" /> <b class="font15px">| ESTAMPARIA </b>
+				<ul class="cabecalhotopo">
+					<li><a href="cadastro.html"> LOGIN | CRIE SUA CONTA</a></li>
+					<li><a>Facebook | Google </a></li>
+				</ul>			
+				<br>
+				</figure>			
+				<ul class="cabecalho">
+					<li><a href="home.html" style="text-decoration:none"> HOME </a></li>
+					<li><a href="pedidos.html" style="text-decoration:none"> PEDIDOS</a></li>
+					<li><a href="catalogo.html" style="text-decoration:none"> CATÁLOGO</a></li>
+					<li><a href="faleconosco.html" style="text-decoration:none"> CONTATO</a></li>
+					<li class="margin-left40"><a href="cadastro.html" style="text-decoration:none"></a></li>					
+										<div class="padding10">
+						<input type="text"/>
+						<button>I</button>
+					</div>				
+					<img class="carrinho" src="img/carrinho2.png" width="30px"/>
+				</ul>
+			</nav>
+		</header>	
+		
+		<section class="faleconosco">
+			<p class="font33px">FALE CONOSCO!</p>
+				<article>				
+					<form class="form" method="POST" action="pedido.php">
+						<fieldset class="col-md-3 scheduler-border">
+								<fieldset>
+									<div class="form-group">
+											<label for="nome">SEU NOME: </label>
+											<input type="text" class="form-control focused" id="nome" name="nome" data-toggle="tooltip" title="Nome do Usuário" data-placement="bottom" />
+										</div>				
+											<h3 class="font13px">Campo Obrigatório</h3>
+											<option value=""></option>
+											<option value=""></option>
+											
+											<div class="form-group">
+											<label for="nome">SEU E-MAIL: </label>
+											<input type="text" class="form-control focused" id="email" name="email" data-toggle="tooltip" title="Email do Usuário" data-placement="bottom" />
+										</div>				
+											<h3 class="font13px">Campo Obrigatório</h3>
+											<option value=""></option>
+											<option value=""></option>
+										<div class="form-group">
+										<label for="descricao">SUA MENSAGEM: </label>
+										
+										<textarea type="text" class="form-control focused" id="mensagem" name="mensagem" data-toggle="tooltip" title="Insira uma mensagem" data-placement="bottom" ></textarea>
+									</div>
+								</fieldset>
+										<div class="form-group padding-bottom10">
+									<input class="col-md-4 btn btn-primary" type="submit" value="Enviar" data-toggle="tooltip" title="Clique aqui para enviar" data-placement="bottom" />
+								</div>
+						</fieldset>
+					</form>
+				</article>
+			</section>
+			
+			<article class="positionleft font25px absolute padding22">
+				<p><b>CONTATO</b></p>
+				<br>
+
+				<p>
+				RUA MARIA GERMANI<br>
+				18053-030-, Nº:883<br>
+				JULIO DE MESQUITA<br>
+				<br>
+				TEL:(15)3202-5270<br>
+				E-MAIL:<b>NIPPES@HOTMAIL.COM</b>
+				</p>
+			</article>
+			<footer class="rodape">
+				<legend><p class="textcenter">© RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM </p></legend>
+					<figure class="textcenter">
+				<figcaption class="textcenter">CONECTE-SE</figcaption>
+					<img src="img/iconeeees.png" width="300px" height="75px" alt="icones"  class="textcenter" />
+					</figure> <p class="textcenter"> Home | Catalogo | Pedidos | Login | Sobre Nós </p>
+						<p class="textcenter"> © RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM </p>
+		
+			
+		</footer>
+	</body>
+</html>

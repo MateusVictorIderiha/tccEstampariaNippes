@@ -22,48 +22,41 @@ class CorModel extends Crud {
     // ainda se tem que arrumar a LOGICA DAS CLASSES Cor, PadraoDaCor e CodigoDaCor
     private $idCor;
     private $cor;
-    private $rgb;
-    private $cmyk;
-    protected $tabela = "Cor";
+    protected $tabela = "tcc_cor";
+    protected $consultaColunaId = "id_cor";
 
-    public function getIdCor() {
-        return $this->idCor;
-    }
-
-    public function getCor() {
-        return $this->cor;
-    }
-
-    public function getRgb() {
-        return $this->rgb;
-    }
-
-    public function getCmyk() {
-        return $this->cmyk;
-    }
-
-    public function setIdCor($idCor) {
-        $this->idCor = $idCor;
-    }
-
-    public function setCor($cor) {
-        $this->cor = $cor;
-    }
-
-    public function setRgb($rgb) {
-        $this->rgb = $rgb;
-    }
-
-    public function setCmyk($cmyk) {
-        $this->cmyk = $cmyk;
-    }
-
-    public function editar($id) {
+    public function __construct($idCor = null) {
+        parent::__construct();
         
+        if(!empty($idCor)){
+            $lista = $this->consultar($idCor);
+            if($lista) {
+                $this->idCor = $lista["id_cor"];
+                $this->cor = $lista["cor"];
+            }
+        }
+    }
+
+    public function mostrarInformacoes() {
+        $informacoes[] = $this->idCor;
+        $informacoes[] = $this->cor;
+        return $informacoes;
     }
 
     public function inserir() {
-        
+        $comando = $this->banco->prepare("INSERT INTO $this->tabela(id_cor, cor)"
+                . " values(:id_cor, :cor)");
+        $comando->bindParam(":id_cor", $this->idCor);
+        $comando->bindParam(":cor", $this->cor);
+        $comando->execute();
+        return $this->banco->lastInsertId();
+    }
+
+    public function editar($id) {
+        $comando = $this->banco->prepare("UPDATE $this->tabela SET "
+                . "`cor`=:cor, WHERE $this->consultaColunaId = $id");
+        $comando->bindParam(":cor", $this->cor);
+        $comando->execute();
     }
 
 }

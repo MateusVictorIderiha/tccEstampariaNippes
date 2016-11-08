@@ -15,8 +15,7 @@
 namespace estamparia\model;
 
 use estamparia\libs\Crud;
-use estamparia\model\LocalEstampaModel;
-use estamparia\model\ModeloEstampaModel;
+use estamparia\ModeloEstampaModel;
 
 class ImgEstampaModel extends Crud {
 
@@ -24,7 +23,7 @@ class ImgEstampaModel extends Crud {
     private $idImgEstampa; //Chave PRIMARIA PK
     private $descricaoImg;
     private $imagem;
-    private $idLocal;
+    private $local;
     private $idModeloEstampa; // Chave ESTRANGEIRA FK
     protected $tabela = "img_estampa";
 
@@ -40,8 +39,8 @@ class ImgEstampaModel extends Crud {
         return $this->imagem;
     }
 
-    public function getIdLocal() {
-        return $this->idLocal;
+    public function getLocal() {
+        return $this->local;
     }
 
     public function getIdModeloEstampa() {
@@ -56,23 +55,27 @@ class ImgEstampaModel extends Crud {
         $this->descricaoImg = $descricaoImg;
     }
 
-    public function setImagem($Imagem) {
-        $this->imagem = $Imagem;
+    public function setImagem($imagem) {
+        $this->imagem = $imagem;
     }
 
-    public function setIdLocal(LocalEstampaModel $idLocal) {
-        $this->idLocal = $idLocal;
+    public function setLocal($local) {
+        $this->local = $local;
     }
 
-    public function setIdModeloEstampa(ModeloEstampaModel $idModeloEstampa) {
+    public function setIdModeloEstampa($idModeloEstampa) {
         $this->idModeloEstampa = $idModeloEstampa;
     }
-
+    
     public function editar($id) {
         
     }
 
     public function inserir() {
+        
+    }
+
+    public function mostrarInformacoes() {
         
     }
 

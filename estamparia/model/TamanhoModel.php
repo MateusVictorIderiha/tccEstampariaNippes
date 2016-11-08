@@ -21,7 +21,8 @@ class TamanhoModel extends Crud {
     //put your code here
     private $idTamanho;
     private $tamanho;
-    protected $tabela = "Tamanho";
+    protected $tabela = "tcc_tamanho";
+    protected $consultaColunaId = "id_tamanho";
 
     public function getIdTamanho() {
         return $this->idTamanho;
@@ -45,6 +46,12 @@ class TamanhoModel extends Crud {
 
     public function inserir() {
         
+    }
+
+    public function mostrarInformacoes() {
+        $informacoes[] = $this->idTamanho;
+        $informacoes[] = $this->tamanho;
+        return $informacoes;
     }
 
 }

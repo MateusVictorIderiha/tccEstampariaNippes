@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		 <link rel="stylesheet" type="text/css" media="all" href="../bootstrap/css/bootstrap.css" />
+		 <link rel="stylesheet" type="text/css" media="all" href="../bootstrap/jquery-ui/jquery-ui.css" />
+		 
+		<script src="../bootstrap/js/jquery.js" ></script>
+		<script src="../bootstrap/js/bootstrap.js" ></script> 
+		<script src="../bootstrap/jquery-ui/jquery-ui.js" ></script>
+		<script src="../javascript.js" ></script>
+		
+		<link href="css/estilo.css" rel="stylesheet" type="text/css" media="screen">
+		<link href="css/estiloadm.css" rel="stylesheet" type="text/css" media="screen">
+	
+		<title>Nippes Estamparia</title>
+	</head>
+	<body class="backpreto">
+	
+		<header>
+			<figure>
+				<img class="logotipo" src="img/logo.png" width="150px" height="50px" />
+			</figure>
+			<figure class="user">
+				<img src="img/user.png" width="50px" height="50px" />
+			</figure>
+			<h1 class="admin"><a href="#">Admin<h1>
+		</header>
+		<nav class="espacoentre">
+			<ul>
+			<br>
+				<li><a class="espacoentre" href="ADMprodutos.html"> PRODUTOS</a></li>
+				<li><a class="espacoentre" href="ADMcliente.html"> CLIENTE</a></li>
+				<li><a class="espacoentre" href="ADMcontato.html"> CONTATO</a></li>
+				<li><a class="espacoentre" href="ADMID.html"> ID INFORM</a></li>
+				<li><a class="espacoentre" href="ADMpromocao.html"> PROMOÇÕES</a></li>
+				<li><a class="espacoentre" href="ADMvenda.html"> ORCAMENTOS</a></li>
+			</ul>
+		</nav>
+
+		
+		
+		<article>
+			<h1 class="titlecad marginleft">Adicionar uma Promoção</h1>
+			
+			<form class="form" method="POST" action="cadastrar.php">
+					<fieldset class="col-md-10 scheduler-border">
+							<fieldset>
+								<legend>Promoções:</legend>
+								<div class="form-group">
+									<label for="idpromocao">ID Promoção </label>
+									<input type="text" class="form-control focused" id="idpromocao" name="idepromocao" data-toggle="tooltip" title="Id Automático de Promoção" data-placement="bottom" />
+								</div>	
+								<div class="form-group">
+									<label for="idtipo">ID Produto: </label>
+									<select class="form-control focused" id="tipo" name="idtipo" data-toggle="tooltip" title="Selecione o ID do produto:" data-placement="bottom" >
+										<option value="0">Selecione uma opção...</option>
+
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="promocao">Promoção: </label>
+									<input type="text" class="form-control focused" id="promocaoname" name="promocaoname" data-toggle="tooltip" title="Nome da Promoção" data-placement="bottom" />
+								</div>
+								<div class="form-group">
+									<label for="datepicker1">Data Inicial: </label>
+									<div class='input-group date'>
+										<input type='text' id="datepicker1" class="form-control" data-toggle="tooltip" title="Informe a Data inicial da promoção" data-placement="bottom" />
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="datepicker1">Data Final: </label>
+									<div class='input-group date'>
+										<input type='text' id="datepicker1" class="form-control" data-toggle="tooltip" title="Informe a Data final da promoção" data-placement="bottom" />
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="idpromocao">Preço da Promoção </label>
+									<input type="text" class="form-control focused" id="precopromocao" name="precopromocao" data-toggle="tooltip" title="Preço da promoção" data-placement="bottom" />
+								</div>	
+							</fieldset>
+					</fieldset>					
+				</form>
+				<div class="form-group marginleft">
+				<input class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-primary" type="submit" value="Enviar Promoção" data-toggle="tooltip" title="Enviar Promoção" data-placement="bottom" />
+				</div>
+		</article>
+		<aside class="backcinza">
+			<h1 class="cadastro">Promoções No Site</h1>
+			<figure>
+				<img class="funcionarioscadastro" src="img/promo1.png" title="Camisa"/>
+				<figcaption>
+				<p>	ID Promoção: </a>
+				<p>	Nome: </a></p>
+				<p>	Data Inicial: </a></p>
+				<p>	Data Final: </a></p>
+				<p>	Preço da Promoção: </a></p>
+				</figcaption>
+			</figure>		
+			<div class="form-group">
+				<input class="col-md-0.2 btn btn-primary botaoedit marginleft" type="submit" value="Editar" data-toggle="tooltip" title="Edite alguma informação"" data-placement="bottom" />
+				<input class="col-md-0.2 col-md-0.2 btn botaoedit btn-primary3" type="submit" value="Excluir" data-toggle="tooltip" title="Exclua a Camiseta" data-placement="bottom" />
+			</div>
+			<figure>
+				<img class="funcionarioscadastro" src="img/promo1.png" title="Camisa"/>
+				<figcaption>
+				<p>	ID Promoção: </a>
+				<p>	Nome: </a></p>
+				<p>	Data Inicial: </a></p>
+				<p>	Data Final: </a></p>
+				<p>	Preço da Promoção: </a></p>
+				</figcaption>
+			</figure>				
+			<div class="form-group">
+				<input class="col-md-0.2 btn btn-primary botaoedit marginleft" type="submit" value="Editar" data-toggle="tooltip" title="Edite alguma informação"" data-placement="bottom" />
+				<input class="col-md-0.2 col-md-0.2 btn botaoedit btn-primary3" type="submit" value="Excluir" data-toggle="tooltip" title="Exclua a Camiseta" data-placement="bottom" />
+			</div>
+			<figure>
+				<img class="funcionarioscadastro" src="img/promo1.png" title="Camisa"/>
+				<figcaption>
+				<p>	ID Promoção: </a>
+				<p>	Nome: </a></p>
+				<p>	Data Inicial: </a></p>
+				<p>	Data Final: </a></p>
+				<p>	Preço da Promoção: </a></p>
+				</figcaption>
+			</figure>		
+				<div class="form-group">
+				<input class="col-md-0.2 btn btn-primary botaoedit marginleft" type="submit" value="Editar" data-toggle="tooltip" title="Edite alguma informação"" data-placement="bottom" />
+				<input class="col-md-0.2 col-md-0.2 btn botaoedit btn-primary3" type="submit" value="Excluir" data-toggle="tooltip" title="Exclua a Camiseta" data-placement="bottom" />
+			</div>
+		</aside>
+	</body>
+</html>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!--
+	<form class="form" method="POST" action="CadCamiseta.php">
+	<fieldset class="col-md-2 scheduler-border">
+	<legend class="scheduler-border">Cadastrar camisetas</legend>
+	<fieldset>
+		<legend>Camiseta</legend>
+		<div class="form-group">
+			<label for="modelo">Modelo camiseta: </label>
+			<input type="text" class="form-control focused" id="modelo" name="modelo" data-toggle="tooltip" title="Preencha o modelo da camiseta" data-placement="bottom" />
+		</div>
+		<div class="form-group">
+			<label for="tipo">Tipo: </label>
+			<input type="text" class="form-control focused" id="tipo" name="tipo" data-toggle="tooltip" title="Preencha o tipo da camiseta" data-placement="bottom" />
+		</div>
+		<div class="form-group">
+			<label for="marca">marca: </label>
+			<input type="text" id="marca" class="form-control focused" name="marca" data-toggle="tooltip" title="Informe o marca da camiseta" data-placement="bottom" />
+		</div>
+		<div class="form-group">
+			<label for="cor">Cor: </label>
+			<input type="color" class="form-control focused" id="cor" name="cor" data-toggle="tooltip" title="Informe se quer uma cor especifica na gola ou na manga" data-placement="bottom" />
+		</div>
+		<div class="form-group">
+			<label for="tamanho">Tamanho: </label>
+			<input type="text" class="form-control focused" id="tamanho" name="tamanho" data-toggle="tooltip" title="Informe o tamanho da camiseta" data-placement="bottom" />
+		</div>
+	</fieldset> -->
+		
+		
+	</body>
+</html>

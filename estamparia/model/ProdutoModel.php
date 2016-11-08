@@ -15,6 +15,7 @@
 namespace estamparia\model;
 
 use estamparia\libs\Crud;
+use estamparia\libs\TamanhoModel;
 
 class ProdutoModel extends Crud {
 
@@ -25,12 +26,14 @@ class ProdutoModel extends Crud {
     protected $fotoProduto;
     //protected $marca;
     protected $peso;
-    protected $idCor;
     protected $idTipoProduto;
     protected $idModelo;
-    protected $idCategoria;
     protected $idMaterial;
+    protected $idCor;
+    protected $idCategoria;
     protected $personalizado = "N";
+    protected $idTamanho;
+    protected $quantidade;
     protected $tabela = "tcc_produtos";
     protected $consultaColunaId = "id_produto";
 
@@ -55,6 +58,23 @@ class ProdutoModel extends Crud {
         }
     }
 
+    public function __get($propriedade) {       
+        if($propriedade == "Cor"){
+            $objCor = new CorModel($this->idCor);
+            return $objCor;
+        }
+        
+        if($propriedade == "Tamanho"){
+            $objTamanho = new TamanhoModel();
+            return $objTamanho;
+        }
+        
+        if($propriedade == "quantidade"){
+            
+        }
+    }
+    
+    
     public function inserir() {
         $comando = $this->banco->prepare("INSERT INTO $this->tabela(`nome`, `preco`,
                 `fotoProduto`, `id_modelo`, `id_material`, `id_cor`, `id_categoria`,
@@ -71,11 +91,11 @@ class ProdutoModel extends Crud {
         $comando->bindParam(":peso", $this->peso);
         $comando->execute();
 
-        return $this->banco->lastInsertId();  // está retornando sempre string'0' talvez seja por que Tabela Cliente não é autoincrement
+        return $this->banco->lastInsertId();
     }
 
     public function editar($id) {
-        $comando = $this->banco->prepare("UPDATE `tcc_produtos` SET "
+        $comando = $this->banco->prepare("UPDATE $this->tabela SET "
                 . "`nome`=:nome, `preco`=:preco, fotoProduto`=:fotoProduto,"
                 . " `id_modelo`=:id_modelo, `id_material`=:id_material,`id_cor`=:id_cor,"
                 . " `id_categoria`=:id_categoria,`id_tipoProduto`=:id_tipoProduto, `peso`=:peso"
