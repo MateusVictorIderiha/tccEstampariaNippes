@@ -8,7 +8,6 @@
 
 namespace estamparia\model;
 
-
 use estamparia\model\VendaModel;
 
 /**
@@ -16,7 +15,6 @@ use estamparia\model\VendaModel;
  *
  * @author Mateus
  */
-class OrcamentoModel extends VendaModel{
+class OrcamentoModel extends VendaModel {
     //put your code here
-
 }

@@ -53,45 +53,44 @@ class ProdutoModel extends Crud {
                 $this->idCategoria = $lista["id_categoria"];
                 $this->idTipoProduto = $lista["id_tipoProduto"];
                 $this->peso = $lista["peso"];
-                ($personalizado == "S") ? ($this->personalizado = $personalizado):"";
+                ($personalizado == "S") ? ($this->personalizado = $personalizado) : "";
             }
         }
     }
 
-    public function __get($propriedade) {       
-        if($propriedade == "Cor"){
+    public function __get($propriedade) {
+        if($propriedade == "Cor") {
             $objCor = new CorModel($this->idCor);
             return $objCor;
         }
-        
-        if($propriedade == "Tamanho"){
+
+        if($propriedade == "Tamanho") {
             $objTamanho = new TamanhoModel();
             return $objTamanho;
         }
-        
-        if($propriedade == "quantidade"){
+
+        if($propriedade == "quantidade") {
             
         }
     }
-    
+
     public function consultarEstoque($idProduto) {
         $comando = $this->banco->prepare("SELECT * FROM tcc_estoque WHERE "
                 . "id_estoque=$idProduto");
         $comando->execute();
         $listaEstoque = $comando->fetch(\PDO::FETCH_ASSOC);
-        
-        if($listaEstoque){
+
+        if($listaEstoque) {
             return $listaEstoque;
-        } else{
+        } else {
             return false;
         }
     }
-    
+
     public function consultarProdutoComEstoque($idProduto) {
         $listaProduto = $this->consultar($idProduto);
-        
     }
-    
+
     public function inserir() {
         $comando = $this->banco->prepare("INSERT INTO $this->tabela(`nome`, `preco`,
                 `fotoProduto`, `id_modelo`, `id_material`, `id_cor`, `id_categoria`,

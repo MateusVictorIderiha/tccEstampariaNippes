@@ -29,10 +29,10 @@ class CodigoDaCorModel extends Crud {
 
     public function __construct($idCodigoCor) {
         parent::__construct();
-        
-        if(!empty($idCodigoCor)){
+
+        if(!empty($idCodigoCor)) {
             $lista = $this->consultar($idCodigoCor);
-            if($lista){
+            if($lista) {
                 $this->idCodigoCor = $lista["id_codigoCor"];
                 $this->codigo = $lista["codigo"];
                 $this->idCor = $lista["id_cor"];
@@ -40,9 +40,9 @@ class CodigoDaCorModel extends Crud {
             }
         }
     }
-    
+
     public function __get($propriedade) {
-        if($propriedade == "Cor"){
+        if($propriedade == "Cor") {
             $objCor = new CorModel($this->idCor);
             return $objCor;
         }

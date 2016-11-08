@@ -45,7 +45,7 @@ final class ClienteModel extends UsuarioModel {
 
     public function __get($propriedade) {
         if($propriedade == "Endereco") {
-            foreach ($this->idEndereco as $listaEnderecos){
+            foreach ($this->idEndereco as $listaEnderecos) {
                 foreach ($listaEnderecos as $idEndereco) {
                     $endereco = new EnderecoModel($idEndereco);
                     $objsEnderecos[] = $endereco;
@@ -88,13 +88,13 @@ final class ClienteModel extends UsuarioModel {
     public function setIdContato($idContato) {
         $this->idContato = $idContato;
     }
-   
+
     public function mostrarInformacoes() {
         $informacoesCliente = parent::mostrarInformacoes();
         $informacoesCliente[] = $this->rg;
         $cliente = $informacoesCliente;
-        
-         
+
+
         /*
           foreach($this->idEndereco as $listaEnderecos){
           foreach ($listaEnderecos as $idEndereco) {
@@ -110,7 +110,7 @@ final class ClienteModel extends UsuarioModel {
           }
           }
          */
-        
+
         $listaObjEnderecos = $this->Endereco;
         foreach ($listaObjEnderecos as $objEndereco) {
             $enderecos[] = $objEndereco->mostrarInformacoes();

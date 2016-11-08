@@ -173,16 +173,16 @@ class VendaModel extends Crud {
                 . "id_produtoVenda=$idProdutoVenda");
         $comando->execute();
         $listaProdutoVenda = $comando->fetch(\PDO::FETCH_ASSOC);
-        if($listaProdutoVenda){
+        if($listaProdutoVenda) {
             return $listaProdutoVenda;
         } else {
             return false;
         }
     }
-    
+
     public function consultarVendaProdutovenda($idProdutoVenda) { // Consulta na ProdutoVenda
         $listaProdutoVenda = $this->consultarProdutoVenda($idProdutoVenda);
-        
+
         if($listaProdutoVenda) {
             $listaVenda = $this->consultar($listaProdutoVenda["id_venda"]); // Consulta tcc_venda
             if($listaVenda) {
@@ -201,12 +201,10 @@ class VendaModel extends Crud {
         }
     }
 
-
-    
     public function editar($id) {
         
     }
-    
+
     public function inserir() {
         $comando = $this->banco->prepare("INSERT INTO `tcc_produtovenda`"
                 . "(`quantidade`, `preco`, `foto`, `id_ModEstampa`, `id_produto`,"

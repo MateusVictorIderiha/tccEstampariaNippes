@@ -30,7 +30,7 @@ abstract class CepModel extends Crud {
     public function __construct() {
         parent::__construct();
     }
-    
+
     function getCep() {
         return $this->cep;
     }

@@ -28,7 +28,7 @@ class ContatoModel extends Crud {
 
     public function __construct($idContato = null) {
         parent::__construct();
-        
+
         if(!empty($idContato)) {
             $lista = $this->consultar($idContato);
             if($lista) {
@@ -71,7 +71,7 @@ class ContatoModel extends Crud {
     public function setIdCliente($idCliente) {
         $this->idCliente = $idCliente;
     }
-    
+
     public function retornarIdContatoUsuario($id, $tipoContato = null) {
         if($tipoContato == null) {
             $comando = $this->banco->prepare("SELECT $this->consultaColunaId FROM "
@@ -90,7 +90,7 @@ class ContatoModel extends Crud {
             return "id inexistente";
         }
     }
-    
+
     public function editar($id_contato) {
         $comando = $this->banco->prepare("UPDATE contato SET id_tipo=:id_tipo,"
                 . "contato=:contato,cpf_cliente=:cpf_cliente WHERE id_contato=$id_contato");
@@ -109,7 +109,7 @@ class ContatoModel extends Crud {
         $comando->execute();
         return $this->banco->lastInsertId();
     }
-    
+
     public function mostrarInformacoes() {
         $informacoes[] = $this->idContato;
         $informacoes[] = $this->contato;
@@ -117,4 +117,5 @@ class ContatoModel extends Crud {
         $informacoes[] = $this->idCliente;
         return $informacoes;
     }
+
 }

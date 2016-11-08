@@ -66,7 +66,7 @@ class ImgEstampaModel extends Crud {
     public function setIdModeloEstampa($idModeloEstampa) {
         $this->idModeloEstampa = $idModeloEstampa;
     }
-    
+
     public function editar($id) {
         
     }

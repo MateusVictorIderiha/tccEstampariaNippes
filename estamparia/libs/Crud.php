@@ -36,7 +36,7 @@ abstract class Crud {
     abstract public function editar($id);
 
     abstract public function mostrarInformacoes();
-    
+
     public function deletar($id) {
         $comando = $this->banco->prepare("DELETE FROM $this->tabela WHERE "
                 . "$this->consultaColunaId=$id");

@@ -26,9 +26,9 @@ class TamanhoModel extends Crud {
 
     public function __construct($idTamanho) {
         parent::__construct();
-        if (!empty($idTamanho)) {
+        if(!empty($idTamanho)) {
             $lista = $this->consultar($idTamanho);
-            if ($lista) {
+            if($lista) {
                 $this->idTamanho = $lista["id_tamanho"];
                 $this->tamanho = $lista["tamanho"];
             }

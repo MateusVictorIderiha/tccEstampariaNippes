@@ -15,11 +15,12 @@ use estamparia\libs\Crud;
  *
  * @author Mateus
  */
-class CategoriaModel extends Crud{
+class CategoriaModel extends Crud {
+
     //put your code here
     private $tabela = "tcc_categoria";
     private $consultaColunaId = "id_categoria";
-    
+
     public function editar($id) {
         
     }

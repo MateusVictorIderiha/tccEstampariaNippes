@@ -27,8 +27,8 @@ class CorModel extends Crud {
 
     public function __construct($idCor = null) {
         parent::__construct();
-        
-        if(!empty($idCor)){
+
+        if(!empty($idCor)) {
             $lista = $this->consultar($idCor);
             if($lista) {
                 $this->idCor = $lista["id_cor"];

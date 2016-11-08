@@ -1,179 +1,179 @@
 <!doctype html>
 <html lang="pt-BR">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		
-		 <link rel="stylesheet" type="text/css" media="all" href="bootstrap/css/bootstrap.css" />
-		<script type="text/javascript" src="bootstrap/js/jquery.js" ></script>
-		<script type="text/javascript" src="bootstrap/js/bootstrap.js" ></script> 
-		
-		<link href="css/estilo.css" rel="stylesheet" type="text/css" media="screen">
-		<title>Nippes Estamparia</title>
-	</head>
-	
-	<body>
-	<header class="century">
-			<nav>
-				<figure class="fig">
-					<img class="logotipo" src="img/logo.png" width="100px" height="25px" /> <b class="font15px">| ESTAMPARIA </b>
-				<ul class="cabecalhotopo">
-					<li><a href="cadastro.html"> LOGIN | CRIE SUA CONTA</a></li>
-					<li><a>Facebook | Google </a></li>
-				</ul>			
-				<br>
-				</figure>			
-				<ul class="cabecalho">
-					<li><a href="home.html" style="text-decoration:none"> HOME </a></li>
-					<li><a href="pedidos.html" style="text-decoration:none"> PEDIDOS</a></li>
-					<li><a href="catalogo.html" style="text-decoration:none"> CATÁLOGO</a></li>
-					<li><a href="faleconosco.html" style="text-decoration:none"> CONTATO</a></li>
-					<li class="margin-left40"><a href="cadastro.html" style="text-decoration:none"></a></li>					
-										<div class="padding10">
-						<input type="text"/>
-						<button>I</button>
-					</div>				
-					<img class="carrinho" src="img/carrinho2.png" width="30px"/>
-				</ul>
-			</nav>
-		</header>	
-		<section>
-			<header class="textcenter">
-				<h1 class="whitecolor">FAÇA SEU PEDIDO PERSONALIZADO!</h1></br>
-			</header>
-			<div id="pedido" class="container padding-bottom4">
-				<form class="form" method="POST" action="pedido.php">
-					<fieldset class="col-md-4 scheduler-border">
-						<fieldset>
-							<legend>Modelo de camiseta</legend>
-							<div class="form-group">
-								<label for="modelo">Modelo da camiseta: </label>
-								<select class="form-control focused" id="modelo" name="modelo" data-toggle="tooltip" title="Modelo da camiseta" data-placement="bottom" />
-									<option value=""></option>
-									<option value=""></option>
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="tipoCamiseta">Tipo: </label>
-								<select class="form-control focused" id="tipoCamiseta" name="tipoCamiseta" data-toggle="tooltip" title="Escolha o tipo de Camiseta" data-placement="bottom" />
-									<option value=""></option>
-									<option value=""></option>
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="tecido">Tecido: </label>
-								<select id="tecido" class="form-control" data-toggle="tooltip" title="Informe o tecido da camiseta" data-placement="bottom" />
-									<option value=""></option>
-									<option value=""></option>
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="cor">Cor: </label>
-								<fieldset>
-									<label>Selecione a cor da camiseta disponivel</label>
-									<input type="color" name="cor" id="cor" data-toggle="tooltip" title="Informe a cor da camiseta" data-placement="bottom" />
-								</fieldset>
-							</div>
-							<div class="form-group">
-								<label for="tamanho">Tamanho: </label>
-								<select class="form-control focused" id="tamanho" name="tamanho" data-toggle="tooltip" title="Informe o tamanho da camiseta" data-placement="bottom" />
-									<option value=""></option>
-									<option value=""></option>
-								</select>
-							</div>
-							<fieldset>
-								<legend>Estampa </legend>
-								<div class="form-group">
-									<label for="tipoEstampa">Descrição: </label>
-									<select class="form-control focused" id="descricao" name="descricao" data-toggle="tooltip" title="Informe o tipo de estampa" data-placement="bottom" />
-										<option value=""></option>
-										<option value=""></option>
-									</select>
-								</div>
-								<div class="form-group">
-									<label for="qualidade">Qualidade da estampa: </label>
-									<select class="form-control focused" id="qualidade" name="qualidade" data-toggle="tooltip" title="Informe a qualidade da estampa" data-placement="bottom" />
-										<option value=""></option>
-										<option value=""></option>
-									</select>
-								</div>								
-								<fieldset>
-									<legend>Imagem estampa </legend>
-										<div class="form-group">
-											<label for="imagem">Imagem da estampa: </label>
-											<input type="file" id="imagem" name="imagem" data-toggle="tooltip" title="Clique aqui e escolha uma imagem ou modelo ja pronto para sua estampa" data-placement="bottom" />
-										</div>
-										<div class="form-group">
-											<label for="qualidade">Local: </label>
-											<select class="form-control focused" id="local" name="local" data-toggle="tooltip" title="Informe o local da estampa" data-placement="bottom" />
-												<option value=""></option>
-												<option value=""></option>
-											</select>
-										</div>
-								</fieldset>
-							</fieldset>
-						</fieldset>
-					</fieldset>
-					
-				<div class="col-md-4"></div>
-				<fieldset class="col-md-4">
-						<fieldset>
-							<legend>Orçamento da camiseta estampada</legend>
-							<div class="form-group form-inline">
-									<div class="col-md-6">
-										<label for="opEstamIguais" data-toggle="tooltip" title="clique aqui se todas as estampas seram iguais/unicas" data-placement="bottom" >Apenas estampas iguais: </label>
-										<input type="radio" value="opEstamIguais" class="form-control focused" id="opEstamIguais" name="Estampas" data-toggle="tooltip" title="clique aqui se todas as estampas seram iguais/unicas" data-placement="bottom" />
-									</div>
-									<div class="col-md-6">
-										<label for="opEstamDiferent" data-toggle="tooltip" title="clique aqui se algumas estampas seram diferentes (DUAS ou MAIS)" data-placement="bottom" >Algumas estampas diferentes: </label>
-										<input type="radio" value="opEstamDiferent" class="form-control focused" id="opEstamDiferent" name="Estampas" data-toggle="tooltip" title="clique aqui se algumas estampas seram diferentes (DUAS ou MAIS)" data-placement="bottom" />
-									</div>
-							</div>
-							<div id="estampasDiferentes">
-								<div class="form-group">
-									<label for="qtdIgual">Quantidade de camisetas iguais: </label>
-									<input type="text" class="form-control focused" id="qtdIgual" name="qtdIgual" data-toggle="tooltip" title="Informe a quantidade de camisetas estampadas que serão iguais; DUAS ou MAIS" data-placement="bottom" />
-								</div>
-								<div class="form-group">
-									<label for="qtdUnic">Quantidade de camisetas unicas: </label>
-									<input type="text" class="form-control focused" id="qtdUnic" name="qtdUnic" data-toggle="tooltip" title="Informe a quantidade de camisetas que seram unicas; APENAS UMA" data-placement="bottom" />
-								</div>
-								<div class="form-group">
-									<label for="qtdTotal">Total de camisetas: </label>
-									<input type="text" class="form-control focused" id="qtdTotal" name="qtdTotal" data-toggle="tooltip" title="Quantidade Total = Camisetas Unicas + Camisetas iguais (DUAS ou MAIS)" data-placement="bottom" />
-								</div>
-								<div class="form-group">
-									<label for="arqDesc">Descrição das camisetas: </label>
-									<input type="file" id="arqDesc" name="arqDesc" data-toggle="tooltip" title="Clique aqui para nos enviar um arquivo com as descrições das estampas diferentes. &#13; exemplo:nome, número..." data-placement="bottom" />
-								</div>
-							</div>
-							<div id="estampasIguais">
-								<div class="form-group">
-									<label for="qtdTotal">Total de camisetas: </label>
-									<input type="text" class="form-control focused" id="qtdTotal" name="qtdTotal" data-toggle="tooltip" title="Quantidade Total = Camisetas Unicas + Camisetas iguais (DUAS ou MAIS)" data-placement="bottom" />
-								</div>
-							</div>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-							<div class="form-group">
-								<label for="descricao">Descrição: </label>
-								<textarea type="text" class="form-control focused" id="descricao" name="descricao" data-toggle="tooltip" title="Insira uma descrição ou um comentario" data-placement="bottom" ></textarea>
-							</div>
-						</fieldset>
-						
-						<div class="form-group ">
-							<input class="col-md-6 btn btn-primary " type="submit" value="Fazer Pedido" data-toggle="tooltip" title="Clique aqui para se cadastrar" data-placement="bottom" />
-						</div>
-					</section>
-				</fieldset>
-			</form>
-		</div>
-		<footer class="rodape">
-			<legend><p class="textcenter">© RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM </p></legend>
-			<figure class="textcenter">
-				<figcaption class="textcenter">CONECTE-SE</figcaption>
-				<img src="img/iconeeees.png" width="300px" height="75px" alt="icones"  class="textcenter" />
-			</figure> <p class="textcenter"> Home | Catalogo | Pedidos | Login | Sobre Nós </p>
-			<p class="textcenter gray"> © RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM </p>
-		</footer>
-	</body>
-	</html>
+        <link rel="stylesheet" type="text/css" media="all" href="bootstrap/css/bootstrap.css" />
+        <script type="text/javascript" src="bootstrap/js/jquery.js" ></script>
+        <script type="text/javascript" src="bootstrap/js/bootstrap.js" ></script> 
+
+        <link href="css/estilo.css" rel="stylesheet" type="text/css" media="screen">
+        <title>Nippes Estamparia</title>
+    </head>
+
+    <body>
+        <header class="century">
+            <nav>
+                <figure class="fig">
+                    <img class="logotipo" src="img/logo.png" width="100px" height="25px" /> <b class="font15px">| ESTAMPARIA </b>
+                    <ul class="cabecalhotopo">
+                        <li><a href="cadastro.html"> LOGIN | CRIE SUA CONTA</a></li>
+                        <li><a>Facebook | Google </a></li>
+                    </ul>			
+                    <br>
+                </figure>			
+                <ul class="cabecalho">
+                    <li><a href="home.html" style="text-decoration:none"> HOME </a></li>
+                    <li><a href="pedidos.html" style="text-decoration:none"> PEDIDOS</a></li>
+                    <li><a href="catalogo.html" style="text-decoration:none"> CATÁLOGO</a></li>
+                    <li><a href="faleconosco.html" style="text-decoration:none"> CONTATO</a></li>
+                    <li class="margin-left40"><a href="cadastro.html" style="text-decoration:none"></a></li>					
+                    <div class="padding10">
+                        <input type="text"/>
+                        <button>I</button>
+                    </div>				
+                    <img class="carrinho" src="img/carrinho2.png" width="30px"/>
+                </ul>
+            </nav>
+        </header>	
+        <section>
+            <header class="textcenter">
+                <h1 class="whitecolor">FAÇA SEU PEDIDO PERSONALIZADO!</h1></br>
+            </header>
+            <div id="pedido" class="container padding-bottom4">
+                <form class="form" method="POST" action="pedido.php">
+                    <fieldset class="col-md-4 scheduler-border">
+                        <fieldset>
+                            <legend>Modelo de camiseta</legend>
+                            <div class="form-group">
+                                <label for="modelo">Modelo da camiseta: </label>
+                                <select class="form-control focused" id="modelo" name="modelo" data-toggle="tooltip" title="Modelo da camiseta" data-placement="bottom" />
+                                <option value=""></option>
+                                <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tipoCamiseta">Tipo: </label>
+                                <select class="form-control focused" id="tipoCamiseta" name="tipoCamiseta" data-toggle="tooltip" title="Escolha o tipo de Camiseta" data-placement="bottom" />
+                                <option value=""></option>
+                                <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tecido">Tecido: </label>
+                                <select id="tecido" class="form-control" data-toggle="tooltip" title="Informe o tecido da camiseta" data-placement="bottom" />
+                                <option value=""></option>
+                                <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="cor">Cor: </label>
+                                <fieldset>
+                                    <label>Selecione a cor da camiseta disponivel</label>
+                                    <input type="color" name="cor" id="cor" data-toggle="tooltip" title="Informe a cor da camiseta" data-placement="bottom" />
+                                </fieldset>
+                            </div>
+                            <div class="form-group">
+                                <label for="tamanho">Tamanho: </label>
+                                <select class="form-control focused" id="tamanho" name="tamanho" data-toggle="tooltip" title="Informe o tamanho da camiseta" data-placement="bottom" />
+                                <option value=""></option>
+                                <option value=""></option>
+                                </select>
+                            </div>
+                            <fieldset>
+                                <legend>Estampa </legend>
+                                <div class="form-group">
+                                    <label for="tipoEstampa">Descrição: </label>
+                                    <select class="form-control focused" id="descricao" name="descricao" data-toggle="tooltip" title="Informe o tipo de estampa" data-placement="bottom" />
+                                    <option value=""></option>
+                                    <option value=""></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="qualidade">Qualidade da estampa: </label>
+                                    <select class="form-control focused" id="qualidade" name="qualidade" data-toggle="tooltip" title="Informe a qualidade da estampa" data-placement="bottom" />
+                                    <option value=""></option>
+                                    <option value=""></option>
+                                    </select>
+                                </div>								
+                                <fieldset>
+                                    <legend>Imagem estampa </legend>
+                                    <div class="form-group">
+                                        <label for="imagem">Imagem da estampa: </label>
+                                        <input type="file" id="imagem" name="imagem" data-toggle="tooltip" title="Clique aqui e escolha uma imagem ou modelo ja pronto para sua estampa" data-placement="bottom" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="qualidade">Local: </label>
+                                        <select class="form-control focused" id="local" name="local" data-toggle="tooltip" title="Informe o local da estampa" data-placement="bottom" />
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                        </select>
+                                    </div>
+                                </fieldset>
+                            </fieldset>
+                        </fieldset>
+                    </fieldset>
+
+                    <div class="col-md-4"></div>
+                    <fieldset class="col-md-4">
+                        <fieldset>
+                            <legend>Orçamento da camiseta estampada</legend>
+                            <div class="form-group form-inline">
+                                <div class="col-md-6">
+                                    <label for="opEstamIguais" data-toggle="tooltip" title="clique aqui se todas as estampas seram iguais/unicas" data-placement="bottom" >Apenas estampas iguais: </label>
+                                    <input type="radio" value="opEstamIguais" class="form-control focused" id="opEstamIguais" name="Estampas" data-toggle="tooltip" title="clique aqui se todas as estampas seram iguais/unicas" data-placement="bottom" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="opEstamDiferent" data-toggle="tooltip" title="clique aqui se algumas estampas seram diferentes (DUAS ou MAIS)" data-placement="bottom" >Algumas estampas diferentes: </label>
+                                    <input type="radio" value="opEstamDiferent" class="form-control focused" id="opEstamDiferent" name="Estampas" data-toggle="tooltip" title="clique aqui se algumas estampas seram diferentes (DUAS ou MAIS)" data-placement="bottom" />
+                                </div>
+                            </div>
+                            <div id="estampasDiferentes">
+                                <div class="form-group">
+                                    <label for="qtdIgual">Quantidade de camisetas iguais: </label>
+                                    <input type="text" class="form-control focused" id="qtdIgual" name="qtdIgual" data-toggle="tooltip" title="Informe a quantidade de camisetas estampadas que serão iguais; DUAS ou MAIS" data-placement="bottom" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="qtdUnic">Quantidade de camisetas unicas: </label>
+                                    <input type="text" class="form-control focused" id="qtdUnic" name="qtdUnic" data-toggle="tooltip" title="Informe a quantidade de camisetas que seram unicas; APENAS UMA" data-placement="bottom" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="qtdTotal">Total de camisetas: </label>
+                                    <input type="text" class="form-control focused" id="qtdTotal" name="qtdTotal" data-toggle="tooltip" title="Quantidade Total = Camisetas Unicas + Camisetas iguais (DUAS ou MAIS)" data-placement="bottom" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="arqDesc">Descrição das camisetas: </label>
+                                    <input type="file" id="arqDesc" name="arqDesc" data-toggle="tooltip" title="Clique aqui para nos enviar um arquivo com as descrições das estampas diferentes. &#13; exemplo:nome, número..." data-placement="bottom" />
+                                </div>
+                            </div>
+                            <div id="estampasIguais">
+                                <div class="form-group">
+                                    <label for="qtdTotal">Total de camisetas: </label>
+                                    <input type="text" class="form-control focused" id="qtdTotal" name="qtdTotal" data-toggle="tooltip" title="Quantidade Total = Camisetas Unicas + Camisetas iguais (DUAS ou MAIS)" data-placement="bottom" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="descricao">Descrição: </label>
+                                <textarea type="text" class="form-control focused" id="descricao" name="descricao" data-toggle="tooltip" title="Insira uma descrição ou um comentario" data-placement="bottom" ></textarea>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-group ">
+                            <input class="col-md-6 btn btn-primary " type="submit" value="Fazer Pedido" data-toggle="tooltip" title="Clique aqui para se cadastrar" data-placement="bottom" />
+                        </div>
+                        </section>
+                    </fieldset>
+                </form>
+            </div>
+            <footer class="rodape">
+                <legend><p class="textcenter">© RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM </p></legend>
+                <figure class="textcenter">
+                    <figcaption class="textcenter">CONECTE-SE</figcaption>
+                    <img src="img/iconeeees.png" width="300px" height="75px" alt="icones"  class="textcenter" />
+                </figure> <p class="textcenter"> Home | Catalogo | Pedidos | Login | Sobre Nós </p>
+                <p class="textcenter gray"> © RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM </p>
+            </footer>
+    </body>
+</html>

@@ -15,7 +15,9 @@ use estamparia\model\CodigoDaCorModel;
  *
  * @author Mateus
  */
-class Cmyk extends CodigoDaCorModel{
+class Cmyk extends CodigoDaCorModel {
+
     //put your code here
     protected $padraoCor = "CMYK";
+
 }

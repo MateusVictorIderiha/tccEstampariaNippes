@@ -99,10 +99,12 @@ abstract class UsuarioModel extends PessoaModel {
             header("location:");
         }
     }
-/*
- * varifica se o usuario logado no momento está valido
- * se passa as variaveis globais COOKIE ou SESSION para a verificação
- */
+
+    /*
+     * varifica se o usuario logado no momento está valido
+     * se passa as variaveis globais COOKIE ou SESSION para a verificação
+     */
+
     public function verificaLogin($login, $senha) {
         if(isset($this->postUsuarioLogin) and isset($this->postSenhaLogin)
                 and isset($login) and isset($senha)
@@ -157,4 +159,5 @@ abstract class UsuarioModel extends PessoaModel {
         $informacoes[] = $this->dataNascimento;
         return $informacoes;
     }
+
 }

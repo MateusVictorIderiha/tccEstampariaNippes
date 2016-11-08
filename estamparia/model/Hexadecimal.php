@@ -15,7 +15,9 @@ use estamparia\model\CodigoDaCorModel;
  *
  * @author Mateus
  */
-class Hexadecimal extends CodigoDaCorModel{
+class Hexadecimal extends CodigoDaCorModel {
+
     //put your code here
     protected $padraoCor = "Hexadecimal";
+
 }

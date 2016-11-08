@@ -14,9 +14,9 @@ namespace estamparia\controller;
  * @author Mateus
  */
 class ClienteController {
+
     //put your code here
-    
+
     private $get;
-    
-    
+
 }
