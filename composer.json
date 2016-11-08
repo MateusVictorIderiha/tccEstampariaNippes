@@ -8,8 +8,13 @@
             "email": "Mateus.rego@etec.sp.gov.br"
         }
     ],
+    "type": "yii2-extension",
     "require": {
-        "php": ">=5.2.8"
+        "php": ">=5.2.8",
+        "yiisoft/yii2": "*"
+    },
+    "extra": {
+        "bootstrap": "yii\\jui\\Extension"
     },
     "autoload": {
         "psr-4": {
