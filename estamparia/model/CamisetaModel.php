@@ -17,9 +17,6 @@ namespace estamparia\model;
 use estamparia\model\ProdutoModel;
 
 final class CamisetaModel extends ProdutoModel {
-
     //put your code here
-    protected $idTipoProduto = "1";
-    protected $tabela = "Produto";
-
+    protected $tipoProduto = "Camiseta";
 }

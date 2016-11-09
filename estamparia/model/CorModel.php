@@ -22,6 +22,7 @@ class CorModel extends Crud {
     // ainda se tem que arrumar a LOGICA DAS CLASSES Cor, PadraoDaCor e CodigoDaCor
     private $idCor;
     private $cor;
+    private $idCodigosCor = array();
     protected $tabela = "tcc_cor";
     protected $consultaColunaId = "id_cor";
 
@@ -33,14 +34,36 @@ class CorModel extends Crud {
             if($lista) {
                 $this->idCor = $lista["id_cor"];
                 $this->cor = $lista["cor"];
+                
+                $objCor = new CodigoDaCorModel();
+                $this->idCodigosCor = $objCor->retornaCodigoIdCor($this->cor);
             }
+        }
+    }
+    
+    public function __get($propriedade) {
+        if($propriedade == "CodigoCor"){
+            foreach ($this->idCodigosCor as $listaCodigos) {
+                foreach ($listaCodigos as $idCodigoCor) {
+                    $codigoCor = new CodigoDaCorModel($idCodigoCor);
+                    $objsCodigoCor[] = $codigoCor;
+                }
+            }
+            return $objsCodigoCor;
         }
     }
 
     public function mostrarInformacoes() {
         $informacoes[] = $this->idCor;
         $informacoes[] = $this->cor;
-        return $informacoes;
+        
+        $objCodigosCor = $this->CodigoCor;
+        foreach ($objCodigosCor as $idCodigoCor) {
+            $codigosCor[] = new CodigoDaCorModel($idCodigoCor);
+        }
+        
+        $todaInformacao =  array("Cor: " => $informacoes, "Codigos: " => $codigosCor);
+        return $todaInformacao;
     }
 
     public function inserir() {

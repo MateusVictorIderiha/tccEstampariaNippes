@@ -18,7 +18,6 @@ use estamparia\libs\Crud;
 class VendaModel extends Crud {
 
     //put your code here
-    protected $idProdutoVenda;
     protected $idProduto;
     protected $idVenda;
     protected $quantidade;
@@ -34,25 +33,25 @@ class VendaModel extends Crud {
     protected $tabela = "tcc_vendas";
     protected $consultaColunaId = "id_venda";
 
-    public function __construct($idProdutoVenda) {
+    public function __construct($idVenda = null, $idProduto = null) {
         parent::__construct();
-        if(!empty($idProdutoVenda)) {
-            $lista = $this->consultarVendaProdutovenda($idProdutoVenda);
-            if($lista) {
-                $this->idProdutoVenda = $lista["id_produtoVenda"];
-                $this->idVenda = $lista["id_venda"];
-                $this->idProduto = $lista["id_produto"];
-                $this->dataAberto = $lista["dataAberto"];
-                $this->dataFinalizado = $lista["dataFinalizado"];
-                $this->tipoVenda = $lista["tipoVenda"];
-                $this->statusDaVenda = $lista["statusDaVenda"];
-                $this->desconto = $lista["desconto"];
-                $this->total = $lista["total"];
-                $this->idEndereco = $lista["id_endereco"];
-                $this->idCliente = $lista["id_cliente"];
-                $this->quantidade = $lista["quantidade"];
-                $this->precoProdutos = $lista["preco"];
-            }
+        $usarConsulta = empty($idProduto) ? ($this->consultar($idVenda)) :
+                ($this->consultarVendaProdutovenda($idVenda, $idProduto));
+        $lista = $usarConsulta;
+        if($lista) {
+            (!empty($idProduto)) ? ($this->idVenda = $lista["id_venda"]) : "";
+            $this->idVenda = $lista["id_venda"];
+            $this->idProduto = $lista["id_produto"];
+            $this->dataAberto = $lista["dataAberto"];
+            $this->dataFinalizado = $lista["dataFinalizada"];
+            $this->tipoVenda = $lista["tipoVenda"];
+            $this->statusDaVenda = $lista["VendaStatus"];
+            $this->desconto = $lista["desconto"];
+            $this->total = $lista["total"];
+            $this->idEndereco = $lista["id_endereco"];
+            (!empty($idProduto)) ? ($this->idCliente = $lista["id_cliente"]) : "";
+            (!empty($idProduto)) ? ($this->quantidade = $lista["quantidade"]) : "";
+            (!empty($idProduto)) ? ($this->precoProdutos = $lista["preco"]) : "";
         }
     }
 
@@ -168,9 +167,11 @@ class VendaModel extends Crud {
         $this->idEndereco = $idEndereco;
     }
 
-    public function consultarProdutoVenda($idProdutoVenda) {
+    public function consultarProdutoVenda($idProduto, $idVenda) {
         $comando = $this->banco->prepare("SELECT * FROM tcc_produtoVenda WHERE "
-                . "id_produtoVenda=$idProdutoVenda");
+                . "id_produto=:idProduto and id_venda = :idVenda");
+        $comando->bindParam(":idProduto", $idProduto);
+        $comando->bindParam(":idVenda", $idVenda);
         $comando->execute();
         $listaProdutoVenda = $comando->fetch(\PDO::FETCH_ASSOC);
         if($listaProdutoVenda) {
@@ -180,18 +181,18 @@ class VendaModel extends Crud {
         }
     }
 
-    public function consultarVendaProdutovenda($idProdutoVenda) { // Consulta na ProdutoVenda
-        $listaProdutoVenda = $this->consultarProdutoVenda($idProdutoVenda);
+    public function consultarVendaProdutovenda($idProduto, $idVenda) { // Consulta na ProdutoVenda
+        $listaProdutoVenda = $this->consultarProdutoVenda($idProduto, $idVenda);
 
         if($listaProdutoVenda) {
             $listaVenda = $this->consultar($listaProdutoVenda["id_venda"]); // Consulta tcc_venda
             if($listaVenda) {
-                $listaVenda[] = $listaProdutoVenda["id_produtoVenda"];
-                $listaVenda[] = $listaProdutoVenda["quantidade"];
-                $listaVenda[] = $listaProdutoVenda["preco"];
-                $listaVenda[] = $listaProdutoVenda["foto"];
-                $listaVenda[] = $listaProdutoVenda["id_modEstampa"];
-                $listaVenda[] = $listaProdutoVenda["id_produto"];
+                $listaVenda["quantidade"] = $listaProdutoVenda["quantidade"];
+                $listaVenda["preco"] = $listaProdutoVenda["preco"];
+                $listaVenda["foto"] = $listaProdutoVenda["foto"];
+                $listaVenda["id_ModEstampa"] = $listaProdutoVenda["id_ModEstampa"];
+                $listaVenda["id_produto"] = $listaProdutoVenda["id_produto"];
+
                 return $listaVenda; // lista Venda e ProdutoVenda
             } else {
                 return false;
@@ -202,20 +203,54 @@ class VendaModel extends Crud {
     }
 
     public function editar($id) {
-        
+        $comando = $this->banco->prepare("UPDATE $this->tabela SET "
+                . "`dataAberto`=:dataAberto, `VendaStatus`=:vendaStatus, 
+                    `tipoVenda`=:tipoVenda, `desconto`=:desconto, `total`=:total, 
+                    `id_cliente`=:idCliente, `id_funcionario`=:idFuncionario, 
+                    `id_endereco`=:idEndereco, WHERE $this->consultaColunaId = $id");
+        $comando->bindParam(":VendaStatus", $this->statusDaVenda);
+        $comando->bindParam(":tipoVenda", $this->tipoVenda);
+        $comando->bindParam(":desconto", $this->desconto);
+        $comando->bindParam(":total", $this->total);
+        $comando->bindParam(":idCliente", $this->idCliente);
+        $comando->bindParam(":idEndereco", $this->idEndereco);
+        $comando->bindParam(":idFuncionario", $this->idFuncionario);
+        $comando->execute();
     }
-
+    
     public function inserir() {
-        $comando = $this->banco->prepare("INSERT INTO `tcc_produtovenda`"
-                . "(`quantidade`, `preco`, `foto`, `id_ModEstampa`, `id_produto`,"
-                . " `id_venda`) VALUES (:quantidade,:preco,:foto,:id_ModEstampa,:id_produto,:id_venda)");
-        $comando->bindParam(":quantidade", $this->quantidade);
-        $comando->bindParam(":preco", $this->precoProdutos);
-        $comando->bindParam(":id_ModEstampa", $this->idModEstampa);
-        $comando->bindParam(":id_produto", $this->idProduto);
-        $comando->bindParam(":id_venda", $this->idVenda);
+        $comando = $this->banco->prepare("INSERT INTO $this->tabela"
+                . "(`dataAberto`, `VendaStatus`, `tipoVenda`, `desconto`, `total`,"
+                . " `id_cliente`, `id_funcionario`, `id_endereco`) "
+                . "VALUES (:dataAberto, :VendaStatus, :tipoVenda, :desconto, "
+                . ":total, :id_cliente, id_funcionario, :id_endereco)");
+        $this->dataAberto =  date('Y-m-d H:i:s');
+        $comando->bindParam(":dataAberto", $this->dataAberto);
+        $this->statusDaVenda = "Aberto";
+        $comando->bindParam(":VendaStatus", $this->statusDaVenda);
+        $comando->bindParam(":tipoVenda", $this->tipoVenda);
+        $comando->bindParam(":desconto", $this->desconto);
+        $comando->bindParam(":total", $this->total);
+        $comando->bindParam(":id_cliente", $this->idCliente);
+        $comando->bindParam(":id_endereco", $this->idEndereco);
         $comando->execute();
         return $this->banco->lastInsertId();
+    }
+
+    public function inserirProdutoVenda() {
+        $valida = $this->consultarProdutoVenda($this->idProduto, $this->idVenda);
+        if($valida == 0){
+            $comando = $this->banco->prepare("INSERT INTO `tcc_produtovenda`"
+                    . "(`quantidade`, `preco`, `id_produto`, `id_venda`) "
+                    . "VALUES (:quantidade,:preco, :id_produto,:id_venda)");
+            $comando->bindParam(":quantidade", $this->quantidade);
+            $comando->bindParam(":preco", $this->precoProdutos);
+            $comando->bindParam(":id_produto", $this->idProduto);
+            $comando->bindParam(":id_venda", $this->idVenda);
+            return $comando->execute() ? true : false;
+        } else {
+            return false; //já existe
+        }
     }
 
     public function mostrarInformacoes() {

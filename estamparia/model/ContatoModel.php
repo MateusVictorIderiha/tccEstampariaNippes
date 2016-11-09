@@ -87,7 +87,7 @@ class ContatoModel extends Crud {
         if($lista) {
             return $lista;
         } else {
-            return "id inexistente";
+            return false;
         }
     }
 

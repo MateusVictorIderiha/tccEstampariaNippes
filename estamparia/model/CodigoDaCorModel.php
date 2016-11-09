@@ -48,6 +48,19 @@ class CodigoDaCorModel extends Crud {
         }
     }
 
+    public function retornaCodigoIdCor($idCor) {
+        $comando = $this->banco->prepare("SELECT $this->consultaColunaId FROM $this->tabela "
+                . "WHERE id_cor = $idCor");
+        $comando->execute();
+        $lista = $comando->fetchAll(\PDO::FETCH_ASSOC);
+
+        if($lista) {
+            return $lista;
+        } else {
+            return false;
+        }
+    }
+    
     public function inserir() {
         $comando = $this->banco->prepare("INSERT INTO $this->tabela(id_cor, cor)"
                 . " values(:id_cor, :cor)");

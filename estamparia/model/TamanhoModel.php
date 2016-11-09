@@ -7,7 +7,7 @@
  */
 
 /**
- * Description of Tamanho
+ * Description of TamanhoModel
  *
  * @author rm02540
  */

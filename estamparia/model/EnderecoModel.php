@@ -51,7 +51,7 @@ final class EnderecoModel extends CepModel {
         if($lista) {
             return $lista;
         } else {
-            return "id inexistente";
+            return false;
         }
     }
 

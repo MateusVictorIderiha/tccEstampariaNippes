@@ -363,7 +363,7 @@ figure.banner p{
     left:0;
     clear: both;
     text-align: center;
-    // background: url('../img/icones.png'); 
+/*  background: url('../img/icones.png'); */
 }
 .carousel-inner > .item > img, .alturaSlide{
     width:100%;
@@ -371,7 +371,7 @@ figure.banner p{
     padding: 0px;
 }
 
-.tooltip .tooltip-inner {   //Caxinha de detalhe 
+.tooltip .tooltip-inner {   /* Caxinha de detalhe  */
                             background-color: #888; 
                             color: #fff; 
                             border: 1px solid #ccc; 

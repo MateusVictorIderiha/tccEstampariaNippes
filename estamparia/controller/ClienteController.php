@@ -8,6 +8,8 @@
 
 namespace estamparia\controller;
 
+
+
 /**
  * Description of ClienteController
  *
@@ -16,7 +18,12 @@ namespace estamparia\controller;
 class ClienteController {
 
     //put your code here
-
     private $get;
 
+    public function __construct($get, $post) {
+        if(isset($post["Cadastrar"])){
+            echo "olá ^^";
+        }
+    }
+    
 }
