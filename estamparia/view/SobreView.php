@@ -8,12 +8,16 @@
 
 namespace estamparia\view;
 
+require_once '../../vendor/autoload.php';
+
+use estamparia\view\EstruturaView;
+
 /**
  * Description of SobreView
  *
  * @author Mateus
  */
-class SobreView {
+class SobreView extends EstruturaView{
     //put your code here
     
     public function mostrarConteudo() {

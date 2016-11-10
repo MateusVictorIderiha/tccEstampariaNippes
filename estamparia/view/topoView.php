@@ -45,14 +45,14 @@ class topoView {
             <nav class='first'>
                 <img class='logotipo' src='img/logo.png'/> <b class='font15px'>| ESTAMPARIA </b>
                 <ul class='cabecalhotopo'>
-                    <li><a href='cadastro.html'> LOGIN | CRIE SUA CONTA</a></li>
+                    <li><a href='?pagina=cadastrar'> LOGIN | CRIE SUA CONTA</a></li>
                     <li><a>Facebook | Google </a></li>
                 </ul>		
             </nav>
             <nav class='firstcabecalho'>
                 <ul class='cabecalho'>";
             foreach ($this->botoes as $botao) {
-                    echo "<li><a href='$botao[caminho]' name='$botao[nome]]'> $botao[valor] </a></li>";
+                    echo "<li><a href='".$botao["caminho"]."' name='$botao[nome]]'> $botao[valor] </a></li>";
             }
             echo "</ul>
                 <div class='pesquisa absolute'>

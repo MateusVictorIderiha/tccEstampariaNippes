@@ -11,19 +11,17 @@ namespace estamparia\controller;
 use estamparia\controller\EstruturaView;
 
 /**
- * Description of ClienteController
+ * Description of HomeController
  *
  * @author Mateus
  */
-class ClienteController extends EstruturaView{
-
+class HomeController extends EstruturaView{
     //put your code here
-    private $get;
-
-    public function __construct($get, $post) {
-        if(isset($post["Cadastrar"])){
-            echo "olá ^^";
-        }
+    public function __construct() {
+        parent::__construct();
+        $stylevalor3["caminho"] = "bootstrap/jquery-ui/jquery-ui.css";
+        $stylevalor3["media"] = "All";
+        
+        array_push($this->styles, $stylevalor3);
     }
-    
 }
