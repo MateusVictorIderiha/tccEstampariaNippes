@@ -23,10 +23,12 @@ class SobreView extends EstruturaView{
     public function mostrarConteudo() {
         echo "
         <section class='padding-bottom10 textcenter'>
+            <header class='textcenter'>
+                <h1 class='whitecolor'>UM POUCO SOBRE A EMPRESA NIPPES</h1></br>
+            </header>
             <figure class='textcenter'>
                 <img class='logonipees textcenter' src='img/logonipees.png'/>
             </figure>
-            <p class='font33px'> Sobre Nós!  </p>
             <p class='font25px bolder textblack'>Quem nos somos?</p>
             <p class='paddingleftright'>A empresa Nippes surgiu do entusiasmo de Fernando em produzir camisetas, pois sempre admirou as diversas estampas. Apesar de não ter sido inaugurada ainda, ele pretende trabalhar mais virtualmente. Já existe um local físico que será mais usado como estoque, pois ele não venderá apenas camisetas sob encomenda, como também, seus próprios produtos (camisetas a pronta entrega. Por ser algo recente, o único funcionário que a empresa possui é o irmão de Fernando.</p>
         </section>";

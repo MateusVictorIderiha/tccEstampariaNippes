@@ -21,7 +21,7 @@ class PedidosView extends EstruturaView{
     //put your code here
     public function mostrarConteudo() {
         echo "
-            <section>
+        <section>
             <header class='textcenter'>
                 <h1 class='whitecolor'>FAÇA SEU PEDIDO PERSONALIZADO!</h1></br>
             </header>
@@ -147,9 +147,9 @@ class PedidosView extends EstruturaView{
                         <div class='form-group '>
                             <input class='col-md-6 btn btn-primary ' type='submit' value='Fazer Pedido' data-toggle='tooltip' title='Clique aqui para se cadastrar' data-placement='bottom' />
                         </div>
-                        </section>
                     </fieldset>
                 </form>
-            </div>";
+            </div>
+        </section>";
     }
 }

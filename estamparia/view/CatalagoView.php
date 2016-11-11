@@ -20,6 +20,9 @@ class CatalagoView extends EstruturaView{
     public function mostrarConteudo() {
         echo "           
             <section class='min-width50 textcenter'>
+                <header class='textcenter'>
+                    <h1 class='whitecolor'>NOSSOS PRODUTOS:</h1></br>
+                </header>
                 <figure class='catalogovenda'>
                     <img src='img/img1.png' title='Camisa'/>
                     <figcaption>

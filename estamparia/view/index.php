@@ -6,14 +6,10 @@
  * and open the template in the editor.
  */
 
-use estamparia\view\rodapeView;
+
 use estamparia\controller\indexController;
 
 require_once '../../vendor/autoload.php';
 
 $objController = new indexController();
-$objController->paginasMenu();
-
-
-$rodape = new rodapeView();
-$rodape->mostrarRodape();
+$obj = $objController->paginasMenu();

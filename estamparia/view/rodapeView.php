@@ -16,16 +16,38 @@ namespace estamparia\view;
 class rodapeView {
     //put your code here
     
+    public function __construct($botoes) {
+        $this->botoes = $botoes;
+    }    
+    
     public function mostrarRodape() {
-        echo "<footer class='rodape textcenter'>
-                    <p>© RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM </p>
-                    <figure>
-                        <figcaption>CONECTE-SE</figcaption>
-                        <img src='img/iconeeees.png' alt='icones'  class='icones' />
-                    </figure> <p> <a href='home.html'> Home </a> | <a href='home.html'> Catalogo </a> | <a href='home.html'>  Pedidos </a>| <a href='home.html'> Login</a> | <a href='home.html'> Sobre Nós</a> </p>
-                    <p class='gray'> © RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM 
-                </footer>
-            </body>
-        </html>";
+        echo "      
+         <footer class='rodape textcenter'>
+            <p>© RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM </p>
+            <figure>
+                <figcaption>CONECTE-SE</figcaption>
+                <img src='img/iconeeees.png' alt='icones'  class='icones' />
+            </figure> 
+            <p> ";
+        
+            $qtdBotoes = count($this->botoes);
+            $inicio = 1;
+            foreach ($this->botoes as $botao) {
+                    $botao = "<a href='".$botao["caminho"]."' name='$botao[nome]]'> $botao[valor] </a>";
+                    $botoes = $botao; // $inicio != $qtdBotoes ? " | " : "";
+                    if($inicio == 1){
+                        $inicio++;
+                    } elseif ($inicio <= $qtdBotoes) {
+                        echo " | ";
+                        $inicio++;
+                    }
+                    echo $botoes;
+            }
+            
+            echo "</p>
+            <p class='gray'> © RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM 
+        </footer>
+    </body>
+</html>";
     }
 }

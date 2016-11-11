@@ -13,118 +13,74 @@
     </head>
 
     <body>
-
         <header class="century">
-            <nav>
-                <figure class="fig">
-                    <img class="logotipo" src="img/logo.png" width="100px" height="25px" /> <b class="font15px">| ESTAMPARIA </b>
-                    <ul class="cabecalhotopo">
-                        <li><a href="cadastro.html"> LOGIN | CRIE SUA CONTA</a></li>
-                        <li><a>Facebook | Google </a></li>
-                    </ul><br>
-                </figure>			
-                <ul class="cabecalho">
-                    <li><a href="home.html" style="text-decoration:none"> HOME </a></li>
-                    <li><a href="pedidos.html" style="text-decoration:none"> PEDIDOS</a></li>
-                    <li><a href="catalogo.html" style="text-decoration:none"> CATÁLOGO</a></li>
-                    <li><a href="faleconosco.html" style="text-decoration:none"> CONTATO</a></li>
-                    <li class="margin-left40"><a href="cadastro.html" style="text-decoration:none"></a></li>					
-                    <div class="padding10">
-                        <input type="text"/>
-                        <button>I</button>
-                    </div>				
-                    <img class="carrinho" src="img/carrinho2.png" width="30px"/>
-                </ul>
+            <nav class="first">
+                <img class="logotipo" src="img/logo.png"/> <b class="font15px">| ESTAMPARIA </b>
+                <ul class="cabecalhotopo">
+                    <li><a href="cadastro.html"> LOGIN | CRIE SUA CONTA</a></li>
+                    <li><a>Facebook | Google </a></li>
+                </ul>		
             </nav>
-            <section class="margin-left12">
-                <p class="font33px"> Bem-vindo Cliente!  <img src="img/login.png" width="40px"/></p></a>
-                <figure>
-                    <figcaption class="margin-left">
-                        <a href="vendas.html" class="font25px"><b>Confira Seu Carrinho</b></a>
-                    </figcaption>
-                </figure>		
-            </section>
-            <section><p class="margin-left12">Confira suas compras já realizadas</p>
+            <nav class="firstcabecalho">
+                <ul class="cabecalho">
+                    <li><a href="home.html"> HOME </a></li>
+                    <li><a href="pedidos.html"> PEDIDOS</a></li>
+                    <li><a href="catalogo.html"> CATÁLOGO</a></li>
+                    <li><a href="faleconosco.html"> CONTATO</a></li>
+                    <li><a href="SobreNos.html"> SOBRE</a></li>
+                </ul>
+                <div class="pesquisa absolute">
+                    <input type="text"/>
+                    <button>I</button>
+
+                    <img class="carrinho relative" src="img/carrinho2.png" /> 
+                </div>	
+            </nav>
+        </header>
+        <section class='margin-left12'>
+            <p class='font33px'> Bem-vindo Cliente!  <img src='img/login.png' width='40px'/></p></a>
+        <figure>
+            <figcaption class='margin-left'>
+                <a href='vendas.html' class='font25px'><b>Confira Seu Carrinho</b></a>
+            </figcaption>
+        </figure>		
+    </section>
+    <section><p class='margin-left12'>Confira suas compras já realizadas</p>
 
 
-                <table class="margin-left12" style="width:50%">
-                    <tr>
-                        <th>Imagem do Produto</th>
-                        <th>Nome do Produto</th> 
-                        <th>Data da Compra</th>
-                    </tr>
-                    <tr>
-                        <td><figure>
-                                <img class="floatleft" width="100px" height="100px" src="img/home/home2.jpg" title="Camisa" />
-                            </figure>
-                        </td>
-                        <td><p class="font33px">Until The Very End</p></td>
-                        <td><p class="font33px">07/11/2016</p></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
-
-
-            </section>
-
-
-
-
-
-
-
-
-
-
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br><br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br><br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-
-
-
-
-
-
-
-
-            <footer class="rodape">
-                <legend><p class="textcenter">© RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM </p></legend>
-                <figure class="textcenter">
-                    <figcaption class="textcenter">CONECTE-SE</figcaption>
-                    <img src="img/iconeeees.png" width="300px" height="75px" alt="icones"  class="textcenter" />
-                </figure> <p class="textcenter"> Home | Catalogo | Pedidos | Login | Sobre Nós </p>
-                <p class="textcenter gray"> © RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM 
-            </footer>
-            <!--
-            <footer class="telefone">
-            © RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA
-                                                                                                                                                                                    TEL:(15)32025270 |
-            E-MAIL: NIPPES@HOTMAIL.COM
-            </footer> -->
-    </body>
+        <table class='margin-left12' style='width:50%'>
+            <tr>
+                <th>Imagem do Produto</th>
+                <th>Nome do Produto</th> 
+                <th>Data da Compra</th>
+            </tr>
+            <tr>
+                <td><figure>
+                        <img class='floatleft' width='100px' height='100px' src='img/home/home2.jpg' title='Camisa' />
+                    </figure>
+                </td>
+                <td><p class='font33px'>Until The Very End</p></td>
+                <td><p class='font33px'>07/11/2016</p></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </section>
+    <footer class="rodape textcenter">
+        <p>© RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM </p>
+        <figure>
+            <figcaption>CONECTE-SE</figcaption>
+            <img src="img/iconeeees.png" alt="icones"  class="icones" />
+        </figure> <p> <a href="home.html"> Home </a> | <a href="home.html"> Catalogo </a> | <a href="home.html">  Pedidos </a>| <a href="home.html"> Login</a> | <a href="home.html"> Sobre Nós</a> </p>
+        <p class="gray"> © RUA MARIA GERMANI CEP: 18053030, Nº883 - JULIO DE MESQUITA TEL:(15)32025270 | E-MAIL: NIPPES@HOTMAIL.COM 
+    </footer>
+</body>
 </html>

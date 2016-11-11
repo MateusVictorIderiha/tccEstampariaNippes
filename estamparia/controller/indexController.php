@@ -13,6 +13,7 @@ use estamparia\view\PedidosView;
 use estamparia\view\CatalagoView;
 use estamparia\view\ContatoView;
 use estamparia\view\CadastroView;
+use estamparia\view\SobreView;
 
 /**
  * Description of indexController
@@ -28,27 +29,39 @@ class indexController {
                 case ("pedidos"):
                     $objpedidos = new PedidosView();
                     $objpedidos->mostrarConteudo();
+                    $objpedidos->mostrarRodape();
                     break;
                 case ("catalago"):
                     $objCatalago = new CatalagoView();
                     $objCatalago->mostrarConteudo();
+                    $objCatalago->mostrarRodape();
                     break;
                 case ("faleConosco"):
                     $objContato = new ContatoView();
                     $objContato->mostrarConteudo();
+                    $objContato->mostrarRodape();
                     break;
                 case ("home"):
                     $objHome = new HomeView();
                     $objHome->mostrarConteudo();
+                    $objHome->mostrarRodape();
                     break;
                 case ("cadastrar"):
+                case ("login"):
                     $objCadastrar = new CadastroView();
-                    
                     $objCadastrar->mostrarConteudo();
+                    $objCadastrar->mostrarRodape();
+                    break;
+                case ("sobre"):
+                    $objSobre = new SobreView();
+                    $objSobre->mostrarConteudo();
+                    $objSobre->mostrarRodape();
+                    break;
             } 
         } elseif(empty($_REQUEST["pagina"])) {
             $objHome = new HomeView();
             $objHome->mostrarConteudo();
+            $objHome->mostrarRodape();
         }
     }
 

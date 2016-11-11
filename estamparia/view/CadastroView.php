@@ -125,25 +125,23 @@ class CadastroView  extends EstruturaView{
                 </form>
             </div>	
 
-            <div class='col-md-4 absolute'></div>
+
             <fieldset class='col-md-3 logindireita'>
-                <h1 class='whitecolor'>Faça Login!</h1><br>
+                <h1 class='whitecolor'>Faça seu Login!</h1>
                 <form>
-                    <legend class='scheduler-border'>Login</legend>
                     <div class='form-group'> 
                         <label for='usuario'>Login: </label>
-                        <input type='text' class='form-control focused' id='usuario' name='usuario' data-toggle='tooltip' title='Preencha seu e-mail/LOGIN para entrar' data-placement='bottom' />
+                        <input type='text' class='form-control focused' id='usuarioLogin' name='usuario' data-toggle='tooltip' title='Preencha seu e-mail/LOGIN para entrar' data-placement='bottom' />
                     </div>
                     <div class='form-group'>
                         <label for='senha'>Senha: </label>
-                        <input type='password' class='form-control focused' id='senha' name='senha' data-toggle='tooltip' title='Preencha sua senha para entrar' data-placement='bottom' />
+                        <input type='password' class='form-control focused' id='senhaLogin' name='senha' data-toggle='tooltip' title='Preencha sua senha para entrar' data-placement='bottom' />
                     </div>
                     <div class='form-group'>
                         <input class='col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-primary' type='submit' value='Entrar' data-toggle='tooltip' title='Clique aqui para ENTRAR' data-placement='bottom' />
                     </div>
+                </form>	
             </fieldset>
-        </form>	
-    </div>
-</section>";
+        </section>";
     }
 }
