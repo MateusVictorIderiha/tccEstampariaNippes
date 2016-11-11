@@ -27,9 +27,9 @@ class indexController {
         if(isset($_REQUEST["pagina"])){
             switch ($_REQUEST["pagina"]) {
                 case ("pedidos"):
-                    $objpedidos = new PedidosView();
-                    $objpedidos->mostrarConteudo();
-                    $objpedidos->mostrarRodape();
+                        $objpedidos = new PedidosView();
+                        $objpedidos->mostrarConteudo();
+                        $objpedidos->mostrarRodape();
                     break;
                 case ("catalago"):
                     $objCatalago = new CatalagoView();
