@@ -20,7 +20,7 @@ class ContatoView extends EstruturaView{
     public function mostrarConteudo() {
         echo "        
         <section class='faleconosco'>
-            <p class='font33px'>FALE CONOSCO!</p>
+            <h1>FALE CONOSCO!</h1>
             <article>				
                 <form class='form' method='POST' action='pedido.php'>
                     <fieldset class='col-md-3 scheduler-border'>

@@ -101,10 +101,10 @@ class ContatoModel extends Crud {
     }
 
     public function inserir() {
-        $comando = $this->banco->prepare("INSERT INTO $this->tabela(contato, id_tipo,"
-                . " id_cliente) values(:contato,:id_tipo,:id_cliente)");
+        $comando = $this->banco->prepare("INSERT INTO $this->tabela(contato, tipo,"
+                . " id_usuario) values(:contato,:tipo,:id_cliente)");
         $comando->bindParam(":contato", $this->contato);
-        $comando->bindParam(":id_tipo", $this->tipoContato);
+        $comando->bindParam(":tipo", $this->tipoContato);
         $comando->bindParam(":id_cliente", $this->idCliente);
         $comando->execute();
         return $this->banco->lastInsertId();

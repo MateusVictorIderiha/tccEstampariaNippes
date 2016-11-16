@@ -21,7 +21,6 @@ use estamparia\model\EnderecoModel;
 final class ClienteModel extends UsuarioModel {
 
     //put your code here
-    private $rg;
     private $idEndereco = array();
     private $idContato = array();
 
@@ -31,9 +30,6 @@ final class ClienteModel extends UsuarioModel {
         if(!empty($usuario) and ! empty($senha)) {
             $lista = $this->validaUsuario($usuario, $senha);
             if($lista) {
-                $this->rg = $lista["RG"];
-                $this->dataNascimento = $lista["dataNascimento"];
-
                 $endereco = new EnderecoModel();
                 $this->idEndereco = $endereco->retornarIdEnderecoUsuario($this->idUsuario);
 
@@ -64,21 +60,13 @@ final class ClienteModel extends UsuarioModel {
             return $objsContatos;
         }
     }
-
-    public function getRg() {
-        return $this->rg;
-    }
-
+    
     public function getIdEndereco() {
         return $this->idEndereco;
     }
 
     public function getIdContato() {
         return $this->idContato;
-    }
-
-    public function setRg($rg) {
-        $this->rg = $rg;
     }
 
     public function setIdEndereco($idEndereco) {
@@ -88,7 +76,7 @@ final class ClienteModel extends UsuarioModel {
     public function setIdContato($idContato) {
         $this->idContato = $idContato;
     }
-
+    
     public function mostrarInformacoes() {
         $informacoesCliente = parent::mostrarInformacoes();
         $informacoesCliente[] = $this->rg;

@@ -8,6 +8,8 @@
 
 namespace estamparia\view;
 
+use estamparia\model\ClienteModel;
+
 /**
  * Description of topoView
  *
@@ -19,6 +21,7 @@ class topoView {
     protected $botoes = array();
     protected $javascripts = array();
     protected $styles = array();
+    protected $minhaConta = "<a href='?pagina=wp_login'> LOGIN | CRIE SUA CONTA</a>";
 
     public function __construct($botoes, $javascripts, $styles) {
         $this->botoes = $botoes;
@@ -26,6 +29,10 @@ class topoView {
         $this->styles = $styles;
     }
 
+    public function setMinhaConta($minhaConta) {
+        $this->minhaConta = $minhaConta;
+    }
+        
     public function mostrarTopo() {
         echo "<!doctype html>
         <html lang='pt-BR'>
@@ -45,8 +52,10 @@ class topoView {
             <nav class='first'>
                 <img class='logotipo' src='img/logo.png'/> <b class='font15px'>| ESTAMPARIA </b>
                 <ul class='cabecalhotopo'>
-                    <li><a href='?pagina=cadastrar'> LOGIN | CRIE SUA CONTA</a></li>
-                    <li><a>Facebook | Google </a></li>
+                    <li class='menuMinhaConta'>";
+        echo $this->minhaConta;
+                    //<li><a>Facebook | Google </a></li>
+        echo        "</li>
                 </ul>		
             </nav>
             <nav class='firstcabecalho'>
@@ -55,11 +64,13 @@ class topoView {
                     echo "<li><a href='".$botao["caminho"]."' name='$botao[nome]]'> $botao[valor] </a></li>";
             }
             echo "</ul>
-                <div class='pesquisa absolute'>
+                <div class='pesquisa'>
                     <input type='text'/>
                     <button>I</button>
 
-                    <img class='carrinho relative' src='img/carrinho2.png' /> 
+                    <a href='?pagina=wp_venda&acao=mostrar_carrinho'>
+                        <img class='carrinho relative' src='img/carrinho2.png' /> 
+                    </a>
                 </div>	
             </nav>
         </header>";

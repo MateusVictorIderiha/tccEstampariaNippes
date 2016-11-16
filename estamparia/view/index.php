@@ -6,10 +6,9 @@
  * and open the template in the editor.
  */
 
-
-use estamparia\controller\indexController;
+use estamparia\controller\IndexController;
 
 require_once '../../vendor/autoload.php';
 
-$objController = new indexController();
+$objController = new IndexController();
 $obj = $objController->paginasMenu();

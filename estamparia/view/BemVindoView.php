@@ -11,10 +11,40 @@ use estamparia\view\EstruturaView;
  */
 
 class BemVindoView extends EstruturaView{
+    private $nome;
+    private $pedido;
+    private $compras;
+    
+    public function getNome() {
+        return $this->nome;
+    }
+
+    public function getPedido() {
+        return $this->pedido;
+    }
+
+    public function getCompras() {
+        return $this->compras;
+    }
+
+    public function setNome($nome) {
+        $this->nome = $nome;
+    }
+
+    public function setPedido($pedido) {
+        $this->pedido = $pedido;
+    }
+
+    public function setCompras($compras) {
+        $this->compras = $compras;
+    }
+    
     public function mostrarConteudo() {
         echo "        
             <section class='margin-left12'>
-                <p class='font33px'> Bem-vindo Cliente!  <img src='img/login.png' width='40px'/></p></a>
+                <p class='font33px'> Bem-vindo $this->nome";
+
+        echo "  <img src='img/login.png' width='40px'/></p></a>
                 <figure>
                     <figcaption class='margin-left'>
                         <a href='vendas.html' class='font25px'><b>Confira Seu Carrinho</b></a>

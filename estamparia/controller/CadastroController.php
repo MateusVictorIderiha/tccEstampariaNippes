@@ -8,7 +8,6 @@
 
 namespace estamparia\controller;
 
-use estamparia\controller\EstruturaView;
 use estamparia\model\ClienteModel;
 
 require_once '../../vendor/autoload.php';
@@ -20,7 +19,7 @@ require_once '../../vendor/autoload.php';
  */
 class CadastroController {
     //put your code here
-    public function cadastrarCliente() {
+    public function cadastra() {
         if(isset($_POST)){
             $cpf = $_POST["cpf"];
             $nome = $_POST["nome"];

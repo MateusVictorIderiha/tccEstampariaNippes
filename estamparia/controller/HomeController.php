@@ -8,20 +8,20 @@
 
 namespace estamparia\controller;
 
-use estamparia\controller\EstruturaView;
+use estamparia\view\HomeView; 
+use estamparia\controller\PadraoController;
 
 /**
  * Description of HomeController
  *
  * @author Mateus
  */
-class HomeController extends EstruturaView{
+class HomeController implements PadraoController{
     //put your code here
-    public function __construct() {
-        parent::__construct();
-        $stylevalor3["caminho"] = "bootstrap/jquery-ui/jquery-ui.css";
-        $stylevalor3["media"] = "All";
-        
-        array_push($this->styles, $stylevalor3);
+
+    public function mostrarPagina() {
+        $objHome = new HomeView;
+        $objHome->mostrarConteudo();
+        $objHome->mostrarRodape();
     }
 }

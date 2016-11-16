@@ -87,6 +87,10 @@ final class EnderecoModel extends CepModel {
         $this->complemento = $complemento;
     }
 
+    public function setIdCliente($idCliente) {
+        $this->idCliente = $idCliente;
+    }
+
     public function setIdCep($idCep) {
         $this->idCep = $idCep;
     }
@@ -104,12 +108,12 @@ final class EnderecoModel extends CepModel {
     }
 
     public function inserir() {
-        $comando = $this->banco->prepare("INSERT INTO $this->tabela(cep, numero, "
-                . "complemento, cpf_cliente) values(:cep, :numero, :complemento, :cpf_cliente)");
+        $comando = $this->banco->prepare("INSERT INTO $this->tabela(id_cep, numero, "
+                . "complemento, id_usuario) values(:cep, :numero, :complemento, :idCliente)");
         $comando->bindParam(":cep", $this->cep);
         $comando->bindParam(":numero", $this->numeroDaCasa);
         $comando->bindParam(":complemento", $this->complemento);
-        $comando->bindParam(":cpf_cliente", $this->cpfCliente);
+        $comando->bindParam(":idCliente", $this->idCliente);
 
         $comando->execute();
         return $this->banco->lastInsertId();

@@ -10,6 +10,7 @@ namespace estamparia\view;
 
 use estamparia\view\topoView;
 use estamparia\view\rodapeView;
+use estamparia\model\ClienteModel;
 
 /**
  * Description of EstruturaView
@@ -30,6 +31,20 @@ class EstruturaView {
         $this->guardarBotoesTopo($configuracoesPagina);
         
         $objTopo = new topoView($this->botoesTopo, $this->javascripts, $this->styles);
+        
+        $objCliente = new ClienteModel();
+        if($objCliente->verificaLoginSessao() or $objCliente->verificaLoginCookie()){
+            $minhaConta = "<a href='?pagina=wp_login&acao=mostrar_bem_vindo'> MINHA CONTA</a>"
+                    . "<ul>"
+                    . "     <li>"
+                    . "         <a href='#'>Editar Perfil</a>"
+                    . "         <a href='#'>Compras efetuadas</a>"
+                    . "         <a href='#'>Meus Pedidos</a>"
+                    . "         <a href='?pagina=wp_login&acao=sair'>Sair</a>"
+                    . "     </lu>"
+                    . "</ul>";
+            $objTopo->setMinhaConta($minhaConta);
+        }
         $this->topo = $objTopo->mostrarTopo();
     }
     
@@ -53,7 +68,6 @@ class EstruturaView {
     public function guardarJavascriptsPadrao($javascript = null) {
         $javasriptValor1["caminho"] = "bootstrap/js/jquery.js";
         $javasriptValor2["caminho"] = "bootstrap/js/bootstrap.js";
-        //cadastro, Home
         
         array_push($this->javascripts, $javasriptValor1);
         if(isset($javascript["javascript"]) and !empty($javascript["javascript"])){
@@ -62,35 +76,36 @@ class EstruturaView {
             } 
         }
         array_push($this->javascripts, $javasriptValor2);
-        $javasriptValor4["caminho"] = "javascript.js"; //cadastro
+        $javasriptValor4["caminho"] = "javascript.js"; 
         array_push($this->javascripts, $javasriptValor4);
     }
 
     public function guardarBotoesTopo($botoes = null) {
-        $botaoValor1["caminho"] = "?pagina=home";
+        $botaoValor1["caminho"] = "?pagina=wp_home";
         $botaoValor1["nome"] = "home";
         $botaoValor1["valor"] = "HOME";
         
-        $botaoValor2["caminho"] = "?pagina=pedidos";
+        $botaoValor2["caminho"] = "?pagina=wp_pedidos";
         $botaoValor2["nome"] = "pedidos";
         $botaoValor2["valor"] = "PEDIDOS";
         
-        $botaoValor3["caminho"] = "?pagina=catalago";
+        $botaoValor3["caminho"] = "?pagina=wp_catalogo";
         $botaoValor3["nome"] = "catalogo";
         $botaoValor3["valor"] = "CATÁLOGO";
         
-        $botaoValor4["caminho"] = "?pagina=faleConosco";
+        $botaoValor4["caminho"] = "?pagina=wp_contato";
         $botaoValor4["nome"] = "contato";
         $botaoValor4["valor"] = "CONTATO";
         
-        $botaoValor4["caminho"] = "?pagina=sobre";
-        $botaoValor4["nome"] = "sobre";
-        $botaoValor4["valor"] = "SOBRE";
+        $botaoValor5["caminho"] = "?pagina=wp_sobre";
+        $botaoValor5["nome"] = "sobre";
+        $botaoValor5["valor"] = "SOBRE";
         
         array_push($this->botoesTopo, $botaoValor1);
         array_push($this->botoesTopo, $botaoValor2);
         array_push($this->botoesTopo, $botaoValor3);
         array_push($this->botoesTopo, $botaoValor4);
+        array_push($this->botoesTopo, $botaoValor5);
         
         if(isset($botoes["botao"]) and !empty($botoes["botao"])){
             foreach ($botoes["botao"] as $botao) {
@@ -100,8 +115,8 @@ class EstruturaView {
     }
     
     public function mostrarRodape() {
-        $botaoValor5["caminho"] = "?pagina=login";
-        $botaoValor5["nome"] = "login";
+        $botaoValor5["caminho"] = "?pagina=wp_Login";
+        $botaoValor5["nome"] = "Cliente";
         $botaoValor5["valor"] = "LOGIN";
                 
         $botoes = $this->botoesTopo;

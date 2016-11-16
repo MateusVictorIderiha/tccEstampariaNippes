@@ -16,59 +16,50 @@ namespace estamparia\model;
 
 use estamparia\libs\Crud;
 
-abstract class CepModel extends Crud {
+class CepModel extends Crud {
 
     //put your code here
-    private $cep;
-    private $estado;
-    private $cidade;
-    private $rua;
-    private $bairro;
-    protected $tabela = "Cep";
+    protected $id_cep;
+    protected $cep;
+    protected $estado;
+    protected $cidade;
+    protected $bairro;
+    protected $rua;
+    protected $tabela = "tcc_cep";
     protected $consultaColunaId = "id_cep";
 
-    public function __construct() {
+    public function __construct($idCep = null) {
         parent::__construct();
+        
+        $lista = $this->consultar($idCep);
+        
+        if($lista){
+            $this->id_cep = $idCep;
+            $this->cep = $lista["cep"];
+            $this->estado = $lista["estado"];
+            $this->cidade = $lista["cidade"];
+            $this->rua = $lista["rua"];
+        }
     }
 
-    function getCep() {
-        return $this->cep;
+    public function consultarCep($cep) {
+        $comando = $this->banco->prepare("SELECT * from tcc_cep"
+                . " where cep = $cep");
+        $comando->execute();
+        $lista = $comando->fetch(\PDO::FETCH_ASSOC);
+        
+        return $lista;
+    }
+    
+    public function editar($id) {
+        
     }
 
-    function getEstado() {
-        return $this->estado;
+    public function inserir() {
+        
     }
 
-    function getCidade() {
-        return $this->cidade;
+    public function mostrarInformacoes() {
+        
     }
-
-    function getRua() {
-        return $this->rua;
-    }
-
-    function getBairro() {
-        return $this->bairro;
-    }
-
-    function setCep($cep) {
-        $this->cep = $cep;
-    }
-
-    function setEstado($estado) {
-        $this->estado = $estado;
-    }
-
-    function setCidade($cidade) {
-        $this->cidade = $cidade;
-    }
-
-    function setRua($rua) {
-        $this->rua = $rua;
-    }
-
-    function setBairro($bairro) {
-        $this->bairro = $bairro;
-    }
-
 }

@@ -19,6 +19,7 @@ abstract class UsuarioModel extends PessoaModel {
 
     //put your code here
     private $cookieSeguranca;
+    protected $rg;
     protected $idUsuario;
     protected $postUsuarioLogin;
     protected $postSenhaLogin;
@@ -36,11 +37,53 @@ abstract class UsuarioModel extends PessoaModel {
                 $this->idUsuario = $lista["id_usuario"];
                 $this->postUsuarioLogin = $usuario;
                 $this->login = $lista["login"];
+                $this->rg = $lista["RG"];
+                $this->dataNascimento = $lista["dataNascimento"];
                 $this->postSenhaLogin = $this->Md5EncodeSenha($senha);
                 $this->cpf = $lista["cpf_usuario"];
                 $this->nome = $lista["nome"];
             }
         }
+    }
+    
+    public function getIdUsuario() {
+        return $this->idUsuario;
+    }
+
+    public function getPostUsuarioLogin() {
+        return $this->postUsuarioLogin;
+    }
+
+    public function getPostSenhaLogin() {
+        return $this->postSenhaLogin;
+    }
+
+    public function getLogin() {
+        return $this->login;
+    }
+    
+    public function getRg() {
+        return $this->rg;
+    }
+
+    public function setRg($rg) {
+        $this->rg = $rg;
+    }
+
+    public function setIdUsuario($idUsuario) {
+        $this->idUsuario = $idUsuario;
+    }
+
+    public function setPostUsuarioLogin($postUsuarioLogin) {
+        $this->postUsuarioLogin = $postUsuarioLogin;
+    }
+
+    public function setPostSenhaLogin($postSenhaLogin) {
+        $this->postSenhaLogin = $postSenhaLogin;
+    }
+
+    public function setLogin($login) {
+        $this->login = $login;
     }
 
     public function Md5EncodeSenha($senha) {
@@ -49,6 +92,12 @@ abstract class UsuarioModel extends PessoaModel {
         return $encriptografado;
     }
 
+    public function retornaLogin($id) {
+        $lista = $this->consultar($id);
+        
+        return $lista["login"];
+    }
+    
     public function validaUsuario($usuario, $senha) {
         $comando = $this->banco->prepare("SELECT * from $this->tabela where "
                 . "(cpf_usuario=:cpf_usuario or login=:login) and senha=:senha");
@@ -66,37 +115,57 @@ abstract class UsuarioModel extends PessoaModel {
     }
 
     public function expulsaUsuario() {
-        header("location:../view/home.phtml");
+        header("location:?pagina=wp_login");
     }
 
     public function loginSessao($postUsuario, $postSenha) {
         $login = $this->validaUsuario($postUsuario, md5($postSenha));
         if($login) {
-            $_SESSION["usuario"] = $login[0]["id_usuario"];
-            $_SESSION["senha"] = base64_encode($login[0]["senha"]);
+            if(!isset($_SESSION)){
+                session_start();
+            }
+            $_SESSION["usuario"] = $login["id_usuario"];
+            $_SESSION["senha"] = base64_encode($login["senha"]);
+            //header("location:?pagina=wp_Cliente&acao=mostrar_bem_vindo");
+            echo $_SESSION["usuario"];
+            echo "<a href='?pagina=wp_Cliente&acao=mostrar_bem_vindo'>link<a/>";
+        } else {
+            echo "Senha ou usuario incorretos";
         }
     }
 
     public function logoutSessao() {
+        if(!isset($_SESSION)){
+            session_start();
+        }
         if(isset($_SESSION["usuario"]) and isset($_SESSION["senha"])) {
             unset($_SESSION["usuario"]);
             unset($_SESSION["senha"]);
+            header("location:?pagina=wp_home");
         }
     }
 
     public function loginCookie($postUsuario, $postSenha) {
         $login = $this->validaUsuario($postUsuario, md5($postSenha));
         if($login) {
-            $_COOKIE["usuario"] = $login[0]["id_usuario"];
-            $_COOKIE["senha"] = base64_encode($login[0]["senha"]);
+            setcookie("usuario", $login["id_usuario"], time()+604800);
+            setcookie('senha', base64_encode($login["senha"]), time()+604800);
+            if(isset($_COOKIE["usuario"]) and !empty($_COOKIE["usuario"])){
+                echo "O cookie id é ".$_COOKIE["usuario"];
+            }
+            echo "<a href='?pagina=wp_Cliente&acao=mostrar_bem_vindo'>link<a/>";
+        } else {
+            echo "Senha ou usuario incorretos";
         }
     }
 
     public function logoutCookie() {
         if(isset($_COOKIE["usuario"]) and isset($_COOKIE["senha"])) {
-            unset($_COOKIE["usuario"]);
-            unset($_COOKIE["senha"]);
-            header("location:");
+            setcookie("usuario");
+            setcookie("senha");
+            /*unset($_COOKIE["usuario"]);
+            unset($_COOKIE["senha"]);*/
+            header("location:?pagina=wp_home");
         }
     }
 
@@ -105,26 +174,55 @@ abstract class UsuarioModel extends PessoaModel {
      * se passa as variaveis globais COOKIE ou SESSION para a verificação
      */
 
-    public function verificaLogin($login, $senha) {
-        if(isset($this->postUsuarioLogin) and isset($this->postSenhaLogin)
-                and isset($login) and isset($senha)
-                and $this->postUsuarioLogin == $login
-                and $this->postSenhaLogin == $senha) {
-            if($this->validaUsuario($login, base64_decode($senha))) {
-                return true;
-            } else {
-                $this->expulsaUsuario();
-            }
+    public function verificaLoginSessao() {
+        $login = null;
+        $senha = null;
+        if(!isset($_SESSION)){
+            session_start();
+        }
+        if (isset($_SESSION['usuario']) and isset($_SESSION['senha']) and 
+                !empty($_SESSION['usuario']) and !empty($_SESSION['senha'])) {
+            $idUsuario = $_SESSION['usuario'];
+            $senha = $_SESSION['senha'];
+            
+            $objCliente = new ClienteModel();
+            $login = $objCliente->retornaLogin($idUsuario);
+        }
+        
+        if($this->validaUsuario($login, base64_decode($senha))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function verificaLoginCookie() {
+        $login = null;
+        $senha = null;
+        if (isset($_COOKIE['usuario']) and isset($_COOKIE['senha']) and 
+                !empty($_COOKIE['usuario']) and !empty($_COOKIE['senha'])) {
+            $idUsuario = $_COOKIE['usuario'];
+            $senha = base64_decode($_COOKIE['senha']);
+            
+            $objCliente = new ClienteModel();
+            $login = $objCliente->retornaLogin($idUsuario);
+        }
+        
+        
+        if($this->validaUsuario($login, $senha)) {
+            return true;
+        } else {
+            return false;
         }
     }
 
     public function inserir() {
         $comando = $this->banco->prepare("INSERT INTO $this->tabela(cpf_usuario,"
-                . " email, senha, RG, dataNascimento, nome, nivel) values(:cpf_usuario,"
-                . " :email, :senha, :rg, :dataNascimento, :nome, :nivel)");
+                . " senha, RG, dataNascimento, nome, nivel, login) values(:cpf_usuario,"
+                . " :senha, :rg, :dataNascimento, :nome, :nivel, :login)");
         $comando->bindParam(":cpf_usuario", $this->cpf);
-        $comando->bindParam(":email", $this->email);
-        $comando->bindParam(":senha", $this->senhaLogin);
+        $comando->bindParam(":senha", md5($this->postSenhaLogin));
+        $comando->bindParam(":login", $this->postUsuarioLogin);
         $comando->bindParam(":rg", $this->rg);
         $comando->bindParam(":dataNascimento", $this->dataNascimento);
         $comando->bindParam(":nome", $this->nome);
@@ -142,8 +240,8 @@ abstract class UsuarioModel extends PessoaModel {
                 . "cpf_usuario=:cpf_usuario,email=:email,senha=:senha,RG=:rg,"
                 . "dataNascimento=:dataNascimento,nome=:nome WHERE $this->consultaColunaId=$id");
         $comando->bindParam(":cpf_usuario", $this->cpf);
-        $comando->bindParam(":email", $this->email);
-        $comando->bindParam(":senha", $this->senha);
+        $comando->bindParam(":senha", md5($this->postSenhaLogin));
+        $comando->bindParam(":login", $this->postUsuarioLogin);
         $comando->bindParam(":rg", $this->rg);
         $comando->bindParam(":dataNascimento", $this->dataNascimento);
         $comando->bindParam(":nome", $this->nome);
@@ -153,7 +251,6 @@ abstract class UsuarioModel extends PessoaModel {
     public function mostrarInformacoes() {
         $informacoes[] = $this->idUsuario;
         $informacoes[] = $this->login; // Email
-        $informacoes[] = $this->nivel;
         $informacoes[] = $this->cpf;
         $informacoes[] = $this->nome;
         $informacoes[] = $this->dataNascimento;
