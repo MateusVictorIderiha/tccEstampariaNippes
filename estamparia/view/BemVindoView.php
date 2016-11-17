@@ -47,7 +47,7 @@ class BemVindoView extends EstruturaView{
         echo "  <img src='img/login.png' width='40px'/></p></a>
                 <figure>
                     <figcaption class='margin-left'>
-                        <a href='vendas.html' class='font25px'><b>Confira Seu Carrinho</b></a>
+                        <a href='?pagina=wp_carrinho&acao=mostrar_carrinho' class='font25px'><b>Confira Seu Carrinho</b></a>
                     </figcaption>
                 </figure>		
             </section>

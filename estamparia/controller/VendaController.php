@@ -8,7 +8,7 @@
 
 namespace estamparia\controller;
 
-use estamparia\view\CadastroView;
+use estamparia\view\VendasView;
 
 /**
  * Description of VendaController
@@ -19,7 +19,7 @@ class VendaController {
     //put your code here
     
     public function mostrarCarrinho() {
-        $objCarrinho = new CadastroView();
+        $objCarrinho = new VendasView();
         $objCarrinho->mostrarConteudo();
         $objCarrinho->mostrarRodape();
     }

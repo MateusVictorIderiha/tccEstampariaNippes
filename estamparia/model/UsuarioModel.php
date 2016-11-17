@@ -126,9 +126,7 @@ abstract class UsuarioModel extends PessoaModel {
             }
             $_SESSION["usuario"] = $login["id_usuario"];
             $_SESSION["senha"] = base64_encode($login["senha"]);
-            //header("location:?pagina=wp_Cliente&acao=mostrar_bem_vindo");
-            echo $_SESSION["usuario"];
-            echo "<a href='?pagina=wp_Cliente&acao=mostrar_bem_vindo'>link<a/>";
+            header("location:?pagina=wp_bem_vindo&acao=mostrar_bem_vindo");
         } else {
             echo "Senha ou usuario incorretos";
         }
@@ -150,10 +148,7 @@ abstract class UsuarioModel extends PessoaModel {
         if($login) {
             setcookie("usuario", $login["id_usuario"], time()+604800);
             setcookie('senha', base64_encode($login["senha"]), time()+604800);
-            if(isset($_COOKIE["usuario"]) and !empty($_COOKIE["usuario"])){
-                echo "O cookie id é ".$_COOKIE["usuario"];
-            }
-            echo "<a href='?pagina=wp_Cliente&acao=mostrar_bem_vindo'>link<a/>";
+            header("location:?pagina=wp_bem_vindo&acao=mostrar_carrinho");
         } else {
             echo "Senha ou usuario incorretos";
         }
