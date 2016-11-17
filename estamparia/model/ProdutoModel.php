@@ -27,7 +27,7 @@ abstract class ProdutoModel extends Crud {
     //protected $marca;
     protected $peso;
     protected $tipoProduto;
-    protected $modelo;
+    protected $idModelo;
     protected $material;
     protected $categoria;
     protected $personalizado = "N";
@@ -276,6 +276,18 @@ abstract class ProdutoModel extends Crud {
         $comando->execute();
     }
 
+    public function consultarProdutos() {
+        
+    }
+    
+    public function consultarPedidos() {
+        
+    }
+    
+    public function consultar() {
+        
+    }
+    
     public function mostrarInformacoes() {
         $informacoes[] = $this->idProduto;
         $informacoes[] = $this->nome;
