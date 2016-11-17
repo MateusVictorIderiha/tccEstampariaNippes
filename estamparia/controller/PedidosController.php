@@ -23,5 +23,4 @@ class PedidosController implements PadraoController{
         $objPedidos->mostrarConteudo();
         $objPedidos->mostrarRodape();
     }
-
 }
