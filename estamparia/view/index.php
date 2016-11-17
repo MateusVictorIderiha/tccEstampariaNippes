@@ -11,4 +11,4 @@ use estamparia\controller\IndexController;
 require_once '../../vendor/autoload.php';
 
 $objController = new IndexController();
-$obj = $objController->paginasMenu();
+$objController->carregarPagina();
