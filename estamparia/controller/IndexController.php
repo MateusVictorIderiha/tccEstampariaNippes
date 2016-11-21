@@ -42,8 +42,10 @@ class IndexController {
             $pagina = $this->removePrefixoCamelCase($_REQUEST["pagina"]);
             if(class_exists(self::CAMINHO.$pagina."Controller")){
                 $this->controller = self::CAMINHO.$pagina."Controller";
-            } elseif($pagina == "Login" or $pagina == "Cadastrar") {
+            } elseif($pagina == "Login" or $pagina == "Cadastrar" or $pagina == "BemVindo") {
                 $this->controller = self::CAMINHO."Cliente"."Controller";
+            } elseif($pagina == "Carrinho") {
+                $this->controller = self::CAMINHO."Venda"."Controller";
             } else {
                 $this->controller = self::CAMINHO."Home"."Controller";
             }
