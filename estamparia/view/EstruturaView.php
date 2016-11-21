@@ -89,7 +89,7 @@ class EstruturaView {
         $botaoValor2["nome"] = "pedidos";
         $botaoValor2["valor"] = "PEDIDOS";
         
-        $botaoValor3["caminho"] = "?pagina=wp_catalogo";
+        $botaoValor3["caminho"] = "?pagina=wp_produto";
         $botaoValor3["nome"] = "catalogo";
         $botaoValor3["valor"] = "CATÁLOGO";
         

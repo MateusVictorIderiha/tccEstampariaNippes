@@ -9,18 +9,28 @@
 namespace estamparia\controller;
 
 use estamparia\view\VendasView;
+use estamparia\model\TamanhoModel;
+use estamparia\controller\PadraoController;
 
 /**
  * Description of VendaController
  *
  * @author Mateus
  */
-class VendaController {
+class VendaController implements PadraoController{
     //put your code here
     
     public function mostrarCarrinho() {
-        $objCarrinho = new VendasView();
+        $objTamanho = new TamanhoModel();
+        $listaTamanhos = $objTamanho->consultarTudo();
+        
+        $objCarrinho = new VendasView($listaTamanhos);        
         $objCarrinho->mostrarConteudo();
         $objCarrinho->mostrarRodape();
     }
+
+    public function mostrarPagina() {
+        
+    }
+
 }

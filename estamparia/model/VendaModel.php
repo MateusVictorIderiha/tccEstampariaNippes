@@ -18,10 +18,10 @@ use estamparia\libs\Crud;
 class VendaModel extends Crud {
 
     //put your code here
-    protected $idProduto;
+    protected $produtoVenda; // array(idProd, idCor, qtd, estoque,idTamanho, preco, total)
     protected $idVenda;
-    protected $quantidade;
-    protected $precoProdutos;
+    //protected $quantidade;
+    //protected $precoProdutos;
     protected $dataAberto;
     protected $dataFinalizado;
     protected $statusDaVenda;
@@ -41,7 +41,9 @@ class VendaModel extends Crud {
         if($lista) {
             (!empty($idProduto)) ? ($this->idVenda = $lista["id_venda"]) : "";
             $this->idVenda = $lista["id_venda"];
-            $this->idProduto = $lista["id_produto"];
+            $this->produtoVenda = array("id_produto" => $lista["id_produto"], 
+                //"id_tamanho" => $lista["id_tamanho"], "id_cor" => $lista["id_cor"], 
+                "precoUnitario" => $lista["preco"], "quantidade" => $lista["quantidade"]);
             $this->dataAberto = $lista["dataAberto"];
             $this->dataFinalizado = $lista["dataFinalizada"];
             $this->tipoVenda = $lista["tipoVenda"];
@@ -50,8 +52,8 @@ class VendaModel extends Crud {
             $this->total = $lista["total"];
             $this->idEndereco = $lista["id_endereco"];
             (!empty($idProduto)) ? ($this->idCliente = $lista["id_cliente"]) : "";
-            (!empty($idProduto)) ? ($this->quantidade = $lista["quantidade"]) : "";
-            (!empty($idProduto)) ? ($this->precoProdutos = $lista["preco"]) : "";
+            //(!empty($idProduto)) ? ($this->quantidade = $lista["quantidade"]) : "";
+            //(!empty($idProduto)) ? ($this->precoProdutos = $lista["preco"]) : "";
         }
     }
 
@@ -59,24 +61,12 @@ class VendaModel extends Crud {
         
     }
 
-    public function getIdProdutoVenda() {
-        return $this->idProdutoVenda;
-    }
-
-    public function getIdProduto() {
-        return $this->idProduto;
+    public function getProduto() {
+        return $this->produtoVenda;
     }
 
     public function getIdVenda() {
         return $this->idVenda;
-    }
-
-    public function getQuantidade() {
-        return $this->quantidade;
-    }
-
-    public function getPrecoProdutos() {
-        return $this->precoProdutos;
     }
 
     public function getDataAberto() {
@@ -89,14 +79,6 @@ class VendaModel extends Crud {
 
     public function getStatusDaVenda() {
         return $this->statusDaVenda;
-    }
-
-    public function getTipoVenda() {
-        if($this->tipoVenda == "V") {
-            return "Venda";
-        } elseif($this->tipoVenda == "O") {
-            return "Orçamento";
-        }
     }
 
     public function getDesconto() {
@@ -115,24 +97,12 @@ class VendaModel extends Crud {
         return $this->idEndereco;
     }
 
-    public function setIdProdutoVenda($idProdutoVenda) {
-        $this->idProdutoVenda = $idProdutoVenda;
-    }
-
-    public function setIdProduto($idProduto) {
-        $this->idProduto = $idProduto;
+    public function setProduto($idProduto) {
+        $this->produtoVenda = $idProduto;
     }
 
     public function setIdVenda($idVenda) {
         $this->idVenda = $idVenda;
-    }
-
-    public function setQuantidade($quantidade) {
-        $this->quantidade = $quantidade;
-    }
-
-    public function setPrecoProdutos($precoProdutos) {
-        $this->precoProdutos = $precoProdutos;
     }
 
     public function setDataAberto($dataAberto) {
@@ -147,24 +117,20 @@ class VendaModel extends Crud {
         $this->statusDaVenda = $statusDaVenda;
     }
 
-    public function setTipoVenda($tipoVenda) {
-        $this->tipoVenda = $tipoVenda;
-    }
-
     public function setDesconto($desconto) {
         $this->desconto = $desconto;
     }
 
-    public function setTotal($total) {
-        $this->total = $total;
-    }
-
-    public function setIdCliente($idCliente) {
-        $this->idCliente = $idCliente;
-    }
-
     public function setIdEndereco($idEndereco) {
         $this->idEndereco = $idEndereco;
+    }
+
+    public function getTipoVenda() {
+        if($this->tipoVenda == "V") {
+            return "Venda";
+        } elseif($this->tipoVenda == "O") {
+            return "Orçamento";
+        }
     }
 
     public function consultarProdutoVenda($idProduto, $idVenda) {
@@ -202,6 +168,18 @@ class VendaModel extends Crud {
         }
     }
 
+    public function calcularTotal() {
+        if(isset($this->produtoVenda)){
+            foreach ($this->produtoVenda as $produto) {
+                $conjuntoPrecos = $produto["preco"] * $produto["quantidade"];
+                $conjuntoTotais[] = $conjuntoPrecos;
+            }
+            $this->total = array_sum($conjuntoTotais);
+        } else {
+            return "não há produtos";
+        }
+    }
+    
     public function editar($id) {
         $comando = $this->banco->prepare("UPDATE $this->tabela SET "
                 . "`dataAberto`=:dataAberto, `VendaStatus`=:vendaStatus, 
@@ -257,8 +235,8 @@ class VendaModel extends Crud {
         $informacoes[] = $this->idProdutoVenda;
         $informacoes[] = $this->idVenda;
         $informacoes[] = $this->idProduto;
-        $informacoes[] = $this->precoProdutos;
-        $informacoes[] = $this->quantidade;
+        //$informacoes[] = $this->precoProdutos;
+        //$informacoes[] = $this->quantidade;
         $informacoes[] = $this->dataAberto;
         $informacoes[] = $this->dataFinalizado;
         $informacoes[] = $this->tipoVenda;

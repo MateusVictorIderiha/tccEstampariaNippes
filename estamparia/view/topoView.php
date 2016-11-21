@@ -37,17 +37,21 @@ class topoView {
         echo "<!doctype html>
         <html lang='pt-BR'>
             <head>
-                <meta charset='utf-8'>
-                <meta name='viewport' content='width = device-width, initial-scale = 1' />";
+                <meta charset='utf-8' />
+                <meta name='viewport' content='width = device-width, initial-scale = 1' />
+                ";
         foreach ($this->styles as $style) {
-                echo "<link rel='stylesheet' type='text/css' href='$style[caminho]' media='$style[media]' />";
+                echo "<link rel='stylesheet' type='text/css' href='".$style['caminho']."' media='".$style['media']."' />
+                      ";
         }
         foreach ($this->javascripts as $javascript){
-                echo "<script src='$javascript[caminho]' ></script>";
+                echo "<script src='$javascript[caminho]' ></script>
+                        ";
         }
-                echo "<title>Nippes Estamparia</title>"
-        . "</head>"
-        . "<body>";
+                echo "<title>Nippes Estamparia</title>
+            </head>
+        <body>
+        ";
         echo "<header class='century'>
             <nav class='first'>
                 <img class='logotipo' src='img/logo.png'/> <b class='font15px'>| ESTAMPARIA </b>
@@ -61,7 +65,7 @@ class topoView {
             <nav class='firstcabecalho'>
                 <ul class='cabecalho'>";
             foreach ($this->botoes as $botao) {
-                    echo "<li><a href='".$botao["caminho"]."' name='$botao[nome]]'> $botao[valor] </a></li>";
+                    echo "<li><a href='".$botao['caminho']."' name='".$botao['nome']."'> ".$botao['valor']." </a></li>";
             }
             echo "</ul>
                 <div class='pesquisa'>

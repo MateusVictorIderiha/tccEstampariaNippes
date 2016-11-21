@@ -17,92 +17,39 @@ use estamparia\view\EstruturaView;
  */
 class CatalagoView extends EstruturaView{
     //put your code here
+    private $listaProdutos;
+    private $caminhoImagem = "../imagens/";
+
+
+    public function __construct($listaProdutos) {
+        parent::__construct();
+        
+        $this->listaProdutos = $listaProdutos;
+    }
+    
     public function mostrarConteudo() {
-        echo "           
+        echo "     
             <section class='min-width50 textcenter'>
                 <header class='textcenter'>
-                    <h1 class='whitecolor'>NOSSOS PRODUTOS:</h1></br>
+                    <h1 class='whitecolor'>NOSSOS PRODUTOS:</h1>
                 </header>
-                <figure class='catalogovenda'>
-                    <img src='img/img1.png' title='Camisa'/>
+                ";
+        foreach ($this->listaProdutos as $produto) {
+                $preco = "R$ ".number_format($produto['preco']);
+                echo "<figure class='catalogovenda'>
+                    <img src='". $this->caminhoImagem.$produto['fotoProduto']. "' ".
+                        "data-toggle='tooltip' data-placement='top' title='Camiseta ".
+                        $produto['nome']." a ".$preco."'/>
                     <figcaption>
                         <p>
-                            <a href='#'>	Jazzman a partir de <b>R$64,90</b> </a>
+                            <a href='?pagina=wp_produto&acao=consultar_produto&id=".$produto["id_produto"]."'> "
+                                .$produto['descricao']." a partir de <b>".$preco.
+                            "</b> </a>
                         </p>
                     </figcaption>
-                </figure>
-                <figure class='catalogovenda'>
-                    <img src='img/img2.png' title='Camisa' />
-                    <figcaption>
-                        <p>
-                            <a href='#'>Music is the way a partir de <b>R$64,90</b></a>
-                        </p>
-                    </figcaption>
-                </figure>	
-                <figure class='catalogovenda'>
-                    <img src='img/img3.png' title='Camisa' />
-                    <figcaption>
-                        <p>
-                            <a href='#'>Dark Prince a partir de <b>R$64,90</b></a>
-                        </p>
-                    </figcaption>
-                </figure>	
-                <figure class='catalogovenda'>
-                    <img src='img/img4.png' title='Camisa' />
-                    <figcaption>
-                        <p>
-                            <a href='#'>Infinite Love a partir de <b>R$64,90</b></a>
-                        </p>
-                    </figcaption>
-                </figure>	
-                <figure class='catalogovenda'>
-                    <img src='img/img5.png' title='Camisa' />
-                    <figcaption>
-                        <p>
-                            <a href='#'>Am I Free Or Tield Up a partir de <b>R$64,90</b></a>
-                        </p>
-                    </figcaption>
-                </figure>		
-                <figure class='catalogovenda'>
-                    <img src='img/img6.png' title='Camisa' />
-                    <figcaption>
-                        <p>
-                            <a href='#'>Until The Very End a partir de <b>R$64,90</b></a>
-                        </p>
-                    </figcaption>
-                </figure>		
-                <figure class='catalogovenda'>
-                    <img src='img/img7.png' title='Camisa' />
-                    <figcaption>
-                        <p>
-                            <a href='#'>Winter is Coming a partir de <b>R$64,90</b></a>
-                        </p>
-                    </figcaption>
-                </figure>	
-                <figure class='catalogovenda'>
-                    <img src='img/img8.png' title='Camisa' />
-                    <figcaption>
-                        <p>
-                            <a href='#'>Tente outra vez a partir de <b>R$64,90</b></a>
-                        </p>
-                    </figcaption>
-                </figure>	
-                <figure class='catalogovenda'>
-                    <img src='img/img2.png' title='Camisa' />
-                    <figcaption>
-                        <p>
-                            <a href='#'>Tente outra vez a partir de <b>R$64,90</b></a>
-                        </p>
-                    </figcaption>
-                </figure>	
-                <figure class='catalogovenda'>
-                    <img src='img/img1.png' title='Camisa' />
-                    <figcaption>
-                        <p>
-                            <a href='#'>Tente outra vez a partir de <b>R$64,90</b></a>
-                        </p>
-                    </figcaption>
-                </figure>	
+                </figure>";
+        }
+ 	echo "
                 <div class='botaovermais'>
                     <input class='col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-primary' type='submit' value='Ver Mais' data-toggle='tooltip' title='Clique aqui para ENTRAR' data-placement='bottom'/>
                 </div>		

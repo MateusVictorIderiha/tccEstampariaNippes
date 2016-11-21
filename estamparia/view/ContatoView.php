@@ -57,9 +57,7 @@ class ContatoView extends EstruturaView{
         </section>
 
         <article class='positionleft font25px absolute padding22'>
-            <p><b>CONTATO</b></p>
-            <br>
-
+            <h1>CONTATO</h1>
             <p>
                 RUA MARIA GERMANI<br>
                 18053-030-, Nº:883<br>

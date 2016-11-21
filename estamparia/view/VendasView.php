@@ -16,7 +16,12 @@ use estamparia\view\EstruturaView;
  * @author Mateus
  */
 class VendasView extends EstruturaView{
-
+    private $listaTamanhos;
+    
+    public function __construct($listaTamanhos) {
+        parent::__construct();
+        $this->listaTamanhos = $listaTamanhos;
+    }
     //put your code here
     public function mostrarConteudo() {
         echo "           
@@ -36,22 +41,24 @@ class VendasView extends EstruturaView{
                             <td><p class='font20px'>Camiseta Until The Very End</p></td>
                             <td>
                                 <div>
-                                    <p>Quantidade:
-                                        <select id='quantidade' name='quantidade' data-toggle='tooltip' title='Informe a quantidade' data-placement='bottom' />
-                                    <option value=''></option>
-                                    <option value=''>GG</option></p>
+                                    Quantidade:
+                                    <select id='quantidade' name='quantidade' data-toggle='tooltip' title='Informe a quantidade' data-placement='bottom' />
+                                        <option value=''></option>
+                                        
                                     </select>
                                 </div>
                             </td>
                             <td>
                                 <div>Tamanho:
                                     <select id='tamanho' name='tamanho' data-toggle='tooltip' title='Informe o tamanho da camiseta' data-placement='bottom' />
-                                    <option value=''></option>
-                                    <option value=''>P</option>
-                                    <option value=''>M</option>
-                                    <option value=''>G</option>
-                                    <option value=''>GG</option>
-                                    </select>
+                                        <option value=''></option>";
+                                    foreach ($this->listaTamanhos as $tamanho) {
+                                        echo "<option value='".$tamanho['id_tamanho']."'>"
+                                                .$tamanho['tamanho'].
+                                              "</option>";
+                                    }
+
+                              echo "</select>
                                 </div>
                             </td>
                         </tr>

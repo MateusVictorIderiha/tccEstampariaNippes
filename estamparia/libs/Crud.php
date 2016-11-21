@@ -62,18 +62,19 @@ abstract class Crud {
     }
 
     public function consultarTudo() {
-        echo "Iniciando consulta inteira em $this->tabela...<br/>";
+        //echo "Iniciando consulta inteira em $this->tabela...<br/>";
         $comando = $this->banco->prepare("SELECT * FROM $this->tabela");
         $comando->execute();
 
         $lista = $comando->fetchAll(\PDO::FETCH_ASSOC);
-        //return $lista;
+        return $lista;
+        /*
         foreach ($lista as $value) {
             foreach ($value as $chave => $valor) {
                 echo $chave . ": " . $valor . "<br />";
             }
             echo "<br /><br /><hr />";
-        }
+        }*/
     }
 
 }

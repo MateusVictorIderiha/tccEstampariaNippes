@@ -18,7 +18,6 @@ use estamparia\libs\Crud;
 use estamparia\libs\TamanhoModel;
 
 abstract class ProdutoModel extends Crud {
-
     //put your code here
     protected $idProduto;
     protected $nome;
@@ -30,14 +29,14 @@ abstract class ProdutoModel extends Crud {
     protected $idModelo;
     protected $material;
     protected $categoria;
-    protected $personalizado = "N";
+    protected $personalizado;
     protected $idCor;
     protected $idTamanho;
     protected $quantidade;
     protected $tabela = "tcc_produtos";
     protected $consultaColunaId = "id_produto";
 
-    public function __construct($idProduto = null, $idTamanho = null , $personalizado = null) {
+    public function __construct($idProduto = null, $idTamanho = null) {
         parent::__construct();
 
             $usarConsulta = empty($idTamanho) ? ($this->consultar($idProduto)) :
@@ -54,7 +53,7 @@ abstract class ProdutoModel extends Crud {
                 $this->categoria = $lista["categoria"];
                 $this->tipoProduto = $lista["tipoProduto"];
                 $this->peso = $lista["peso"];
-                ($personalizado == "S") ? ($this->personalizado = $personalizado) : "";
+                $this->personalizado = $lista["personalizado"];
                 (!empty($idTamanho)) ? ($this->idTamanho = $lista["id_tamanho"]) : "";
                 (!empty($idTamanho)) ? ($this->quantidade = $lista["quantidade"]) : "";
             }
@@ -171,73 +170,12 @@ abstract class ProdutoModel extends Crud {
     public function setIdTamanho($idTamanho) {
         $this->idTamanho = $idTamanho;
     }
+        
 
     public function setQuantidade($quantidade) {
         $this->quantidade = $quantidade;
     }
-    
-    public function consultarEstoque($idProduto,$idTamanho) {
-        $comando = $this->banco->prepare("SELECT * FROM tcc_estoque WHERE "
-                . "id_produto=$idProduto and id_tamanho = $idTamanho");
-        $comando->execute();
-        $listaEstoque = $comando->fetch(\PDO::FETCH_ASSOC);
-
-        if($listaEstoque) {
-            return $listaEstoque;
-        } else {
-            return false;
-        }
-    }
-
-    public function consultarProdutoComEstoque($idProduto, $idTamanho) {  
-        $listaEstoque = $this->consultarEstoque($idProduto, $idTamanho);
-        if($listaEstoque){
-            $listaProduto = $this->consultar($listaEstoque["id_produto"]);
-            if($listaProduto){
-                $listaProduto["id_tamanho"] = $listaEstoque["id_tamanho"];
-                $listaProduto["quantidade"] = $listaEstoque["quantidade"];
-                return $listaProduto;
-            }
-        }
-        return false;
-    }
-
-    public function saidaEstoque($quantidadeSaida) {
-        $lista = $this->consultarEstoque($this->idProduto, $this->idTamanho);
-            
-        if($lista){            
-            $quantidade = $lista["quantidade"];
-            if($quantidade >= $quantidadeSaida){
-                $quantidadeAtual = $quantidade - $quantidadeSaida;
-                
-                $comando = $this->banco->prepare("UPDATE tcc_estoque SET quantidade=:qtdAtual"
-                        . " WHERE id_produto = $this->idProduto and id_tamanho = $this->idTamanho");
-                $comando->bindParam(":qtdAtual", $quantidadeAtual);
-                return $comando->execute();
-            }
-        } else {
-            return "Não há produto em estoque";
-        }
-    }
-    
-    public function entradaEstoque($quantidadeEntrada) {
-        $lista = $this->consultarEstoque($this->idProduto, $this->idTamanho);
-            
-        if($lista){            
-            $quantidade = $lista["quantidade"];
-            if($quantidadeEntrada > 0){
-                $quantidadeAtual = $quantidade + $quantidadeEntrada;
-                
-                $comando = $this->banco->prepare("UPDATE tcc_estoque SET quantidade=:qtdAtual"
-                        . " WHERE id_produto = $this->idProduto and id_tamanho = $this->idTamanho");
-                $comando->bindParam(":qtdAtual", $quantidadeAtual);
-                return $comando->execute();
-            }
-        } else {
-            return "Não há produto em estoque";
-        }
-    }
-    
+        
     public function inserir() {
         $comando = $this->banco->prepare("INSERT INTO $this->tabela(`nome`, `preco`,
                 `fotoProduto`, `modelo`, `material`, `id_cor`, `categoria`,
@@ -275,18 +213,6 @@ abstract class ProdutoModel extends Crud {
         $comando->bindParam(":peso", $this->peso);
         $comando->execute();
     }
-
-    public function consultarProdutos() {
-        
-    }
-    
-    public function consultarPedidos() {
-        
-    }
-    
-    public function consultar() {
-        
-    }
     
     public function mostrarInformacoes() {
         $informacoes[] = $this->idProduto;
@@ -304,5 +230,4 @@ abstract class ProdutoModel extends Crud {
         $informacoes[] = $this->quantidade;
         return $informacoes;
     }
-
 }

@@ -12,7 +12,7 @@
  * @author rm02540
  */
 
-namespace estamparia\libs;
+namespace estamparia\model;
 
 use estamparia\libs\Crud;
 
@@ -24,7 +24,7 @@ class TamanhoModel extends Crud {
     protected $tabela = "tcc_tamanho";
     protected $consultaColunaId = "id_tamanho";
 
-    public function __construct($idTamanho) {
+    public function __construct($idTamanho = null) {
         parent::__construct();
         if(!empty($idTamanho)) {
             $lista = $this->consultar($idTamanho);
