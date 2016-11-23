@@ -19,8 +19,8 @@ use estamparia\model\ContatoModel;
 use estamparia\model\EnderecoModel;
 
 final class ClienteModel extends UsuarioModel {
-
     //put your code here
+    private $caminhoUsuario = "/usuarios/pedidos/";
     private $idEndereco = array();
     private $idContato = array();
 
@@ -69,12 +69,23 @@ final class ClienteModel extends UsuarioModel {
         return $this->idContato;
     }
 
+    public function getCaminhoUsuario() {
+        return $this->caminhoUsuario;
+    }
+
     public function setIdEndereco($idEndereco) {
         $this->idEndereco = $idEndereco;
     }
 
     public function setIdContato($idContato) {
         $this->idContato = $idContato;
+    }
+    
+    public function inserir() {
+        $id = parent::inserir();
+        if($id != 0){
+            mkdir("../imagens/".$this->caminhoUsuario.$id);
+        }
     }
     
     public function mostrarInformacoes() {

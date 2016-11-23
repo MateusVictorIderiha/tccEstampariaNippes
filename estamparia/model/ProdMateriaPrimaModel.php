@@ -25,4 +25,5 @@ class ProdMateriaPrimaModel extends ProdutoModel{
         $lista = $comando->fetchAll(\PDO::FETCH_ASSOC);
         return $lista;
     }
+    
 }

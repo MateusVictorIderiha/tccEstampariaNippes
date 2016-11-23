@@ -30,10 +30,10 @@ class ProdutoController {
     
     public function consultarProduto(){
         if(isset($_GET["id"])){
-            $objProduto = new ProdLojaModel();
-            $produto = $objProduto->consultar($_GET["id"]);
-            if($produto["personalizado"] == "N" and $produto["preco"] !== 0){
-                var_dump($produto);
+            $objProduto = new ProdLojaModel($_GET["id"]);
+            if($objProduto->getPersonalizado() == "N" or $objProduto->getPersonalizado() == "M"
+                    and $objProduto->getPreco() !== 0){
+                var_dump($objProduto);
             }
             
         } else {
@@ -57,5 +57,9 @@ class ProdutoController {
             $objProduto->setIdProduto($_GET["id"]);
             $objProduto->removerCarrinho();
         }
+    }
+    
+    public function functionName($param) {
+        
     }
 }

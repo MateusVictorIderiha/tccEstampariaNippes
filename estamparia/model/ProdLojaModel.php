@@ -17,7 +17,20 @@ use estamparia\model\ProdutoModel;
  */
 class ProdLojaModel extends ProdutoModel{
     //put your code here
+    protected $lotes;
+    protected $quantidadeTotal;
     protected $personalizado = "N";
+    
+    public function __construct($idProduto = null) {
+        parent::__construct($idProduto);
+        
+        if(isset($idProduto)){
+            $this->lotes = $this->consultarEstoque($idProduto);
+            if($this->lotes){
+                $this->quantidadeTotal = $this->calcularQuantidadeTotal($this->lotes);
+            }
+        }
+    }
     
     public function consultarTodosProdutosLoja() {
         $comando = $this->banco->prepare("SELECT * FROM $this->tabela WHERE personalizado='N'");
@@ -25,7 +38,7 @@ class ProdLojaModel extends ProdutoModel{
         $lista = $comando->fetchAll(\PDO::FETCH_ASSOC);
         return $lista;
     }
-    
+/*    
     public function consultarEstoque($idProduto,$idTamanho) {
         $comando = $this->banco->prepare("SELECT * FROM tcc_estoque WHERE "
                 . "id_produto=$idProduto and id_tamanho = $idTamanho");
@@ -51,6 +64,48 @@ class ProdLojaModel extends ProdutoModel{
         }
         return false;
     }
+*/
+    public function calcularQuantidadeTotal($lotes) {
+        if(isset($lotes)){
+            $quantidade = 0;
+            foreach ($lotes as $lote) {
+                if(isset($lote["quantidade"]) && $lote["quantidade"] > 0){
+                    $quantidade += $lote["quantidade"];
+                }
+            }
+            return $quantidade;
+        }
+    }
+    
+    public function consultarEstoque($idProduto){
+        $comando = $this->banco->prepare("SELECT * FROM tcc_lotes WHERE id_produto=$idProduto");
+        $comando->execute();
+        $lista = $comando->fetchAll(\PDO::FETCH_ASSOC);
+        return $lista;
+    }
+    
+    public function consultarProdutoComEstoque($idProduto) {
+        $listaProduto = $this->consultar($idProduto);
+        if($listaProduto){
+            $listaEstoque = $this->consultarEstoque($idProduto);
+            
+            $listaProduto["lotes"] = $listaEstoque;
+            
+            $quantidade = $this->calcularQuantidadeTotal($listaProduto["lotes"]);
+            $listaProduto["quantidadeTotal"] = $quantidade;
+            
+            return $listaProduto;
+          /*  $listaProduto["id_lotes"] = $listaEstoque["id_lotes"];
+            $listaProduto["dataIniciada"] = $listaEstoque["dataIniciada"];
+            $listaProduto["dataFinalizada"] = $listaEstoque["dataFinalizada"];
+            $listaProduto["ativa"] = $listaEstoque["ativa"];
+            $listaProduto["quantidade"] = $listaEstoque["quantidade"];*/
+            
+        } else {
+            return false;
+        }
+    }
+
 
     public function inserirCarrinho() {
         $_COOKIE[$this->idProduto] = $this->idProduto;
@@ -62,39 +117,44 @@ class ProdLojaModel extends ProdutoModel{
     }
     
     public function saidaEstoque($quantidadeSaida) {
-        $lista = $this->consultarEstoque($this->idProduto, $this->idTamanho);
+        $this->lotes = $this->consultarEstoque($this->idProduto);
+        $this->calcularQuantidadeTotal($this->lotes);
+        if($this->quantidadeTotal > 0 && $this->quantidadeTotal >= $quantidadeSaida){
+            foreach ($this->lotes as $lote) {
+                // QtdAtualLote - QtdSaida é igual = RESULTADO, se for negativo passa para o próximo lote pois FALTOU ficou DEVENDO
+                $quantidadeSaida = $lote["quantidade"] - $quantidadeSaida; 
 
-        if($lista){            
-            $quantidade = $lista["quantidade"];
-            if($quantidade >= $quantidadeSaida){
-                $quantidadeAtual = $quantidade - $quantidadeSaida;
-                
-                $comando = $this->banco->prepare("UPDATE tcc_estoque SET quantidade=:qtdAtual"
-                        . " WHERE id_produto = $this->idProduto and id_tamanho = $this->idTamanho");
-                $comando->bindParam(":qtdAtual", $quantidadeAtual);
-                return $comando->execute();
+                if($quantidadeSaida >= 0){
+                    // Se for positivo executa e da update normal
+                    $comando = $this->banco->prepare("UPDATE tcc_estoque SET quantidade=:qtdAtual"
+                            . " WHERE id_produto = $this->idProduto and id_lotes = ".$lote["id_lotes"]);
+                    $comando->bindParam(":qtdAtual", $quantidadeSaida);
+                    return $comando->execute(); // PARA AQUI
+                } else {
+                    $comando = $this->banco->prepare("UPDATE tcc_estoque SET "
+                            . "quantidade=:qtdAtual, dataFinalizada=:dataFinalizada"
+                        . " WHERE id_produto = $this->idProduto and id_lotes = ".$lote["id_lotes"]);
+                    $comando->bindParam(":qtdAtual", 0); // zerou o estoque que ficou DEVENDO e Finalizou o lote com DATA
+                    $dataFin = date("Y-m-d");
+                    $comando->bindParam(":dataFinalizada", $dataFin); // zerou o estoque que ficou DEVENDO e Finalizou o lote com DATA
+                    $comando->execute();
+                    $quantidadeSaida = $quantidadeSaida * -1; // transformando negativo em POSITIVO, para calcular o que FALTOU, ficou DEVENDO
+                }
             }
         } else {
-            return "Não há produto em estoque";
+            return "Não há produtos em estoque";
         }
     }
     
     public function entradaEstoque($quantidadeEntrada) {
-        $lista = $this->consultarEstoque($this->idProduto, $this->idTamanho);
-            
-        if($lista){            
-            $quantidade = $lista["quantidade"];
-            if($quantidadeEntrada > 0){
-                $quantidadeAtual = $quantidade + $quantidadeEntrada;
-                
-                $comando = $this->banco->prepare("UPDATE tcc_estoque SET quantidade=:qtdAtual"
-                        . " WHERE id_produto = $this->idProduto and id_tamanho = $this->idTamanho");
-                $comando->bindParam(":qtdAtual", $quantidadeAtual);
-                return $comando->execute();
-            }
-        } else {
-            return "Não há produto em estoque";
+        if($quantidadeEntrada > 0){
+            $comando = $this->banco->prepare("INSERT INTO tcc_lotes(dataIniciada, "
+                    . "quantidade, id_produto) VALUES (:dataIniciada, :quantidade, :id_produto)");
+            $dataIni = date("Y-m-d");
+            $comando->bindParam(":dataIniciada", $dataIni);
+            $comando->bindParam(":quantidade", $quantidadeEntrada);
+            $comando->bindParam(":id_produto", $this->idProdutos);
+            return $comando->execute();
         }
     }
-    
 }

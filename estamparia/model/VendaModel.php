@@ -18,7 +18,7 @@ use estamparia\libs\Crud;
 class VendaModel extends Crud {
 
     //put your code here
-    protected $produtoVenda; // array(idProd, idCor, qtd, estoque,idTamanho, preco, total)
+    protected $produtoVenda; // array(idProd, qtd, total)
     protected $idVenda;
     //protected $quantidade;
     //protected $precoProdutos;
@@ -41,9 +41,8 @@ class VendaModel extends Crud {
         if($lista) {
             (!empty($idProduto)) ? ($this->idVenda = $lista["id_venda"]) : "";
             $this->idVenda = $lista["id_venda"];
-            $this->produtoVenda = array("id_produto" => $lista["id_produto"], 
-                //"id_tamanho" => $lista["id_tamanho"], "id_cor" => $lista["id_cor"], 
-                "precoUnitario" => $lista["preco"], "quantidade" => $lista["quantidade"]);
+            $this->produtoVenda = array("id_produto" => $lista["id_produto"],
+                "precoUnitario" => $lista["preco"], "quantidade" => $lista["quantidade"]); // quantidade comprada
             $this->dataAberto = $lista["dataAberto"];
             $this->dataFinalizado = $lista["dataFinalizada"];
             $this->tipoVenda = $lista["tipoVenda"];
@@ -61,7 +60,7 @@ class VendaModel extends Crud {
         
     }
 
-    public function getProduto() {
+    public function getProdutoVenda() {
         return $this->produtoVenda;
     }
 
@@ -97,8 +96,8 @@ class VendaModel extends Crud {
         return $this->idEndereco;
     }
 
-    public function setProduto($idProduto) {
-        $this->produtoVenda = $idProduto;
+    public function setProdutoVenda($produtoVenda) {
+        $this->produtoVenda = $produtoVenda;
     }
 
     public function setIdVenda($idVenda) {
@@ -119,6 +118,14 @@ class VendaModel extends Crud {
 
     public function setDesconto($desconto) {
         $this->desconto = $desconto;
+    }
+
+    public function setTotal($total) {
+        $this->total = $total;
+    }
+
+    public function setIdCliente($idCliente) {
+        $this->idCliente = $idCliente;
     }
 
     public function setIdEndereco($idEndereco) {
@@ -147,7 +154,7 @@ class VendaModel extends Crud {
         }
     }
 
-    public function consultarVendaProdutovenda($idProduto, $idVenda) { // Consulta na ProdutoVenda
+    public function consultarVendaProdutovenda($idProduto, $idVenda) { // Consulta na Venda e ProdutoVenda
         $listaProdutoVenda = $this->consultarProdutoVenda($idProduto, $idVenda);
 
         if($listaProdutoVenda) {
@@ -171,7 +178,8 @@ class VendaModel extends Crud {
     public function calcularTotal() {
         if(isset($this->produtoVenda)){
             foreach ($this->produtoVenda as $produto) {
-                $conjuntoPrecos = $produto["preco"] * $produto["quantidade"];
+                $objProduto = new ProdLojaModel($produto["id_produto"]);
+                $conjuntoPrecos = $objProduto->getPreco() * $produto["quantidade"];
                 $conjuntoTotais[] = $conjuntoPrecos;
             }
             $this->total = array_sum($conjuntoTotais);
@@ -217,13 +225,17 @@ class VendaModel extends Crud {
 
     public function inserirProdutoVenda() {
         $valida = $this->consultarProdutoVenda($this->idProduto, $this->idVenda);
-        if($valida == 0){
+        if($valida == 0 and isset($this->produtoVenda["quantidade"]) and isset($this->produtoVenda["id_produto"])){
             $comando = $this->banco->prepare("INSERT INTO `tcc_produtovenda`"
                     . "(`quantidade`, `preco`, `id_produto`, `id_venda`) "
                     . "VALUES (:quantidade,:preco, :id_produto,:id_venda)");
-            $comando->bindParam(":quantidade", $this->quantidade);
-            $comando->bindParam(":preco", $this->precoProdutos);
-            $comando->bindParam(":id_produto", $this->idProduto);
+            $comando->bindParam(":quantidade", $this->produtoVenda["quantidade"]);
+            
+            $objProduto = new ProdLojaModel($this->produtoVenda["id_produto"]);
+            $precoUnitario = $objProduto->getPreco();
+            
+            $comando->bindParam(":preco", $precoUnitario);
+            $comando->bindParam(":id_produto", $this->produtoVenda["id_produto"]);
             $comando->bindParam(":id_venda", $this->idVenda);
             return $comando->execute() ? true : false;
         } else {

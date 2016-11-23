@@ -224,10 +224,7 @@ abstract class UsuarioModel extends PessoaModel {
         $comando->bindParam(":nivel", $this->nivel);
         $comando->execute();
 
-        /*    $comandoContato = $this->banco->prepare("INSERT INTO ".$this->id_contato->getTabela()
-          ."(id_contato, id_tipo, contato, cpf_cliente) values(:id_contato,"
-          . " :id_tipo, :senha, :rg, :dataNascimento, :nome)"); */
-        return $this->banco->lastInsertId();  // está retornando sempre string'0' talvez seja por que Tabela Cliente não é autoincrement
+        return $this->banco->lastInsertId();
     }
 
     public function editar($id) {

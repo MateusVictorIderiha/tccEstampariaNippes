@@ -386,3 +386,28 @@ section{
 section h1:first-child, article h1:first-child {
     padding-top: 10px;
 }
+
+.lineheight6{
+ line-height: 6.5px;
+}
+
+.margintop{
+margin-top:40px;
+}
+
+.margintop2{
+margin-top:20px;
+}
+
+.margintop3{
+margin-top:10px;
+}
+
+.oswald{
+	font-family:"oswald", "Helvetica Neue", Helvetica, Arial;
+	text-transform:uppercase;
+}
+
+.padding30{
+    padding:30px;
+}

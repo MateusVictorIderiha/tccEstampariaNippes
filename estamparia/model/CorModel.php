@@ -53,6 +53,30 @@ class CorModel extends Crud {
         }
     }
 
+    public function getIdCor() {
+        return $this->idCor;
+    }
+
+    public function getCor() {
+        return $this->cor;
+    }
+
+    public function getIdCodigosCor() {
+        return $this->idCodigosCor;
+    }
+
+    public function setIdCor($idCor) {
+        $this->idCor = $idCor;
+    }
+
+    public function setCor($cor) {
+        $this->cor = $cor;
+    }
+
+    public function setIdCodigosCor($idCodigosCor) {
+        $this->idCodigosCor = $idCodigosCor;
+    }
+    
     public function mostrarInformacoes() {
         $informacoes[] = $this->idCor;
         $informacoes[] = $this->cor;

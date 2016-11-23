@@ -3,8 +3,12 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $("#datepicker1").datepicker();
-    $("#datepicker2").datepicker();
+    $("#datepicker1").ready(function () {
+        $("#datepicker1").datepicker();
+    });
+    $("#datepicker2").ready(function () {
+        $("#datepicker2").datepicker();
+    });
 });
 
 $(document).ready(function () {
@@ -50,6 +54,60 @@ $(document).ready(function() {
             alert('Cadastre no máximo três telefones');
         }
    });
+});
+
+$(document).ready(function() {
+    var estampa = 2;
+
+    $("#idModelo").change(function() {  
+        if($("#cor").val() !== ""){
+            $("#cor").html("<option value=''></option>");
+        }
+        
+        idProduto = $("#idModelo").val();
+        if(idProduto !== ""){
+            $.post("?pagina=wp_pedidos&acao=pegar_cores",{"idProduto": idProduto},
+                function(texto){
+                    $("#cor").html(texto);
+                }
+            );
+        }
+    });
+    
+    $("#cor").change(function() {
+        if($("#tamanho").val() !== ""){
+            $("#tamanho").html("<option value=''></option>");
+        }
+        idProduto = $("#idModelo").val();
+        if($("#cor").val() !== ""){
+            $.post("?pagina=wp_pedidos&acao=pegar_tamanhos",{"idProduto": idProduto, "cor":$("#cor").val()},
+                function(texto){
+                    $("#tamanho").html(texto);
+                }
+            );
+        }
+    });
+        
+    $("#cor").click(function () {
+        if($("#idModelo").val() === ""){
+            alert("Preencha o modelo antes");
+        }
+    });
+    
+    $("#tamanho").click(function () {
+        if($("#cor").val() === ""){
+            alert("Preencha a cor antes");
+        }
+    });
+    
+    $("#tamanho").change(function () {
+        if($("#cor").val() !== "" && $("#idModelo").val() !== "" && $("#tamanho").val() !== ""){
+            $.post("?pagina=wp_pedidos&acao=pegar_id_produto", {"cor":$("#cor").val(),
+                "modelo":$("#idModelo").val(), "tamanho":$("#tamanho").val()}, function (texto) {
+                $("#imgCamiseta").html(texto);
+            });
+        }
+    });
 });
 
 $(document).ready(function() {

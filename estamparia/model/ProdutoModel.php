@@ -15,7 +15,7 @@
 namespace estamparia\model;
 
 use estamparia\libs\Crud;
-use estamparia\libs\TamanhoModel;
+//use estamparia\libs\TamanhoModel;
 
 abstract class ProdutoModel extends Crud {
     //put your code here
@@ -31,31 +31,27 @@ abstract class ProdutoModel extends Crud {
     protected $categoria;
     protected $personalizado;
     protected $idCor;
-    protected $idTamanho;
-    protected $quantidade;
+    protected $tamanho;
     protected $tabela = "tcc_produtos";
     protected $consultaColunaId = "id_produto";
 
-    public function __construct($idProduto = null, $idTamanho = null) {
+    public function __construct($idProduto = null) {
         parent::__construct();
 
-            $usarConsulta = empty($idTamanho) ? ($this->consultar($idProduto)) :
-                ($this->consultarProdutoComEstoque($idProduto, $idTamanho));
-            $lista = $usarConsulta; // Consultar Produto ou Consultar Estoque e Produto
+            $lista = $this->consultar($idProduto);
             if($lista) {
                 $this->idProduto = $lista["id_produto"];
                 $this->nome = $lista["nome"];
                 $this->preco = $lista["preco"];
                 $this->fotoProduto = $lista["fotoProduto"];
-                $this->modelo = $lista["modelo"];
+                $this->modelo = $lista["id_modelo"];
                 $this->material = $lista["material"];
                 $this->idCor = $lista["id_cor"];
                 $this->categoria = $lista["categoria"];
                 $this->tipoProduto = $lista["tipoProduto"];
                 $this->peso = $lista["peso"];
                 $this->personalizado = $lista["personalizado"];
-                (!empty($idTamanho)) ? ($this->idTamanho = $lista["id_tamanho"]) : "";
-                (!empty($idTamanho)) ? ($this->quantidade = $lista["quantidade"]) : "";
+                $this->tamanho = $lista["id_tamanho"];
             }
     }
 
@@ -64,11 +60,11 @@ abstract class ProdutoModel extends Crud {
             $objCor = new CorModel($this->idCor);
             return $objCor;
         }
-
+/*
         if($propriedade == "Tamanho") {
             $objTamanho = new TamanhoModel();
             return $objTamanho;
-        }
+        }*/
     }
 
     public function getIdProduto() {
@@ -113,10 +109,6 @@ abstract class ProdutoModel extends Crud {
 
     public function getIdCor() {
         return $this->idCor;
-    }
-
-    public function getIdTamanho() {
-        return $this->idTamanho;
     }
 
     public function getQuantidade() {
@@ -166,21 +158,61 @@ abstract class ProdutoModel extends Crud {
     public function setIdCor($idCor) {
         $this->idCor = $idCor;
     }
-
-    public function setIdTamanho($idTamanho) {
-        $this->idTamanho = $idTamanho;
+/*
+    public function mostrarProdutosSemelhantes() {
+        $comando = $this->banco->prepare("SELECT * FROM $this->tabela WHERE nome=:nome");
+        $comando->bindParam(":nome", $this->nome);
+        $comando->execute();
+        $lista = $comando->fetchAll(\PDO::FETCH_ASSOC);
+        return $lista;
+    }*/
+    
+    public function mostrarTamanhosProduto($cor) {
+        $comando = $this->banco->prepare("SELECT DISTINCT id_tamanho FROM $this->tabela "
+                . "WHERE nome=:nome and id_cor=:cor");
+        $comando->bindParam(":nome", $this->nome);
+        $comando->bindParam(":cor", $cor);
+        $comando->execute();
+        $lista = $comando->fetchAll(\PDO::FETCH_ASSOC);
+        return $lista;
     }
-        
-
-    public function setQuantidade($quantidade) {
-        $this->quantidade = $quantidade;
+     
+    public function mostrarCoresProduto() {
+        $comando = $this->banco->prepare("SELECT DISTINCT id_cor FROM $this->tabela WHERE nome=:nome");
+        $comando->bindParam(":nome", $this->nome);
+        $comando->execute();
+        $lista = $comando->fetchAll(\PDO::FETCH_ASSOC);
+        return $lista;
     }
-        
+    
+    
+    public function encontrarIdProdutoSemelhante($nomeModelo, $idCor, $idTamanho) {
+        $comando = $this->banco->prepare("SELECT * FROM $this->tabela WHERE "
+                . "nome='$nomeModelo' and id_cor=$idCor and id_tamanho=$idTamanho");
+        $comando->execute();
+        $lista = $comando->fetch(\PDO::FETCH_ASSOC);
+        return $lista;
+    }
+    
+    public function fazerUploadFoto($caminho) {
+        if(isset($_FILES["imagem"])){
+            date_default_timezone_set("Brazil/East");
+            
+            $extensao = strtolower(substr($_FILES["imagem"]["name"], -4));
+            if($extensao == "jpeg" && $extensao == "jpeg2000" && $extensao == "png" &&
+                    $extensao == "eps" && $extensao == "crd" && $extensao == "ai" &&
+                    $extensao == "svg"){
+                $novoNome = date(Y-m-d_H-i-s).$extensao;
+                move_uploaded_file($_FILES["imagem"]["tmp_name"], $caminho.$novoNome);
+            }
+        }
+    }
+    
     public function inserir() {
         $comando = $this->banco->prepare("INSERT INTO $this->tabela(`nome`, `preco`,
                 `fotoProduto`, `modelo`, `material`, `id_cor`, `categoria`,
-                `tipoProduto`, personalizado, peso) VALUES (:nome, :preco, :fotoProduto, :id_modelo,
-                :id_material, :id_cor, :id_categoria, :id_tipoProduto, :personalizado, :peso)");
+                `tipoProduto`, personalizado, peso, tamanho) VALUES (:nome, :preco, :fotoProduto, :id_modelo,
+                :id_material, :id_cor, :id_categoria, :id_tipoProduto, :personalizado, :peso, :tamanho)");
         $comando->bindParam(":nome", $this->nome);
         $comando->bindParam(":preco", $this->preco);
         $comando->bindParam(":fotoProduto", $this->fotoProduto);
@@ -191,6 +223,7 @@ abstract class ProdutoModel extends Crud {
         $comando->bindParam(":id_tipoProduto", $this->tipoProduto);
         $comando->bindParam(":personalizado", $this->personalizado);
         $comando->bindParam(":peso", $this->peso);
+        $comando->bindParam(":tamanho", $this->tamanho);
         $comando->execute();
 
         return $this->banco->lastInsertId();
@@ -198,9 +231,9 @@ abstract class ProdutoModel extends Crud {
 
     public function editar($id) {
         $comando = $this->banco->prepare("UPDATE $this->tabela SET "
-                . "`nome`=:nome, `preco`=:preco, fotoProduto`=:fotoProduto,"
-                . " `modelo`=:id_modelo, `material`=:id_material,`id_cor`=:id_cor,"
-                . " `categoria`=:id_categoria,`tipoProduto`=:id_tipoProduto, `peso`=:peso"
+                . "nome=:nome, preco=:preco, fotoProduto=:fotoProduto,"
+                . " modelo=:id_modelo, material=:id_material, id_cor=:id_cor,"
+                . " categoria=:id_categoria, tipoProduto=:id_tipoProduto, peso=:peso, tamanho=:tamanho"
                 . " WHERE $this->consultaColunaId = $id");
         $comando->bindParam(":nome", $this->nome);
         $comando->bindParam(":preco", $this->preco);
@@ -211,6 +244,7 @@ abstract class ProdutoModel extends Crud {
         $comando->bindParam(":id_categoria", $this->categoria);
         $comando->bindParam(":id_tipoProduto", $this->tipoProduto);
         $comando->bindParam(":peso", $this->peso);
+        $comando->bindParam(":tamanho", $this->tamanho);
         $comando->execute();
     }
     
@@ -226,7 +260,7 @@ abstract class ProdutoModel extends Crud {
         $informacoes[] = $this->material;
         $informacoes[] = $this->modelo;
         $informacoes[] = $this->tipoProduto;
-        $informacoes[] = $this->idTamanho;
+        $informacoes[] = $this->tamanho;
         $informacoes[] = $this->quantidade;
         return $informacoes;
     }

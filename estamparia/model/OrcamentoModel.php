@@ -39,20 +39,21 @@ class OrcamentoModel extends VendaModel {
     
     public function inserir() {
         $comando = $this->banco->prepare("INSERT INTO $this->tabela"
-                . "(`dataAberto`, `VendaStatus`, `tipoVenda`, `id_cliente`, `id_endereco`) "
-                . "VALUES (:dataAberto, :VendaStatus, :tipoVenda, :id_cliente, :id_endereco)");
-        $comando->bindParam(":dataAberto", "date('Y-m-d H:i:s:')");
+                . "(dataAberto, VendaStatus, tipoVenda, id_cliente) "
+                . "VALUES (:dataAberto, :VendaStatus, :tipoVenda, :id_cliente)");
+        $this->dataAberto = date('Y-m-d H:i:s');
+        $comando->bindParam(":dataAberto", $this->dataAberto);
+        $this->statusDaVenda = "Solicitado";
         $comando->bindParam(":VendaStatus", $this->statusDaVenda);
         $comando->bindParam(":tipoVenda", $this->tipoVenda);
         $comando->bindParam(":id_cliente", $this->idCliente);
-        $comando->bindParam(":id_endereco", $this->idEndereco);
         $comando->execute();
         return $this->banco->lastInsertId();
     }
     
     public function inserirProdutoVenda() {
-        $comando = $this->banco->prepare("INSERT INTO `tcc_produtovenda`"
-            . "(`quantidade`, `id_ModEstampa`, `id_produto`, `id_venda`) "
+        $comando = $this->banco->prepare("INSERT INTO tcc_produtovenda"
+            . "(quantidade, id_ModEstampa, id_produto, id_venda) "
                 . "VALUES (:quantidade,:id_ModEstampa,:id_produto,:id_venda)");
         $comando->bindParam(":quantidade", $this->quantidade);
         $comando->bindParam(":id_ModEstampa", $this->idModEstampa);

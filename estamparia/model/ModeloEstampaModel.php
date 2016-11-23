@@ -14,13 +14,33 @@
 
 namespace estamparia\model;
 
-class ModeloEstampaModel {
+use estamparia\libs\Crud;
+
+class ModeloEstampaModel extends Crud{
 
     //put your code here
     private $idModeloEstampa;
+    private $imagemEstampa;
+    private $dataCriada;
     private $descricaoModelo;
-    protected $tabela = "ModeloEstampa";
-
+    private $caminhoImagem = "../imagens/";
+    protected $tabela = "tcc_modeloEstampa";
+    protected $consultaColunaId = "id_modEstampa";
+    
+    public function __construct($idEstampa = null) {
+        parent::__construct();
+        
+        if(isset($idEstampa)){
+            $lista = $this->consultar($idEstampa);
+            if($lista){
+                $this->idModeloEstampa = $lista["id_ModEstampa"];
+                $this->imagemEstampa = $lista["imagemEstampa"];
+                $this->dataCriada = $lista["dataCriada"];
+                $this->descricaoModelo = $lista["descricaoModelo"];
+            }
+        }
+    }
+    
     public function getIdModeloEstampa() {
         return $this->idModeloEstampa;
     }
@@ -35,6 +55,34 @@ class ModeloEstampaModel {
 
     public function setDescricaoModelo($descricaoModelo) {
         $this->descricaoModelo = $descricaoModelo;
+    }
+
+    public function editar($id) {
+        $comando = $this->banco->prepare("INSERT INTO $this->tabela(descricao, "
+                . "imagemEstampa, dataCriada) VALUES (:descricao, imagemEstampa, dataCriada)");
+        $comando->bindParam(":descricao", $this->descricaoModelo);
+        $comando->bindParam(":imagemEstampa", $this->imagemEstampa);
+        $comando->bindParam(":dataCriada", $this->dataCriada);
+        $comando->execute();
+        return $this->banco->lastInsertId(); 
+    }
+
+    public function inserir() {
+        $comando = $this->banco->prepare("UPDATE tcc_modeloestampa SET descricao=:descricao,"
+                . " imagemEstampa=:imagemEstampa,dataCriada=:dataCriada");
+        $comando->bindParam(":descricao", $this->descricaoModelo);
+        $comando->bindParam(":imagemEstampa", $this->imagemEstampa);
+        $comando->bindParam(":dataCriada", $this->dataCriada);
+        $comando->execute();     
+    }
+
+    public function mostrarInformacoes() {
+        $informacoes[] = $this->idModeloEstampa;
+        $informacoes[] = $this->dataCriada;
+        $informacoes[] = $this->descricaoModelo;
+        $informacoes[] = $this->imagemEstampa;
+        
+        return $informacoes;
     }
 
 }
