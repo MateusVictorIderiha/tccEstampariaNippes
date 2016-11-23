@@ -11,6 +11,7 @@ namespace estamparia\controller;
 use estamparia\model\CamisetaModel;
 use estamparia\model\ProdLojaModel;
 use estamparia\view\CatalagoView;
+use estamparia\view\ProdutoView;
 
 /**
  * Description of ProdutoController
@@ -28,12 +29,18 @@ class ProdutoController {
         $objCatalogo->mostrarRodape(); 
     }
     
+    public function mostrarProduto($idProduto) {
+        $objProduto = new ProdutoView($idProduto);
+        $objProduto->mostrarConteudo();
+        $objProduto->mostrarRodape();
+    }
+    
     public function consultarProduto(){
         if(isset($_GET["id"])){
             $objProduto = new ProdLojaModel($_GET["id"]);
             if($objProduto->getPersonalizado() == "N" or $objProduto->getPersonalizado() == "M"
                     and $objProduto->getPreco() !== 0){
-                var_dump($objProduto);
+                $this->mostrarProduto($_GET["id"]);
             }
             
         } else {

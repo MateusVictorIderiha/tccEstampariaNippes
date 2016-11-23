@@ -211,6 +211,21 @@ abstract class UsuarioModel extends PessoaModel {
         }
     }
 
+    public function pegaValidaId(){
+        if($this->verificaLoginCookie()){
+            $login["usuario"] = $_COOKIE["usuario"];
+            $login["senha"] = base64_decode($_COOKIE["senha"]);
+            return $login;
+        }
+        if($this->verificaLoginSessao()){
+            $login["usuario"] = $_SESSION["usuario"];
+            $login["senha"] = base64_decode($_SESSION["senha"]);
+            return $login;
+        }
+        return false;
+    }
+
+
     public function inserir() {
         $comando = $this->banco->prepare("INSERT INTO $this->tabela(cpf_usuario,"
                 . " senha, RG, dataNascimento, nome, nivel, login) values(:cpf_usuario,"

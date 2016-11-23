@@ -29,20 +29,20 @@ class PedidosController implements PadraoController{
     private $tamanho;
     
     public function mostrarPagina() {
-        isset($_SESSION) ? "" : session_start();
-        if(isset($_COOKIE["usuario"]) and isset($_COOKIE["senha"])){
-            $usuario = $_COOKIE["usuario"];
-            $senha = base64_decode($_COOKIE["senha"]);
-        } elseif (isset($_SESSION["usuario"]) and isset($_SESSION["senha"])) {
-            $usuario = $_SESSION["usuario"];
-            $senha = base64_decode($_SESSION["senha"]);
+        $objUsuario = new ClienteModel();
+        if($objUsuario->verificaLoginCookie() || $objUsuario->verificaLoginSessao()){
+            $usuario = $objUsuario->pegaValidaId();
+            if($usuario){
+                $login = $usuario["usuario"];
+                $senha = $usuario["senha"];
+            }
         }  else {
             $objPedidos = new PedidosView();
             echo "Você deve estar logado para fazer um pedido. <a href=?pagina=wp_login>"
             . "Clique aqui para LOGAR</a>";
             $objPedidos->mostrarRodape();
         }
-        if(isset($usuario) and isset($senha)){
+        if(isset($login) and isset($senha)){
             $produtoMateriaPrima = new ProdMateriaPrimaModel();
             $lista = $produtoMateriaPrima->consultarTodosSemEstampa();
 

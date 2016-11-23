@@ -35,7 +35,7 @@ class CatalagoView extends EstruturaView{
                 </header>
                 ";
         foreach ($this->listaProdutos as $produto) {
-                $preco = "R$ ".number_format($produto['preco']);
+                $preco = "R$ ".number_format($produto['preco'], 2, ',', '.');
                 echo "<figure class='catalogovenda'>
                     <img src='". $this->caminhoImagem.$produto['fotoProduto']. "' ".
                         "data-toggle='tooltip' data-placement='top' title='Camiseta ".
