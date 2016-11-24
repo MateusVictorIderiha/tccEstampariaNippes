@@ -6,9 +6,9 @@
  * and open the template in the editor.
  */
 
-use estamparia\controller\IndexController;
+use estamparia\controller\InicialController;
 
 require_once '../../vendor/autoload.php';
 
-$objController = new IndexController();
+$objController = new InicialController();
 $objController->carregarPagina();

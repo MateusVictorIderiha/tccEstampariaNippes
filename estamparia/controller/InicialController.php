@@ -13,7 +13,7 @@ namespace estamparia\controller;
  *
  * @author Mateus
  */
-class IndexController {
+class InicialController {
     //put your code here
     private $controller;
     private $acao;
