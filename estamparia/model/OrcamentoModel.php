@@ -41,6 +41,7 @@ class OrcamentoModel extends VendaModel {
         $comando = $this->banco->prepare("INSERT INTO $this->tabela"
                 . "(dataAberto, VendaStatus, tipoVenda, id_cliente) "
                 . "VALUES (:dataAberto, :VendaStatus, :tipoVenda, :id_cliente)");
+        date_default_timezone_set("Brazil/East");
         $this->dataAberto = date('Y-m-d H:i:s');
         $comando->bindParam(":dataAberto", $this->dataAberto);
         $this->statusDaVenda = "Solicitado";
@@ -52,15 +53,27 @@ class OrcamentoModel extends VendaModel {
     }
     
     public function inserirProdutoVenda() {
-        $comando = $this->banco->prepare("INSERT INTO tcc_produtovenda"
-            . "(quantidade, id_ModEstampa, id_produto, id_venda) "
-                . "VALUES (:quantidade,:id_ModEstampa,:id_produto,:id_venda)");
-        $comando->bindParam(":quantidade", $this->quantidade);
-        $comando->bindParam(":id_ModEstampa", $this->idModEstampa);
-        $comando->bindParam(":id_produto", $this->idProduto);
-        $comando->bindParam(":id_venda", $this->idVenda);
-        $comando->execute();
-        return $this->banco->lastInsertId();
+        foreach ($this->produtosVenda as $produtoVenda){
+            if(isset($produtoVenda["quantidade"]) and isset($produtoVenda["id_produto"])){
+                foreach ($produtoVenda["quantidade"] as $quantidadeTotal){
+                    $comando = $this->banco->prepare("INSERT INTO tcc_produtovenda"
+                            . "(quantidade, preco, foto, id_ModEstampa, id_produto, id_venda) "
+                            . "VALUES (:quantidade,:preco, :foto, :id_produto,:id_venda)");
+                    $comando->bindParam(":quantidade", $quantidadeTotal);
+
+                    $objProduto = new ProdLojaModel($produtoVenda["id_produto"]);
+                    $precoUnitario = $objProduto->getPreco();
+
+                    $comando->bindParam(":preco", $precoUnitario);
+                    $comando->bindParam(":foto", $this->foto);
+                    $comando->bindParam(":id_produto", $produtoVenda["id_produto"]);
+                    $comando->bindParam(":id_venda", $this->idVenda);
+                    return $comando->execute() ? true : false;
+                }
+            } else {
+                return false; //já existe
+            }
+        }
     }
     
         public function editar($id) {

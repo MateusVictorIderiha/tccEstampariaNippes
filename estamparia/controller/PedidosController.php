@@ -75,7 +75,6 @@ class PedidosController implements PadraoController{
     public function pegarTamanhos() {
         if(isset($_POST["cor"])){
             $this->idProduto = $_POST["idProduto"];
-
             $objProdMateria = new ProdMateriaPrimaModel($this->idProduto);
             $listaProdutos = $objProdMateria->mostrarTamanhosProduto($_POST["cor"]);
 
@@ -113,42 +112,64 @@ class PedidosController implements PadraoController{
         $tamanho = $_POST["tamanho"];
         $quantidadeTotal = $_POST["qtdTotal"];
         $descricao = $_POST["descricao"];
-        $idProduto = $_POST["idProduto"];
+        $idProdutos = $_POST["idProduto"];
+        $formandos = $_POST["formandos"];
 
-        
-        if(isset($_COOKIE["usuario"]) and isset($_COOKIE["senha"])){
-            $usuario = $_COOKIE["usuario"];
-            $senha = base64_decode($_COOKIE["senha"]);
-        } elseif (isset($_SESSION["usuario"]) and isset($_SESSION["senha"])) {
-            $usuario = $_SESSION["usuario"];
-            $senha = base64_decode($_SESSION["senha"]);
+        $objUsuario = new ClienteModel();
+        if($objUsuario->verificaLoginCookie() || $objUsuario->verificaLoginSessao()){
+            $usuario = $objUsuario->pegaValidaId();
+            if($usuario){
+                var_dump($usuario);
+                $login = $usuario["usuario"];
+                $senha = $usuario["senha"];
+            }
+        } else {
+            $objUsuario->expulsaUsuario();
         }
-        if(isset($usuario) and isset($senha)){
+        if(isset($login) and isset($senha)){
             $objOrcamento = new OrcamentoModel();
-            $objOrcamento->setProduto($idProduto);
             
-            $objCliente = new ClienteModel($usuario, $senha);
-            $objOrcamento->setIdEndereco(1);
+            $objCliente = new ClienteModel($login, base64_decode($senha));
             $objOrcamento->setIdCliente($objCliente->getIdUsuario());
-            
-            $produtoVenda[] = array("id_produto" => $idProduto, "quantidade" => $quantidadeTotal);
-            $objOrcamento->setProdutoVenda($produtoVenda);
-            
-            $objProduto = new ProdMateriaPrimaModel();
-            $caminhoUsuario = $objCliente->getCaminhoUsuario();
-            $idCliente = $objCliente->getIdUsuario();
-            
-            $venda = $objOrcamento->inserir();
+            //$objOrcamento->setIdEndereco(1);
+
+            echo "Secesso Venda";
+            //$venda = $objOrcamento->inserir();
+            $venda = true;
+            /*
             if($venda != 0){
-                $prodVenda = $objOrcamento->inserirProdutoVenda();
-                if($prodVenda){
-                    $objProduto->fazerUploadFoto("../imagens/".$caminhoUsuario.$idCliente);
+                if(count($idProduto) == 1){
+                    $produtoVenda = array("id_produto" => $idProduto[0], "quantidade" => $quantidadeTotal[0]);
+                    $objOrcamento->setProdutoVenda($produtoVenda);
+                    
+
+                    echo "Secesso ProdVenda";
+                    $prodVenda = $objOrcamento->inserirProdutoVenda();
+                    
+                } elseif(count($quantidadeTotal) > 1) {
+                
+                }*/
+            if($formandos === "true"){
+                
+            } else {
+                foreach ($idProdutos as $indice => $idProduto) {
+                    $produtoVenda = array("id_produto" => $idProduto, "quantidade" => $quantidadeTotal[$indice]);
+                    $objOrcamento->setProdutoVenda($produtoVenda);
+                    
+                    echo "Secesso ProdVenda";
+                    $prodVenda = $objOrcamento->inserirProdutoVenda();
                 }
             }
 
+                    var_dump($prodVenda);
+                if($prodVenda){
+                    echo "Upando";
+                    $caminhoUsuario = "/usuarios/pedidos/";
+                    $idCliente = $objCliente->getIdUsuario();
+                    $objProduto->fazerUploadFoto("../imagens".$caminhoUsuario.$idCliente);
+                }
         } else {
-            $objCliente = new ClienteModel();
-            $objCliente->expulsaUsuario();
+            $objUsuario->expulsaUsuario();
         }
     }
 }

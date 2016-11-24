@@ -18,7 +18,7 @@ use estamparia\libs\Crud;
 class VendaModel extends Crud {
 
     //put your code here
-    protected $produtoVenda; // array(idProd, qtd, total)
+    protected $produtosVenda; // array(idProd, qtd, total)
     protected $idVenda;
     //protected $quantidade;
     //protected $precoProdutos;
@@ -60,7 +60,7 @@ class VendaModel extends Crud {
         
     }
 
-    public function getProdutoVenda() {
+    public function getProdutosVenda() {
         return $this->produtoVenda;
     }
 
@@ -96,7 +96,7 @@ class VendaModel extends Crud {
         return $this->idEndereco;
     }
 
-    public function setProdutoVenda($produtoVenda) {
+    public function setProdutosVenda($produtoVenda) {
         $this->produtoVenda = $produtoVenda;
     }
 
@@ -206,10 +206,11 @@ class VendaModel extends Crud {
     
     public function inserir() {
         $comando = $this->banco->prepare("INSERT INTO $this->tabela"
-                . "(`dataAberto`, `VendaStatus`, `tipoVenda`, `desconto`, `total`,"
-                . " `id_cliente`, `id_funcionario`, `id_endereco`) "
+                . "(dataAberto, VendaStatus, tipoVenda, desconto, total,"
+                . " id_cliente, id_funcionario, id_endereco) "
                 . "VALUES (:dataAberto, :VendaStatus, :tipoVenda, :desconto, "
                 . ":total, :id_cliente, id_funcionario, :id_endereco)");
+        date_default_timezone_set("Brazil/East");
         $this->dataAberto =  date('Y-m-d H:i:s');
         $comando->bindParam(":dataAberto", $this->dataAberto);
         $this->statusDaVenda = "Aberto";
@@ -222,24 +223,25 @@ class VendaModel extends Crud {
         $comando->execute();
         return $this->banco->lastInsertId();
     }
-
+    
     public function inserirProdutoVenda() {
-        $valida = $this->consultarProdutoVenda($this->idProduto, $this->idVenda);
-        if($valida == 0 and isset($this->produtoVenda["quantidade"]) and isset($this->produtoVenda["id_produto"])){
-            $comando = $this->banco->prepare("INSERT INTO `tcc_produtovenda`"
-                    . "(`quantidade`, `preco`, `id_produto`, `id_venda`) "
-                    . "VALUES (:quantidade,:preco, :id_produto,:id_venda)");
-            $comando->bindParam(":quantidade", $this->produtoVenda["quantidade"]);
-            
-            $objProduto = new ProdLojaModel($this->produtoVenda["id_produto"]);
-            $precoUnitario = $objProduto->getPreco();
-            
-            $comando->bindParam(":preco", $precoUnitario);
-            $comando->bindParam(":id_produto", $this->produtoVenda["id_produto"]);
-            $comando->bindParam(":id_venda", $this->idVenda);
-            return $comando->execute() ? true : false;
-        } else {
-            return false; //já existe
+        foreach ($this->produtosVenda as $produtoVenda){
+            if(isset($produtoVenda["quantidade"]) and isset($produtoVenda["id_produto"])){
+                $comando = $this->banco->prepare("INSERT INTO tcc_produtovenda"
+                        . "(quantidade, preco, id_produto, id_venda) "
+                        . "VALUES (:quantidade,:preco, :id_produto,:id_venda)");
+                $comando->bindParam(":quantidade", $this->produtoVenda["quantidade"]);
+
+                $objProduto = new ProdLojaModel($this->produtoVenda["id_produto"]);
+                $precoUnitario = $objProduto->getPreco();
+
+                $comando->bindParam(":preco", $precoUnitario);
+                $comando->bindParam(":id_produto", $this->produtoVenda["id_produto"]);
+                $comando->bindParam(":id_venda", $this->idVenda);
+                return $comando->execute() ? true : false;
+            } else {
+                return false; //já existe
+            }
         }
     }
 

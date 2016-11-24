@@ -3,6 +3,29 @@
     <coverage xmlns="http://www.netbeans.org/ns/code-coverage/1" enabled="false"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/VendasView.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/CorModel.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/libs/Crud.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/javascript.js</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/PedidosView.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/controller/InicialController.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/index.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/VendaModel.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/controller/ProdutoController.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/controller/VendaController.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/ProdPersonalizadoModel.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/controller/ClienteController.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/ProdMateriaPrimaModel.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/ClienteModel.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/OrcamentoModel.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/ModeloEstampaModel.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/ProdutoModel.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/TamanhoModel.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/ProdLojaModel.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/CatalagoView.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/controller/PedidosController.php</file>
+            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/UsuarioModel.php</file>
+        </group>
     </open-files>
 </project-private>

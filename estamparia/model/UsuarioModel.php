@@ -31,7 +31,7 @@ abstract class UsuarioModel extends PessoaModel {
     public function __construct($usuario = null, $senha = null) {
         parent::__construct();
 
-        if(!empty($usuario) and ! empty($senha)) {
+        if(!empty($usuario) and !empty($senha)) {
             $lista = $this->validaUsuario($usuario, $senha);
             if($lista) {
                 $this->idUsuario = $lista["id_usuario"];
@@ -95,7 +95,8 @@ abstract class UsuarioModel extends PessoaModel {
     public function retornaLogin($id) {
         $lista = $this->consultar($id);
         
-        return $lista["login"];
+        $login = $lista['login'];
+        return $login;
     }
     
     public function validaUsuario($usuario, $senha) {
@@ -178,13 +179,11 @@ abstract class UsuarioModel extends PessoaModel {
         if (isset($_SESSION['usuario']) and isset($_SESSION['senha']) and 
                 !empty($_SESSION['usuario']) and !empty($_SESSION['senha'])) {
             $idUsuario = $_SESSION['usuario'];
-            $senha = $_SESSION['senha'];
-            
-            $objCliente = new ClienteModel();
-            $login = $objCliente->retornaLogin($idUsuario);
+            $senha = base64_decode($_SESSION['senha']);
+
+            $login = $this->retornaLogin($idUsuario);
         }
-        
-        if($this->validaUsuario($login, base64_decode($senha))) {
+        if($this->validaUsuario($login, $senha)) {
             return true;
         } else {
             return false;
@@ -199,8 +198,7 @@ abstract class UsuarioModel extends PessoaModel {
             $idUsuario = $_COOKIE['usuario'];
             $senha = base64_decode($_COOKIE['senha']);
             
-            $objCliente = new ClienteModel();
-            $login = $objCliente->retornaLogin($idUsuario);
+            $login = $this->retornaLogin($idUsuario);
         }
         
         
@@ -213,16 +211,20 @@ abstract class UsuarioModel extends PessoaModel {
 
     public function pegaValidaId(){
         if($this->verificaLoginCookie()){
-            $login["usuario"] = $_COOKIE["usuario"];
-            $login["senha"] = base64_decode($_COOKIE["senha"]);
+            $idUsuario = $_COOKIE["usuario"];
+            
+            $login["usuario"] = $this->retornaLogin($idUsuario);
+            $login["senha"] = $_COOKIE["senha"];
             return $login;
         }
         if($this->verificaLoginSessao()){
-            $login["usuario"] = $_SESSION["usuario"];
-            $login["senha"] = base64_decode($_SESSION["senha"]);
+            $idUsuario = $_SESSION["usuario"];
+            
+            $login["usuario"] = $this->retornaLogin($idUsuario);
+            $login["senha"] = $_SESSION["senha"];
+
             return $login;
         }
-        return false;
     }
 
 
