@@ -152,13 +152,11 @@ class PedidosController implements PadraoController{
             if($formandos === "true"){
                 
             } else {
-                foreach ($idProdutos as $indice => $idProduto) {
-                    $produtoVenda = array("id_produto" => $idProduto, "quantidade" => $quantidadeTotal[$indice]);
-                    $objOrcamento->setProdutoVenda($produtoVenda);
-                    
-                    echo "Secesso ProdVenda";
-                    $prodVenda = $objOrcamento->inserirProdutoVenda();
-                }
+                $produtoVenda = array("id_produto" => $idProduto, "quantidade" => $quantidadeTotal[$indice]);
+                $objOrcamento->setProdutoVenda($produtoVenda);
+
+                echo "Secesso ProdVenda";
+                $prodVenda = $objOrcamento->inserirProdutoVenda();
             }
 
                     var_dump($prodVenda);
