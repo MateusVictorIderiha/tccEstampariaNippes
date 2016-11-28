@@ -21,6 +21,7 @@ class ContatoController implements PadraoController{
     
     public function mostrarPagina() {
         $objContato = new ContatoView();
+        $objContato->mostrarTopo();
         $objContato->mostrarConteudo();
         $objContato->mostrarRodape();
     }

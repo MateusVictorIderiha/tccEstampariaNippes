@@ -213,6 +213,7 @@ abstract class UsuarioModel extends PessoaModel {
         if($this->verificaLoginCookie()){
             $idUsuario = $_COOKIE["usuario"];
             
+            $login["idUsuario"] = $idUsuario;
             $login["usuario"] = $this->retornaLogin($idUsuario);
             $login["senha"] = $_COOKIE["senha"];
             return $login;
@@ -220,6 +221,7 @@ abstract class UsuarioModel extends PessoaModel {
         if($this->verificaLoginSessao()){
             $idUsuario = $_SESSION["usuario"];
             
+            $login["idUsuario"] = $idUsuario;
             $login["usuario"] = $this->retornaLogin($idUsuario);
             $login["senha"] = $_SESSION["senha"];
 

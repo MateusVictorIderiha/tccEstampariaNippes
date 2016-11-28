@@ -18,7 +18,7 @@ use estamparia\libs\Crud;
 class VendaModel extends Crud {
 
     //put your code here
-    protected $produtosVenda; // array(idProd, qtd, total)
+    protected $produtosVenda; // idProdutoVenda
     protected $idVenda;
     //protected $quantidade;
     //protected $precoProdutos;
@@ -33,16 +33,16 @@ class VendaModel extends Crud {
     protected $tabela = "tcc_vendas";
     protected $consultaColunaId = "id_venda";
 
-    public function __construct($idVenda = null, $idProduto = null) {
+    public function __construct($idVenda = null, $idProdutoVenda = null) {
         parent::__construct();
-        $usarConsulta = empty($idProduto) ? ($this->consultar($idVenda)) :
-                ($this->consultarVendaProdutovenda($idVenda, $idProduto));
+        $usarConsulta = empty($idProdutoVenda) ? ($this->consultar($idVenda)) :
+                ($this->consultarVendaProdutovenda($idProdutoVenda));
         $lista = $usarConsulta;
         if($lista) {
-            (!empty($idProduto)) ? ($this->idVenda = $lista["id_venda"]) : "";
+            (!empty($idProdutoVenda)) ? ($this->idVenda = $lista["id_venda"]) : "";
             $this->idVenda = $lista["id_venda"];
-            $this->produtoVenda = array("id_produto" => $lista["id_produto"],
-                "precoUnitario" => $lista["preco"], "quantidade" => $lista["quantidade"]); // quantidade comprada
+            $this->produtoVenda = array("id_produtoVenda" => $lista["id_produtoVenda"],
+                "id_produto" => $lista["id_produto"], "id_venda" => $lista["id_venda"], "quantidade" => $lista["quantidade"]);
             $this->dataAberto = $lista["dataAberto"];
             $this->dataFinalizado = $lista["dataFinalizada"];
             $this->tipoVenda = $lista["tipoVenda"];
@@ -50,7 +50,7 @@ class VendaModel extends Crud {
             $this->desconto = $lista["desconto"];
             $this->total = $lista["total"];
             $this->idEndereco = $lista["id_endereco"];
-            (!empty($idProduto)) ? ($this->idCliente = $lista["id_cliente"]) : "";
+            (!empty($idProdutoVenda)) ? ($this->idCliente = $lista["id_cliente"]) : "";
             //(!empty($idProduto)) ? ($this->quantidade = $lista["quantidade"]) : "";
             //(!empty($idProduto)) ? ($this->precoProdutos = $lista["preco"]) : "";
         }
@@ -61,7 +61,7 @@ class VendaModel extends Crud {
     }
 
     public function getProdutosVenda() {
-        return $this->produtoVenda;
+        return $this->produtosVenda;
     }
 
     public function getIdVenda() {
@@ -97,7 +97,7 @@ class VendaModel extends Crud {
     }
 
     public function setProdutosVenda($produtoVenda) {
-        $this->produtoVenda = $produtoVenda;
+        $this->produtosVenda = $produtoVenda;
     }
 
     public function setIdVenda($idVenda) {
@@ -140,11 +140,11 @@ class VendaModel extends Crud {
         }
     }
 
-    public function consultarProdutoVenda($idProduto, $idVenda) {
+    public function consultarProdutoVenda($idProdutoVenda) {
         $comando = $this->banco->prepare("SELECT * FROM tcc_produtoVenda WHERE "
-                . "id_produto=:idProduto and id_venda = :idVenda");
-        $comando->bindParam(":idProduto", $idProduto);
-        $comando->bindParam(":idVenda", $idVenda);
+                . "id_produtoVenda = :idProdutoVenda");
+        $comando->bindParam(":idProdutoVenda", $idProdutoVenda);
+
         $comando->execute();
         $listaProdutoVenda = $comando->fetch(\PDO::FETCH_ASSOC);
         if($listaProdutoVenda) {
@@ -154,8 +154,8 @@ class VendaModel extends Crud {
         }
     }
 
-    public function consultarVendaProdutovenda($idProduto, $idVenda) { // Consulta na Venda e ProdutoVenda
-        $listaProdutoVenda = $this->consultarProdutoVenda($idProduto, $idVenda);
+    public function consultarVendaComProdutovenda($idProdutoVenda) { // Consulta na Venda e ProdutoVenda
+        $listaProdutoVenda = $this->consultarProdutoVenda($idProdutoVenda);
 
         if($listaProdutoVenda) {
             $listaVenda = $this->consultar($listaProdutoVenda["id_venda"]); // Consulta tcc_venda
@@ -177,9 +177,9 @@ class VendaModel extends Crud {
 
     public function calcularTotal() {
         if(isset($this->produtoVenda)){
-            foreach ($this->produtoVenda as $produto) {
-                $objProduto = new ProdLojaModel($produto["id_produto"]);
-                $conjuntoPrecos = $objProduto->getPreco() * $produto["quantidade"];
+            foreach ($this->produtoVenda as $produtoVenda) {
+                $objProduto = new ProdLojaModel($produtoVenda["id_produto"]);
+                $conjuntoPrecos = $objProduto->getPreco() * $produtoVenda["quantidade"];
                 $conjuntoTotais[] = $conjuntoPrecos;
             }
             $this->total = array_sum($conjuntoTotais);

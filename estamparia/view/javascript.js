@@ -56,9 +56,7 @@ $(document).ready(function() {
    });
 });
 
-$(document).ready(function() {
-    var estampa = 2;
-
+$(document).ready(function() {    
     $("#idModelo").change(function() {  
         if($("#cor").val() !== ""){
             $("#cor").html("<option value=''></option>");
@@ -74,20 +72,56 @@ $(document).ready(function() {
         }
     });
     
+    tamanhosAtuais = 0;
+    imgAtual = 0;
+    
     $("#cor").change(function() {
-        if($("#tamanho").val() !== ""){
-            $("#tamanho").html("<option value=''></option>");
-        }
         idProduto = $("#idModelo").val();
         if($("#cor").val() !== ""){
             $.post("?pagina=wp_pedidos&acao=pegar_tamanhos",{"idProduto": idProduto, "cor":$("#cor").val()},
                 function(texto){
-                    $("#tamanho").html(texto);
+                    if(tamanhosAtuais !== texto){
+                        if($("#tamanho").val() !== "" || $("#tamanhoFormandos").val() !== "" ){
+                            $("#tamanho").html("<option value=''></option>");
+                            $("#tamanhoFormandos").html("<option value=''></option>");
+                        }
+                        $("#tamanho").html(texto);
+                        $("#tabelaPedidos tr td .tamanhoFormandos").html(texto);
+                        tamanhosAtuais = texto;
+                    }
+                }
+            );
+            $.post("?pagina=wp_pedidos&acao=pegar_img",{"idProduto": idProduto, "cor":$("#cor").val()},
+                function(texto){
+                    if(imgAtual !== texto){
+                        $("#imgCamiseta").html(texto);
+                        imgAtual = texto;
+                    }
                 }
             );
         }
     });
-        
+    
+    function atualizarTamanhosPedidos($idTamanhoNovo){
+        idProduto = $("#idModelo").val();
+        if($("#cor").val() !== ""){
+            $.post("?pagina=wp_pedidos&acao=pegar_tamanhos",{"idProduto": idProduto, "cor":$("#cor").val()},
+                function(texto){
+                    if(tamanhosAtuais !== texto){
+                        if($("#tamanho").val() !== "" || $("#tamanhoFormandos").val() !== "" ){
+                            $("#tamanho").html("<option value=''></option>");
+                            $("#tamanhoFormandos").html("<option value=''></option>");
+                        }
+                        $idTamanhoNovo.html(texto);
+                        tamanhosAtuais = texto;
+                    } else {
+                        $idTamanhoNovo.html(texto);
+                    }
+                }
+            );
+        }
+    }
+    
     $("#cor").click(function () {
         if($("#idModelo").val() === ""){
             alert("Preencha o modelo antes");
@@ -100,14 +134,166 @@ $(document).ready(function() {
         }
     });
     
-    $("#tamanho").change(function () {
-        if($("#cor").val() !== "" && $("#idModelo").val() !== "" && $("#tamanho").val() !== ""){
-            $.post("?pagina=wp_pedidos&acao=pegar_id_produto", {"cor":$("#cor").val(),
-                "modelo":$("#idModelo").val(), "tamanho":$("#tamanho").val()}, function (texto) {
-                $("#imgCamiseta").html(texto);
-            });
+    $("#tabelaPedidos tr td .tamanhoFormandos").click(function () {
+        if($("#cor").val() === ""){
+            alert("Preencha a cor antes");
         }
     });
+    
+    $("#tamanho, #tabelaPedidos tr td .tamanhoFormandos").change(function () {
+        if($("#cor").val() !== "" && $("#idModelo").val() !== ""){
+            pegarIdProduto($(this));
+        }
+    });
+    
+    function pegarIdProduto(elementoTamanho) {
+        if($("#cor").val() !== "" && $("#idModelo").val() !== ""){
+            if(formandos === 1){
+                $.post("?pagina=wp_pedidos&acao=pegar_id_produto", {"cor":$("#cor").val(),
+                    "modelo":$("#idModelo").val(), "nameArray" : "false",
+                    "tamanho":$(elementoTamanho).val()}, function (texto) {
+                    $("#idProduto").html(texto);
+                });
+            } else 
+                if(formandos === 0){
+                    $.post("?pagina=wp_pedidos&acao=pegar_id_produto", {"cor":$("#cor").val(),
+                        "modelo":$("#idModelo").val(), "nameArray" : "true",
+                        "tamanho":$(elementoTamanho).val()}, function (texto) {
+                        Tr = $(elementoTamanho).parents("tr");
+                        idTr = $(Tr).find(".idsProdutos");
+                        $(idTr).html(texto);
+                    });
+                }
+        }
+    };
+
+
+    if($("#formandos").val() === 1){
+        $("#tabelaPedidos .idsProdutos input").val(null);
+        $("#tabelaPedidos tr td input, #tabelaPedidos tr td select, #tabelaPedidos tr td .tamanhoFormandos, #tabelaPedidos tr .idsProdutos .txtIdProdutoFormandos").val(null);
+        $(".txtIdProduto").val(null);
+
+        $("#tamanhoNormal").toggleClass("oculta");
+        $("#qtdNormal").toggleClass("oculta");
+        $("#imgCamiseta").toggleClass("oculta");
+        $("#tamanhoNormal *").prop("disabled", true);
+        $("#qtdNormal *").prop("disabled", true);
+        $("#imgCamiseta *").prop("disabled", true);
+        $("#idProduto *").prop("disabled", true);
+
+        $("#pedidosFormandos *").prop("disabled",false);
+        $("#pedidosFormandos").toggleClass("oculta");
+        formandos = 0;
+    } else {            
+        $("#tamanhoNormal *").prop("disabled", false);
+        $("#qtdNormal *").prop("disabled", false);
+        $("#imgCamiseta *").prop("disabled", false);
+        $("#idProduto *").prop("disabled", false);
+
+        $("#pedidosFormandos *").prop("disabled",true);
+        formandos = 1;
+    }
+
+
+    function verificaFormandos() {
+        if(formandos === 0){
+            $("#tamanho").val(null);
+            $(".txtIdProduto").val(null);
+            $("#qtdTotal").val(null);
+            $("#idProduto").html(null);
+            $("#tabelaPedidos input, #tabelaPedidos select").val(null);
+            $("#tabelaPedidos .idsProdutos").html(null);
+            
+            $("#tamanhoNormal").toggleClass("oculta");
+            $("#qtdNormal").toggleClass("oculta");
+            $("#imgCamiseta").toggleClass("oculta");
+            $("#tamanhoNormal *").prop("disabled", false);
+            $("#qtdNormal *").prop("disabled", false);
+            $("#idProduto *").prop("disabled", false);
+            
+            $("#pedidosFormandos *").prop("disabled",true);
+            
+            $("#pedidosFormandos").toggleClass("oculta");
+            linha = 1;
+            formandos = 1;
+        } else 
+        if(formandos === 1) {
+            $("#idProduto").html(null);
+            $("#tabelaPedidos input, #tabelaPedidos select").val(null);
+
+            $("#tamanhoNormal").toggleClass("oculta");
+            $("#qtdNormal").toggleClass("oculta");
+            $("#tamanhoNormal *").prop("disabled", true);
+            $("#qtdNormal *").prop("disabled", true);
+            $("#imgCamiseta *").prop("disabled", true);
+            $("#idProduto *").prop("disabled", true);
+            
+            $("#pedidosFormandos *").prop("disabled",false);
+            $("#pedidosFormandos").toggleClass("oculta");
+            formandos = 0;
+        }
+    }
+    
+    $("#formandos").change(function () {
+        verificaFormandos();
+    });    
+        
+    $("#tabelaPedidos").on("change", ".qtdTotal", function () {
+        calcularQtdTotal($(this));
+    });
+    
+    function calcularQtdTotal(idSeletor) {
+        var resultado = 0;
+        $(".qtdTotal").each(function (indice, element) {
+            (resultado) = parseInt($(element).val()) + parseInt(resultado);
+            $("#SomaQtdTotal b").html(resultado);
+        });
+    }
+    
+    $("#tabelaPedidos").on("change", "tr td .tamanhoFormandos", function () {
+        addLinha($(this));
+        alert();
+    });
+    linha = 1;
+    function addLinha (elemntoTamanho) {
+        pegarIdProduto($(elemntoTamanho));
+        table = $(elemntoTamanho).parents("table");
+        QtdIdsProdutosFormandos = $(table).find(".txtIdProdutoFormandos").length;
+        if($(elemntoTamanho).val() !== "" && (linha - QtdIdsProdutosFormandos) === 1) { 
+            linha++;
+            $("#tabelaPedidos tbody").append("\
+                        <tr> \n\
+                            <td> \n\
+                                <select class='form-control focused tamanhoFormandos' id=tamanhoFormandos"+ linha +"' name='tamanho[]' data-toggle='tooltip' title='Informe o tamanho da camiseta' data-placement='bottom' > \n\
+                                    <option value=''></option> \n\
+                                </select> \n\
+                            </td> \n\
+                            <td> \n\
+                                <input type='text' class='form-control focused descricaoPedido' name='descricoesPedidos[]' data-toggle='tooltip' title='Detalhe ou descrição que vai na estampa da camiseta, por exemplo: Nome diferente atrás como em uma camiseta de formandos, um número em uma camiseta de time e entre outros...' data-placement='bottom' /> \n\
+                            </td> \n\
+                            <td> \n\
+                                <input type='text' class='form-control focused qtdTotal textcenter' name='qtdTotal[]' data-toggle='tooltip' title='Quantidade Total de camisetas' data-placement='bottom' /> \n\
+                            </td>  \n\
+                            <td class='oculta idsProdutos' id=idsProdutosFormandos"+ linha +"'> \n\
+                            </td> \n\
+                        </tr> \n\
+                        ");
+            idTamanhoNovo = $("#tabelaPedidos tr td .tamanhoFormandos:last");
+            atualizarTamanhosPedidos($(idTamanhoNovo));
+        }
+    }
+    
+    $("#tabelaPedidos").on("focus", "tr td input, tr td select",function () {
+        tr = $(this).closest("tr");
+        if(!tr.hasClass("pedidoSelecionado")){
+            tr.siblings().removeClass("pedidoSelecionado");
+            tr.toggleClass("pedidoSelecionado");
+        }
+    });
+});
+
+$(document).ready(function () {
+
 });
 
 $(document).ready(function() {
@@ -119,6 +305,33 @@ $(document).ready(function() {
             });
         }
     });
+    
+    $("#corProduto").change(function() {
+        idProduto = $("#idModeloProduto").val();
+        if($("#cor").val() !== ""){
+            $.post("?pagina=wp_pedidos&acao=pegar_tamanhos",{"idProduto": idProduto, "cor":$("#corProduto").val()},
+                function(texto){
+                    if(tamanhosAtuais !== texto){
+                            alert(texto);
+                        if($("#tamanhoProduto").val() !== ""){
+                            $("#tamanhoProduto").html("<option value=''></option>");
+                            
+                        }
+                        $("#tamanhoProduto").html(texto);
+                        tamanhosAtuais = texto;
+                    }
+                }
+            );
+            $.post("?pagina=wp_pedidos&acao=pegar_img",{"idProduto": idProduto, "cor":$("#cor").val()},
+                function(texto){
+                    if(imgAtual !== texto){
+                        $("#imgCamiseta").html(texto);
+                        imgAtual = texto;
+                    }
+                }
+            );
+        }
+    });    
 });
 
 /*

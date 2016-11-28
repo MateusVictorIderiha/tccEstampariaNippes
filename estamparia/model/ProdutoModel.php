@@ -32,6 +32,7 @@ abstract class ProdutoModel extends Crud {
     protected $personalizado;
     protected $idCor;
     protected $tamanho;
+    protected $descricao;
     protected $tabela = "tcc_produtos";
     protected $consultaColunaId = "id_produto";
 
@@ -52,6 +53,7 @@ abstract class ProdutoModel extends Crud {
                 $this->peso = $lista["peso"];
                 $this->personalizado = $lista["personalizado"];
                 $this->tamanho = $lista["id_tamanho"];
+                $this->descricao = $lista["descricao"];
             }
     }
 
@@ -67,6 +69,14 @@ abstract class ProdutoModel extends Crud {
         }*/
     }
 
+    public function getDescricao() {
+        return $this->descricao;
+    }
+
+    public function setDescricao($descricao) {
+        $this->descricao = $descricao;
+    }
+        
     public function getIdProduto() {
         return $this->idProduto;
     }
@@ -185,6 +195,14 @@ abstract class ProdutoModel extends Crud {
         return $lista;
     }
     
+    public function mostraFotoProduto($idCor){
+        $comando = $this->banco->prepare("SELECT id_produto FROM $this->tabela WHERE nome=:nome and id_cor = :cor");
+        $comando->bindParam(":nome", $this->nome);
+        $comando->bindParam(":cor", $idCor);
+        $comando->execute();
+        $lista = $comando->fetch(\PDO::FETCH_ASSOC);
+        return $lista;
+    }
     
     public function encontrarIdProdutoSemelhante($nomeModelo, $idCor, $idTamanho) {
         $comando = $this->banco->prepare("SELECT * FROM $this->tabela WHERE "

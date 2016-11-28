@@ -9,7 +9,7 @@
 
 html{
     min-height: 100%;
-    max-height: 100%
+    max-height: 100%;
 }
 body{
     overflow-x:hidden;  /* (tirar barra de rolagem horizontal) */	
@@ -410,4 +410,76 @@ margin-top:10px;
 
 .padding30{
     padding:30px;
+}
+
+#tabelaPedidos{
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid;
+}
+
+#tabelaPedidos th {
+    font: bold "oswald", "Helvetica Neue", Helvetica, Arial;
+    text-transform:uppercase;
+    background-color: #000;
+    padding: 5px;
+    border: 1px solid;
+    border-color: #fff;
+}
+
+#tabelaPedidos td {
+    border: 1px solid;
+    border-color: #777;
+    color: #000;
+
+}
+
+#tabelaPedidos td input, #tabelaPedidos td select {
+    border: 0px;
+    background: transparent;
+}
+
+#tabelaPedidos td select option {
+    background-color: #fff;
+}
+
+#tabelaPedidos th:first-child{
+    width: 19%
+}
+
+#tabelaPedidos th:nth-child(2){
+    width: 71%;
+}
+
+#tabelaPedidos th:nth-child(3){
+    width: 10%;
+}
+
+.oculta{
+    display: none;
+}
+
+#tabelaPedidos tr:nth-child(1n){
+    background-color: #ccc; 
+}
+
+#tabelaPedidos tr:nth-child(2n){
+    background-color: #ddd; 
+}
+
+#tabelaPedidos tr:hover{
+    background-color: #aaa; 
+}
+
+.pedidoSelecionado{
+    background-color: #fff !important;
+}
+
+#SomaQtdTotal{
+    font: 2rem "oswald", "Helvetica Neue", Helvetica, Arial;
+	text-transform:uppercase;
+    color: #fff;
+    width: 100%;
+    margin: 0 auto 10px auto;
+    text-align: center;
 }

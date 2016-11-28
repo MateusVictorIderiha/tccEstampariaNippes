@@ -21,6 +21,7 @@ class HomeController implements PadraoController{
 
     public function mostrarPagina() {
         $objHome = new HomeView;
+        $objHome->mostrarTopo();
         $objHome->mostrarConteudo();
         $objHome->mostrarRodape();
     }

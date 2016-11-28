@@ -15,9 +15,9 @@ namespace estamparia\controller;
  */
 class InicialController {
     //put your code here
-    private $controller;
-    private $acao;
-    const CAMINHO = '\\estamparia\\controller\\';
+    protected $controller;
+    protected $acao;
+    protected $caminho = '\\estamparia\\controller\\';
     
     public function formataCamelCase($naoFormatado) {
         $listaQuebrada = explode("_", $naoFormatado);
@@ -40,17 +40,17 @@ class InicialController {
     public function pegaController() {
         if(isset($_REQUEST["pagina"])){
             $pagina = $this->removePrefixoCamelCase($_REQUEST["pagina"]);
-            if(class_exists(self::CAMINHO.$pagina."Controller")){
-                $this->controller = self::CAMINHO.$pagina."Controller";
+            if(class_exists($this->caminho.$pagina."Controller")){
+                $this->controller = $this->caminho.$pagina."Controller";
             } elseif($pagina == "Login" or $pagina == "Cadastrar" or $pagina == "BemVindo") {
-                $this->controller = self::CAMINHO."Cliente"."Controller";
+                $this->controller = $this->caminho."Cliente"."Controller";
             } elseif($pagina == "Carrinho") {
-                $this->controller = self::CAMINHO."Venda"."Controller";
+                $this->controller = $this->caminho."Venda"."Controller";
             } else {
-                $this->controller = self::CAMINHO."Home"."Controller";
+                $this->controller = $this->caminho."Home"."Controller";
             }
         } else {
-            $this->controller = self::CAMINHO."Home"."Controller";
+            $this->controller = $this->caminho."Home"."Controller";
         }
     }
     

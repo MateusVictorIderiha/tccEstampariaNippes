@@ -25,12 +25,14 @@ class ProdutoController {
         $objProduto = new ProdLojaModel();
         $listaProdutos = $objProduto->consultarTodosProdutosLoja();
         $objCatalogo = new CatalagoView($listaProdutos);
+        $objCatalogo->mostrarTopo();
         $objCatalogo->mostrarConteudo();
         $objCatalogo->mostrarRodape(); 
     }
     
     public function mostrarProduto($idProduto) {
         $objProduto = new ProdutoView($idProduto);
+        $objProduto->mostrarTopo();
         $objProduto->mostrarConteudo();
         $objProduto->mostrarRodape();
     }

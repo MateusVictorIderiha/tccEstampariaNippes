@@ -27,7 +27,7 @@ class CodigoDaCorModel extends Crud {
     protected $tabela = "tcc_codigo";
     protected $consultaColunaId = "id_codigoCor";
 
-    public function __construct($idCodigoCor) {
+    public function __construct($idCodigoCor = null) {
         parent::__construct();
 
         if(!empty($idCodigoCor)) {

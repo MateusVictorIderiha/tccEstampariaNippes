@@ -24,30 +24,23 @@ class EstruturaView {
     protected $botoesTopo = array();
     protected $javascripts = array();
     protected $styles = array();
-    
+
+
     public function __construct($configuracoesPagina = null) {
         $this->guardarStylesPadrao($configuracoesPagina);
         $this->guardarJavascriptsPadrao($configuracoesPagina);
         $this->guardarBotoesTopo($configuracoesPagina);
-        
-        $objTopo = new topoView($this->botoesTopo, $this->javascripts, $this->styles);
-        
-        $objCliente = new ClienteModel();
-        if($objCliente->verificaLoginSessao() or $objCliente->verificaLoginCookie()){
-            $minhaConta = "<a href='?pagina=wp_login&acao=mostrar_bem_vindo'> MINHA CONTA</a>"
-                    . "<ul>"
-                    . "     <li>"
-                    . "         <a href='#'>Editar Perfil</a>"
-                    . "         <a href='#'>Compras efetuadas</a>"
-                    . "         <a href='#'>Meus Pedidos</a>"
-                    . "         <a href='?pagina=wp_login&acao=sair'>Sair</a>"
-                    . "     </lu>"
-                    . "</ul>";
-            $objTopo->setMinhaConta($minhaConta);
-        }
-        $this->topo = $objTopo->mostrarTopo();
+    }
+    public function addCaminho($antigoCaminho = null) {
+        $novocaminho = $this->getCaminho().$antigoCaminho;
+        return $novocaminho;
     }
     
+    public function getCaminho() {
+        return $this->caminho;
+    }
+
+        
     public function guardarStylesPadrao($styles = null) {
         $stylevalor1["caminho"] = "bootstrap/css/bootstrap.css";
         $stylevalor1["media"] = "All";
@@ -112,6 +105,24 @@ class EstruturaView {
                 array_push($this->botoesTopo, $botao);
             } 
         }
+    }
+    
+    public function mostrarTopo() {
+        $objTopo = new topoView($this->botoesTopo, $this->javascripts, $this->styles);
+        $objCliente = new ClienteModel();
+        if($objCliente->verificaLoginSessao() or $objCliente->verificaLoginCookie()){
+            $minhaConta = "<a href='?pagina=wp_login&acao=mostrar_bem_vindo'> MINHA CONTA</a>"
+                    . "<ul>"
+                    . "     <li>"
+                    . "         <a href='#'>Editar Perfil</a>"
+                    . "         <a href='#'>Compras efetuadas</a>"
+                    . "         <a href='#'>Meus Pedidos</a>"
+                    . "         <a href='?pagina=wp_login&acao=sair'>Sair</a>"
+                    . "     </lu>"
+                    . "</ul>";
+            $objTopo->setMinhaConta($minhaConta);
+        }
+        $this->topo = $objTopo->mostrarTopo();
     }
     
     public function mostrarRodape() {

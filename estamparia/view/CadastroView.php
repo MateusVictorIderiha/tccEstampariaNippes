@@ -20,8 +20,9 @@ class CadastroView  extends EstruturaView{
     
     public function __construct() {
         $javasriptValor3["caminho"] = "bootstrap/jquery-ui/jquery-ui.js";
-        
+        $javasriptValor4["caminho"] = "bootstrap/js/validate/dist/jquery.validate.js";
         $javascripts[] = $javasriptValor3;
+        $javascripts[] = $javasriptValor4;
         $configuracoes["javascript"] = $javascripts;
         
         $stylevalor3["caminho"] = "bootstrap/jquery-ui/jquery-ui.css";
@@ -148,7 +149,7 @@ class CadastroView  extends EstruturaView{
                         <input type='checkbox' id='loginCookie' class='focused' name='loginCookie' value='1' data-toggle='tooltip' title='Clique para se manter logado' data-placement='bottom' />
                         <label for='loginCookie'>Matenha-se conectado </label>
                     </div>
-                    <a href=''>Esquici minha senha</a>
+                    <a href=''>Esqueceu sua senha</a>
                     <div class='form-group'>
                         <input id='cadastrar' class='col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-primary' type='submit' value='Entrar' data-toggle='tooltip' title='Clique aqui para ENTRAR' data-placement='bottom' />
                     </div>

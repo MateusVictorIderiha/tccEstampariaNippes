@@ -4,41 +4,58 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1e79166f776675b4dafb0b9f810987ac {
-
-    public static $prefixLengthsPsr4 = array(
-        'e' =>
-        array(
+class ComposerStaticInit1e79166f776675b4dafb0b9f810987ac
+{
+    public static $prefixLengthsPsr4 = array (
+        'e' => 
+        array (
+            'estamparia\\view\\adm\\view\\' => 25,
+            'estamparia\\view\\adm\\model\\' => 26,
+            'estamparia\\view\\adm\\controller\\' => 31,
             'estamparia\\view\\' => 16,
             'estamparia\\model\\' => 17,
             'estamparia\\libs\\' => 16,
             'estamparia\\controller\\' => 22,
         ),
     );
-    public static $prefixDirsPsr4 = array(
-        'estamparia\\view\\' =>
-        array(
+
+    public static $prefixDirsPsr4 = array (
+        'estamparia\\view\\adm\\view\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/estamparia/view/ADMTelas/view',
+        ),
+        'estamparia\\view\\adm\\model\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/estamparia/view/ADMTelas/model',
+        ),
+        'estamparia\\view\\adm\\controller\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/estamparia/view/ADMTelas/controller',
+        ),
+        'estamparia\\view\\' => 
+        array (
             0 => __DIR__ . '/../..' . '/estamparia/view',
         ),
-        'estamparia\\model\\' =>
-        array(
+        'estamparia\\model\\' => 
+        array (
             0 => __DIR__ . '/../..' . '/estamparia/model',
         ),
-        'estamparia\\libs\\' =>
-        array(
+        'estamparia\\libs\\' => 
+        array (
             0 => __DIR__ . '/../..' . '/estamparia/libs',
         ),
-        'estamparia\\controller\\' =>
-        array(
+        'estamparia\\controller\\' => 
+        array (
             0 => __DIR__ . '/../..' . '/estamparia/controller',
         ),
     );
 
-    public static function getInitializer(ClassLoader $loader) {
+    public static function getInitializer(ClassLoader $loader)
+    {
         return \Closure::bind(function () use ($loader) {
-                    $loader->prefixLengthsPsr4 = ComposerStaticInit1e79166f776675b4dafb0b9f810987ac::$prefixLengthsPsr4;
-                    $loader->prefixDirsPsr4 = ComposerStaticInit1e79166f776675b4dafb0b9f810987ac::$prefixDirsPsr4;
-                }, null, ClassLoader::class);
-    }
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1e79166f776675b4dafb0b9f810987ac::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1e79166f776675b4dafb0b9f810987ac::$prefixDirsPsr4;
 
+        }, null, ClassLoader::class);
+    }
 }

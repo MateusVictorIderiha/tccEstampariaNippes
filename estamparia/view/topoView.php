@@ -45,7 +45,7 @@ class topoView {
                       ";
         }
         foreach ($this->javascripts as $javascript){
-                echo "<script src='$javascript[caminho]' ></script>
+                echo "<script src='".$javascript['caminho']."' ></script>
                         ";
         }
                 echo "<title>Nippes Estamparia</title>

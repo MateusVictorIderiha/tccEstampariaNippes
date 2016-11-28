@@ -25,6 +25,7 @@ class ClienteController implements PadraoController {
     //put your code here
     public function mostrarPagina() {
         $objCliente = new CadastroView();
+        $objCliente->mostrarTopo();
         $objCliente->mostrarConteudo();
         $objCliente->mostrarRodape();
     }
@@ -36,9 +37,7 @@ class ClienteController implements PadraoController {
         $dataNascimento = $_POST["dataNascimento"];
         $telefones = $_POST["telefone"];
         $celulares = $_POST["celular"];
-        
-        
-        
+
         $idCep = $_POST["cep"];
         $rua = $_POST["rua"];
         $numero = $_POST["numero"];

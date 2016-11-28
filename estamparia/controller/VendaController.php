@@ -25,6 +25,7 @@ class VendaController implements PadraoController{
         $listaTamanhos = $objTamanho->consultarTudo();
         
         $objCarrinho = new VendasView($listaTamanhos);        
+        $objCarrinho->mostrarTopo();
         $objCarrinho->mostrarConteudo();
         $objCarrinho->mostrarRodape();
     }

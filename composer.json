@@ -21,7 +21,10 @@
             "estamparia\\controller\\": "estamparia/controller",
             "estamparia\\libs\\": "estamparia/libs",
             "estamparia\\model\\": "estamparia/model",
-            "estamparia\\view\\": "estamparia/view"
+            "estamparia\\view\\": "estamparia/view",
+            "estamparia\\view\\adm\\view\\": "estamparia/view/ADMTelas/view",
+            "estamparia\\view\\adm\\model\\": "estamparia/view/ADMTelas/model",
+            "estamparia\\view\\adm\\controller\\": "estamparia/view/ADMTelas/controller"
         }
     }
 }

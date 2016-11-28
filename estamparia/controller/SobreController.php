@@ -20,6 +20,7 @@ class SobreController implements PadraoController{
     //put your code here
     public function mostrarPagina() {
         $objSobre = new SobreView();
+        $objSobre->mostrarTopo();
         $objSobre->mostrarConteudo();
         $objSobre->mostrarRodape();
     }

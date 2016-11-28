@@ -27,7 +27,9 @@ abstract class Crud {
         $dsn = "mysql:host=$servidor; dbname=$banco";
         $usuario = "root";
         $senha = "root";
-        $conexao = new \PDO($dsn, $usuario, $senha);
+        $opcoes = array(\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8'); // AVISANDO O BANCO PARA USAR UTF8
+        
+        $conexao = new \PDO($dsn, $usuario, $senha, $opcoes);
         $this->banco = $conexao;
     }
 

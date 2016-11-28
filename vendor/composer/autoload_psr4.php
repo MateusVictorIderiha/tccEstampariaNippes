@@ -6,6 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'estamparia\\view\\adm\\view\\' => array($baseDir . '/estamparia/view/ADMTelas/view'),
+    'estamparia\\view\\adm\\model\\' => array($baseDir . '/estamparia/view/ADMTelas/model'),
+    'estamparia\\view\\adm\\controller\\' => array($baseDir . '/estamparia/view/ADMTelas/controller'),
     'estamparia\\view\\' => array($baseDir . '/estamparia/view'),
     'estamparia\\model\\' => array($baseDir . '/estamparia/model'),
     'estamparia\\libs\\' => array($baseDir . '/estamparia/libs'),
