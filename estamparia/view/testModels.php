@@ -46,3 +46,5 @@ var_dump($objVenda);*/
 $objUparImg = new estamparia\controller\PedidosController();
 var_dump($objUparImg->fazerUploadFoto("E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/"
                     . "estamparia/imagens/usuarios/pedidos/"."1"));
+
+echo md5("uadmnipees");

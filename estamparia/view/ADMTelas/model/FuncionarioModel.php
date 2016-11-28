@@ -12,7 +12,7 @@
  * @author rm02540
  */
 
-namespace estamparia\model;
+namespace estamparia\view\adm\model;
 
 use estamparia\libs\UsuarioModel;
 
