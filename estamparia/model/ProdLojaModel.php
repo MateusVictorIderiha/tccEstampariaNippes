@@ -17,19 +17,47 @@ use estamparia\model\ProdutoModel;
  */
 class ProdLojaModel extends ProdutoModel{
     //put your code here
-    protected $lotes;
-    protected $quantidadeTotal;
+    //protected $lotes;
     protected $personalizado = "N";
     
     public function __construct($idProduto = null) {
         parent::__construct($idProduto);
+        
+        
+        /*
+          $this->lotes = $this->consultarEstoque($idProduto);
+         * $this->lotes = $this->consultarEstoque($idProduto);
         
         if(isset($idProduto)){
             $this->lotes = $this->consultarEstoque($idProduto);
             if($this->lotes){
                 $this->quantidadeTotal = $this->calcularQuantidadeTotal($this->lotes);
             }
-        }
+        }*/
+    }
+    
+    public function getLotes() {
+        return $this->lotes;
+    }
+
+    public function getQuantidadeTotal() {
+        return $this->quantidadeTotal;
+    }
+
+    public function getPersonalizado() {
+        return $this->personalizado;
+    }
+
+    public function setLotes($lotes) {
+        $this->lotes = $lotes;
+    }
+
+    public function setQuantidadeTotal($quantidadeTotal) {
+        $this->quantidadeTotal = $quantidadeTotal;
+    }
+
+    public function setPersonalizado($personalizado) {
+        $this->personalizado = $personalizado;
     }
     
     public function consultarTodosProdutosLoja() {
@@ -64,7 +92,7 @@ class ProdLojaModel extends ProdutoModel{
         }
         return false;
     }
-*/
+
     public function calcularQuantidadeTotal($lotes) {
         if(isset($lotes)){
             $quantidade = 0;
@@ -83,7 +111,6 @@ class ProdLojaModel extends ProdutoModel{
         $lista = $comando->fetchAll(\PDO::FETCH_ASSOC);
         return $lista;
     }
-    
     public function consultarProdutoComEstoque($idProduto) {
         $listaProduto = $this->consultar($idProduto);
         if($listaProduto){
@@ -95,16 +122,17 @@ class ProdLojaModel extends ProdutoModel{
             $listaProduto["quantidadeTotal"] = $quantidade;
             
             return $listaProduto;
-          /*  $listaProduto["id_lotes"] = $listaEstoque["id_lotes"];
+            $listaProduto["id_lotes"] = $listaEstoque["id_lotes"];
             $listaProduto["dataIniciada"] = $listaEstoque["dataIniciada"];
             $listaProduto["dataFinalizada"] = $listaEstoque["dataFinalizada"];
             $listaProduto["ativa"] = $listaEstoque["ativa"];
-            $listaProduto["quantidade"] = $listaEstoque["quantidade"];*/
+            $listaProduto["quantidade"] = $listaEstoque["quantidade"];
             
         } else {
             return false;
         }
     }
+    */
 
 
     public function inserirCarrinho() {
@@ -117,7 +145,7 @@ class ProdLojaModel extends ProdutoModel{
     }
     
     public function saidaEstoque($quantidadeSaida) {
-        $this->lotes = $this->consultarEstoque($this->idProduto);
+        /*$this->lotes = $this->consultarEstoque($this->idProduto);
         $this->calcularQuantidadeTotal($this->lotes);
         if($this->quantidadeTotal > 0 && $this->quantidadeTotal >= $quantidadeSaida){
             foreach ($this->lotes as $lote) {
@@ -143,9 +171,22 @@ class ProdLojaModel extends ProdutoModel{
             }
         } else {
             return "Não há produtos em estoque";
+        }*/
+        if($this->quantidadeTotal > 0 && $this->quantidadeTotal >= $quantidadeSaida){
+            $quantidadeAtual = $this->quantidadeTotal - $quantidadeSaida;
+            if($quantidadeAtual >= 0){
+                $comando = $this->banco->prepare("UPDATE tcc_estoque SET quantidade=:qtdAtual"
+                        . " WHERE id_produto = $this->idProduto and id_lotes = ".$quantidadeAtual);
+                $comando->bindParam(":qtdAtual", $quantidadeSaida);
+                return $comando->execute(); // PARA AQUI
+            }
+
+        } else {
+            return "Não há produtos em estoque";
         }
+        
     }
-    
+    /*
     public function entradaEstoque($quantidadeEntrada) {
         if($quantidadeEntrada > 0){
             $comando = $this->banco->prepare("INSERT INTO tcc_lotes(dataIniciada, "
@@ -153,8 +194,9 @@ class ProdLojaModel extends ProdutoModel{
             $dataIni = date("Y-m-d");
             $comando->bindParam(":dataIniciada", $dataIni);
             $comando->bindParam(":quantidade", $quantidadeEntrada);
-            $comando->bindParam(":id_produto", $this->idProdutos);
+            $comando->bindParam(":id_produto", $this->idProdutos);       
             return $comando->execute();
         }
     }
+         */
 }

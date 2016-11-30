@@ -26,12 +26,13 @@ abstract class ProdutoModel extends Crud {
     //protected $marca;
     protected $peso;
     protected $tipoProduto;
-    protected $idModelo;
+    protected $modelo;
     protected $material;
     protected $categoria;
     protected $personalizado;
     protected $idCor;
-    protected $tamanho;
+    protected $quantidadeTotal;    
+    protected $idTamanho;
     protected $descricao;
     protected $tabela = "tcc_produtos";
     protected $consultaColunaId = "id_produto";
@@ -45,28 +46,55 @@ abstract class ProdutoModel extends Crud {
                 $this->nome = $lista["nome"];
                 $this->preco = $lista["preco"];
                 $this->fotoProduto = $lista["fotoProduto"];
-                $this->modelo = $lista["id_modelo"];
+                $this->modelo = $lista["modelo"];
                 $this->material = $lista["material"];
                 $this->idCor = $lista["id_cor"];
                 $this->categoria = $lista["categoria"];
                 $this->tipoProduto = $lista["tipoProduto"];
                 $this->peso = $lista["peso"];
                 $this->personalizado = $lista["personalizado"];
-                $this->tamanho = $lista["id_tamanho"];
+                $this->idTamanho = $lista["id_tamanho"];
                 $this->descricao = $lista["descricao"];
+                $this->quantidadeTotal = $lista["quantidade"];
             }
+    }
+    
+    public function __set($name, $value) {
+        if($value != null && !empty($value)){
+            $name = $value;
+        }
     }
 
     public function __get($propriedade) {
         if($propriedade == "Cor") {
             $objCor = new CorModel($this->idCor);
-            return $objCor;
+            return $objCor->getCor();
+        }
+        if($propriedade == "Tamanho") {
+            $objTamanho = new TamanhoModel($this->idTamanho);
+            return $objTamanho->getTamanho();
         }
 /*
         if($propriedade == "Tamanho") {
             $objTamanho = new TamanhoModel();
             return $objTamanho;
         }*/
+    }
+
+    public function getIdModelo() {
+        return $this->idModelo;
+    }
+
+    public function getIdTamanho() {
+        return $this->idTamanho;
+    }
+
+    public function setIdModelo($idModelo) {
+        $this->idModelo = $idModelo;
+    }
+
+    public function setIdTamanho($idTamanho) {
+        $this->idTamanho = $idTamanho;
     }
 
     public function getDescricao() {
@@ -119,10 +147,6 @@ abstract class ProdutoModel extends Crud {
 
     public function getIdCor() {
         return $this->idCor;
-    }
-
-    public function getQuantidade() {
-        return $this->quantidade;
     }
 
     public function setIdProduto($idProduto) {
@@ -212,25 +236,11 @@ abstract class ProdutoModel extends Crud {
         return $lista;
     }
     
-    public function fazerUploadFoto($caminho) {
-        if(isset($_FILES["imagem"])){
-            date_default_timezone_set("Brazil/East");
-            
-            $extensao = strtolower(substr($_FILES["imagem"]["name"], -4));
-            if($extensao == "jpeg" && $extensao == "jpeg2000" && $extensao == "png" &&
-                    $extensao == "eps" && $extensao == "crd" && $extensao == "ai" &&
-                    $extensao == "svg"){
-                $novoNome = date(Y-m-d_H-i-s).$extensao;
-                move_uploaded_file($_FILES["imagem"]["tmp_name"], $caminho.$novoNome);
-            }
-        }
-    }
-    
     public function inserir() {
-        $comando = $this->banco->prepare("INSERT INTO $this->tabela(`nome`, `preco`,
-                `fotoProduto`, `modelo`, `material`, `id_cor`, `categoria`,
-                `tipoProduto`, personalizado, peso, tamanho) VALUES (:nome, :preco, :fotoProduto, :id_modelo,
-                :id_material, :id_cor, :id_categoria, :id_tipoProduto, :personalizado, :peso, :tamanho)");
+        $comando = $this->banco->prepare("INSERT INTO $this->tabela(nome, preco,
+                fotoProduto, modelo, material, id_cor, categoria,
+                tipoProduto, personalizado, peso, quantidade, id_tamanho) VALUES (:nome, :preco, :fotoProduto, :id_modelo,
+                :id_material, :id_cor, :id_categoria, :id_tipoProduto, :personalizado, :peso, :quantidade, :tamanho)");
         $comando->bindParam(":nome", $this->nome);
         $comando->bindParam(":preco", $this->preco);
         $comando->bindParam(":fotoProduto", $this->fotoProduto);
@@ -241,9 +251,10 @@ abstract class ProdutoModel extends Crud {
         $comando->bindParam(":id_tipoProduto", $this->tipoProduto);
         $comando->bindParam(":personalizado", $this->personalizado);
         $comando->bindParam(":peso", $this->peso);
-        $comando->bindParam(":tamanho", $this->tamanho);
+        $comando->bindParam(":quantidade", $this->quantidadeTotal);
+        $comando->bindParam(":tamanho", $this->idTamanho);
         $comando->execute();
-
+        var_dump($comando);
         return $this->banco->lastInsertId();
     }
 
@@ -251,7 +262,7 @@ abstract class ProdutoModel extends Crud {
         $comando = $this->banco->prepare("UPDATE $this->tabela SET "
                 . "nome=:nome, preco=:preco, fotoProduto=:fotoProduto,"
                 . " modelo=:id_modelo, material=:id_material, id_cor=:id_cor,"
-                . " categoria=:id_categoria, tipoProduto=:id_tipoProduto, peso=:peso, tamanho=:tamanho"
+                . " categoria=:id_categoria, tipoProduto=:id_tipoProduto, peso=:peso, id_tamanho=:tamanho"
                 . " WHERE $this->consultaColunaId = $id");
         $comando->bindParam(":nome", $this->nome);
         $comando->bindParam(":preco", $this->preco);
@@ -262,8 +273,15 @@ abstract class ProdutoModel extends Crud {
         $comando->bindParam(":id_categoria", $this->categoria);
         $comando->bindParam(":id_tipoProduto", $this->tipoProduto);
         $comando->bindParam(":peso", $this->peso);
-        $comando->bindParam(":tamanho", $this->tamanho);
-        $comando->execute();
+        $comando->bindParam(":tamanho", $this->idTamanho);
+        var_dump($comando);
+        $verifica = $comando->execute();
+
+        if($verifica){
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public function mostrarInformacoes() {
@@ -279,7 +297,6 @@ abstract class ProdutoModel extends Crud {
         $informacoes[] = $this->modelo;
         $informacoes[] = $this->tipoProduto;
         $informacoes[] = $this->tamanho;
-        $informacoes[] = $this->quantidade;
         return $informacoes;
     }
 }

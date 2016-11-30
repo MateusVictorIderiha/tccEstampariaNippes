@@ -27,6 +27,7 @@ class CadastroView  extends EstruturaView{
         
         $stylevalor3["caminho"] = "bootstrap/jquery-ui/jquery-ui.css";
         $stylevalor3["media"] = "All";
+
         
         $styles[] = $stylevalor3;
         $configuracoes["style"] = $styles;
@@ -36,10 +37,34 @@ class CadastroView  extends EstruturaView{
     
     public function mostrarConteudo() {
         echo "
-        <section>
-            <div id='cadastrar' class='container'>
+        <section class='container'>
+        <div class='col-md-4 col-md-push-8'>
+             <fieldset>
+                <h1 class='whitecolor'>Faça seu Login!</h1>
+                <div id='errouLogin'>Usúario ou senha incorretos</div>
+                <form id='formLogar' method='Post' action='?pagina=wp_login&acao=logar_cliente'>
+                    <div class='form-group'> 
+                        <label for='usuario'>Login: </label>
+                        <input type='text' class='form-control focused' id='usuarioLogin' name='usuario' data-toggle='tooltip' title='Preencha seu e-mail/LOGIN para entrar' data-placement='bottom' />
+                    </div>
+                    <div class='form-group'>
+                        <label for='senha'>Senha: </label>
+                        <input type='password' class='form-control focused' id='senhaLogin' name='senha' data-toggle='tooltip' title='Preencha sua senha para entrar' data-placement='bottom' />
+                    </div>
+                    <div class='form-group'>
+                        <input type='checkbox' id='loginCookie' class='focused' name='loginCookie' value='1' data-toggle='tooltip' title='Clique para se manter logado' data-placement='bottom' />
+                        <label for='loginCookie'>Matenha-se conectado </label>
+                    </div>
+                    <a href=''>Esqueceu sua senha</a>
+                    <div class='form-group'>
+                        <input id='logar' class='col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-primary' type='submit' value='Entrar' data-toggle='tooltip' title='Clique aqui para ENTRAR' data-placement='bottom' />
+                    </div>
+                </form>	
+            </fieldset>
+        </div>
+            <div id='cadastrar' class='col-md-pull-4 col-md-4'>
                 <form name='cadastrarCliente' id='cadastrarCliente' class='form' method='POST' action='?pagina=wp_cadastrar&acao=cadastrar_cliente' >
-                    <fieldset class='col-md-4 formulario padding-bottom4'>
+                    <fieldset class='col-md-12 formulario padding-bottom4'>
                         <h1 class='century font33px'>CADASTRE-SE</h1>
                         <fieldset>
                             <legend>Informações Pessoais</legend>
@@ -132,29 +157,6 @@ class CadastroView  extends EstruturaView{
                     </fieldset>
                 </form>
             </div>	
-
-
-            <fieldset class='col-md-3 logindireita'>
-                <h1 class='whitecolor'>Faça seu Login!</h1>
-                <form method='Post' action='?pagina=wp_login&acao=logar_cliente'>
-                    <div class='form-group'> 
-                        <label for='usuario'>Login: </label>
-                        <input type='text' class='form-control focused' id='usuarioLogin' name='usuario' data-toggle='tooltip' title='Preencha seu e-mail/LOGIN para entrar' data-placement='bottom' />
-                    </div>
-                    <div class='form-group'>
-                        <label for='senha'>Senha: </label>
-                        <input type='password' class='form-control focused' id='senhaLogin' name='senha' data-toggle='tooltip' title='Preencha sua senha para entrar' data-placement='bottom' />
-                    </div>
-                    <div class='form-group'>
-                        <input type='checkbox' id='loginCookie' class='focused' name='loginCookie' value='1' data-toggle='tooltip' title='Clique para se manter logado' data-placement='bottom' />
-                        <label for='loginCookie'>Matenha-se conectado </label>
-                    </div>
-                    <a href=''>Esqueceu sua senha</a>
-                    <div class='form-group'>
-                        <input id='cadastrar' class='col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-primary' type='submit' value='Entrar' data-toggle='tooltip' title='Clique aqui para ENTRAR' data-placement='bottom' />
-                    </div>
-                </form>	
-            </fieldset>
         </section>";
     }
 }

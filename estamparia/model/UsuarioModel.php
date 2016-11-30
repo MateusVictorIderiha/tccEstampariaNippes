@@ -127,9 +127,9 @@ abstract class UsuarioModel extends PessoaModel {
             }
             $_SESSION["usuario"] = $login["id_usuario"];
             $_SESSION["senha"] = base64_encode($login["senha"]);
-            header("location:?pagina=wp_bem_vindo&acao=mostrar_bem_vindo");
+            return true;
         } else {
-            echo "Senha ou usuario incorretos";
+            return false;
         }
     }
 
@@ -149,9 +149,9 @@ abstract class UsuarioModel extends PessoaModel {
         if($login) {
             setcookie("usuario", $login["id_usuario"], time()+604800);
             setcookie('senha', base64_encode($login["senha"]), time()+604800);
-            header("location:?pagina=wp_bem_vindo&acao=mostrar_carrinho");
+            return true;
         } else {
-            echo "Senha ou usuario incorretos";
+            return false;
         }
     }
 
@@ -197,10 +197,8 @@ abstract class UsuarioModel extends PessoaModel {
                 !empty($_COOKIE['usuario']) and !empty($_COOKIE['senha'])) {
             $idUsuario = $_COOKIE['usuario'];
             $senha = base64_decode($_COOKIE['senha']);
-            
             $login = $this->retornaLogin($idUsuario);
         }
-        
         
         if($this->validaUsuario($login, $senha)) {
             return true;
@@ -251,7 +249,8 @@ abstract class UsuarioModel extends PessoaModel {
                 . "cpf_usuario=:cpf_usuario,email=:email,senha=:senha,RG=:rg,"
                 . "dataNascimento=:dataNascimento,nome=:nome WHERE $this->consultaColunaId=$id");
         $comando->bindParam(":cpf_usuario", $this->cpf);
-        $comando->bindParam(":senha", md5($this->postSenhaLogin));
+        $senha = md5($this->postSenhaLogin);
+        $comando->bindParam(":senha", $senha);
         $comando->bindParam(":login", $this->postUsuarioLogin);
         $comando->bindParam(":rg", $this->rg);
         $comando->bindParam(":dataNascimento", $this->dataNascimento);

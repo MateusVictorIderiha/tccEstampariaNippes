@@ -8,14 +8,14 @@
 
 namespace estamparia\view\adm\view;
 
-use estamparia\view\ADM\view\EstruturaADM;
+use estamparia\view\adm\view\TopoAdm;
 
 /**
  * Description of CaracteristicasProdutoView
  *
  * @author Mateus
  */
-class CaracteristicasProdutoView extends EstruturaADM{
+class CaracteristicasProdutoView extends TopoAdm{
     //put your code here
     public function mostrarCaracteristicaModelo() {
         echo "<article class='itencadastro2'>

@@ -18,7 +18,7 @@ class ContatoView extends EstruturaView{
     //put your code here
     
     public function mostrarConteudo() {
-        echo "        
+      /*  echo "        
         <section class='faleconosco'>
             <h1>FALE CONOSCO!</h1>
             <article>				
@@ -54,18 +54,25 @@ class ContatoView extends EstruturaView{
                     </fieldset>
                 </form>
             </article>
-        </section>
+        </section>*/
+        
+    echo "
+        <div class='container'>
+            <div class='row'>
+                <iframe src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14634.317438600627!2d-47.4714152!3d-23.5116559!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xbafed5f1761e6f47!2sETEC+Fernando+Prestes!5e0!3m2!1spt-PT!2sbr!4v1480471672011' class='col-md-8' height='300px' frameborder='0' style='border:0' allowfullscreen></iframe>
 
-        <article class='positionleft font25px absolute padding22'>
-            <h1>CONTATO</h1>
-            <p>
-                RUA MARIA GERMANI<br>
-                18053-030-, Nº:883<br>
-                JULIO DE MESQUITA<br>
-                <br>
-                TEL:(15)3202-5270<br>
-                E-MAIL:<b>NIPPES@HOTMAIL.COM</b>
-            </p>
-        </article>";
+                <article class='positionleft font25px'>
+                    <h1>CONTATO</h1>
+                    <p>
+                        RUA MARIA GERMANI<br>
+                        18053-030-, Nº:883<br>
+                        JULIO DE MESQUITA<br>
+                        <br>
+                        TEL:(15)3202-5270<br>
+                        E-MAIL:<b>NIPPES@HOTMAIL.COM</b>
+                    </p>
+                </article>
+            </div>
+        </div>";
     }
 }

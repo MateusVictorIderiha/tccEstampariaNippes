@@ -67,15 +67,16 @@ class topoView {
             foreach ($this->botoes as $botao) {
                     echo "<li><a href='".$botao['caminho']."' name='".$botao['nome']."'> ".$botao['valor']." </a></li>";
             }
-            echo "</ul>
+            /*echo "</ul>
                 <div class='pesquisa'>
-                    <input type='text'/>
-                    <button>I</button>
+                   <input type='text'/>
+                    <button>I</button>*/
 
+              echo "<div class='pesquisa'>
                     <a href='?pagina=wp_venda&acao=mostrar_carrinho'>
+                        Carrinho
                         <img class='carrinho relative' src='img/carrinho2.png' /> 
                     </a>
-                </div>	
             </nav>
         </header>";
                 

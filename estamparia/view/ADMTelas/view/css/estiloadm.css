@@ -382,6 +382,21 @@ figure.banner p{
     border-bottom: 5px solid #fff;
 }
 
+.loginAdm{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 200px;
+}
 
+.logar {
+    width: 100%;
+}
 
-
+.CamisetaAdm{
+    padding: 10px 0px;
+}
+.CamisetaAdm:hover{ 
+    background-color: #888;
+}

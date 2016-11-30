@@ -285,5 +285,22 @@ figure.banner p{
     color:gray;
 }
 
+label.errou{
+    border: 1px solid red;
+    color: red;
+    font-weight: bold;
+    background-color: #99CCFF;
+    margin: 6px 0;
+    width: 120px;
+    text-align: center;
+}
 
-
+#erroLogin{
+    border: 1px solid red;
+    color: red;
+    font-weight: bold;
+    background-color: #99CCFF;
+    margin: 6px 0;
+    width: 120px;
+    text-align: center;
+}

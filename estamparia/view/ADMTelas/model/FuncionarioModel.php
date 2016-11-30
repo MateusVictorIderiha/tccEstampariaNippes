@@ -14,9 +14,9 @@
 
 namespace estamparia\view\adm\model;
 
-use estamparia\libs\UsuarioModel;
+use estamparia\model\UsuarioModel;
 
-final class FuncionarioModel extends UsuarioModel {
+class FuncionarioModel extends UsuarioModel {
 
     //put your code here
 

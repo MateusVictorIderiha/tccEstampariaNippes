@@ -23,7 +23,7 @@ class TopoAdm {
         $this->styles = $styles;
     }
 
-    public function mostrarTopo(){
+    public function head() {
         echo "<!doctype html>
 <html lang='pt-BR'>
     <head>
@@ -32,17 +32,23 @@ class TopoAdm {
 
         <link rel='stylesheet' type='text/css' media='all' href='../../bootstrap/css/bootstrap.css' />
         <link rel='stylesheet' type='text/css' media='all' href='../../bootstrap/jquery-ui/jquery-ui.css' />
+        <link rel='stylesheet' type='text/css' media='all' href='css/msg.css' />
 
         <script src='../../bootstrap/js/jquery.js' ></script>
         <script src='../../bootstrap/js/bootstrap.js' ></script> 
         <script src='../../bootstrap/jquery-ui/jquery-ui.js' ></script>
+        <script src='../../bootstrap/js/validate/dist/jquery.validate.js' ></script> 
         <script src='../../javascript.js' ></script>
 
         <link href='css/estilo.css' rel='stylesheet' type='text/css' media='screen'>
         <link href='css/estiloadm.css' rel='stylesheet' type='text/css' media='screen'>
 
         <title>Nippes Estamparia</title>
-    </head>
+    </head>";
+    }
+    
+    public function mostrarTopo(){
+        echo "
     <body>	
         <header>
             <figure>
@@ -51,7 +57,7 @@ class TopoAdm {
             <figure class='user'>
                 <img src='img/user.png' width='50px' height='50px' />
             </figure>
-            <h1 class='admin'><a href='#'>Admin<h1>
+            <h1 class='admin'><a href='#'>Admin</a></h1>
                         </header>
                         <nav class='espacoentre'>
                             <ul>
@@ -102,5 +108,9 @@ class TopoAdm {
                                 <li><a class='espacoentre' href='ADMvenda.html'> ORCAMENTOS</a></li>
                             </ul>
                         </nav>";*/
+    }
+    
+    public function fecharPagina() {
+        echo "</body></html>";
     }
 }

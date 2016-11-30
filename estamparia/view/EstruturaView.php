@@ -111,15 +111,16 @@ class EstruturaView {
         $objTopo = new topoView($this->botoesTopo, $this->javascripts, $this->styles);
         $objCliente = new ClienteModel();
         if($objCliente->verificaLoginSessao() or $objCliente->verificaLoginCookie()){
-            $minhaConta = "<a href='?pagina=wp_login&acao=mostrar_bem_vindo'> MINHA CONTA</a>"
-                    . "<ul>"
-                    . "     <li>"
-                    . "         <a href='#'>Editar Perfil</a>"
-                    . "         <a href='#'>Compras efetuadas</a>"
-                    . "         <a href='#'>Meus Pedidos</a>"
-                    . "         <a href='?pagina=wp_login&acao=sair'>Sair</a>"
-                    . "     </lu>"
-                    . "</ul>";
+            $minhaConta = 
+                    //"<a href='?pagina=wp_login&acao=mostrar_bem_vindo'> MINHA CONTA</a>"
+                    //. "<ul>"
+                   // . "     <li>"
+                   //. "         <a href='#'>Editar Perfil</a>"
+                    //. "         <a href='#'>Compras efetuadas</a>"
+                    //. "         <a href='#'>Meus Pedidos</a>".
+                     "         <a class='font15px' href='?pagina=wp_login&acao=sair'>Sair da Conta</a>";
+                    //. "     </lu>"
+                    //. "</ul>";
             $objTopo->setMinhaConta($minhaConta);
         }
         $this->topo = $objTopo->mostrarTopo();

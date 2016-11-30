@@ -54,6 +54,38 @@ $(document).ready(function() {
             alert('Cadastre no máximo três telefones');
         }
    });
+   /*
+    $("#logarCli").click(function () {
+        $.post("?pagina=wp_login&acao=logar_cliente",{"usuario": $("#usuarioLogin2").val(), "senha":$("#senhaLogin2").val()},
+            function(texto){
+                if(texto !== ""){
+                    $("#msgLogin").html("Usuário ou senha incorretos").addClass("errou");
+                } else {
+                    $("#frmLogar").submit();
+                }
+            }
+        );
+    });*/
+    
+    $("#errouLogin").hide();
+    $("#formLogar").submit(function () {
+        var login = $("#usuarioLogin").val();
+        var senha = $("#senhaLogin").val();
+        $.ajax({
+            url: "?pagina=wp_login&acao=logarCliente",
+            type: "post",
+            data: "usuario="+login+"&senha="+senha,
+            success: function (resultado) {
+                if(resultado == 1){
+                    location.href='?pagina=wp_bem_vindo&acao=mostrar_bem_vindo';
+                } else {
+                    $("#errouLogin").show();
+                }
+            }
+        })
+        return false;
+    });
+    
 });
 
 $(document).ready(function() {    
@@ -333,6 +365,77 @@ $(document).ready(function() {
         }
     });    
 });
+
+$(document).ready(function() {
+   /* $("#logar").click(function () {
+        $.post("?acao=logar",{"usuarioAdm": $("#usuarioAdm").val(), "senhaAdm":$("#senhaAdm").val()},
+            function(texto){
+                if(texto !== ""){
+                    $("#msgLogin").html("Usuário ou senha incorretos").addClass("errou");
+                } else {
+                    $("#login").submit();
+                }
+            }
+        );
+    });
+    */
+    function pegarIdProdutoAdm(idProdutoAdm, nomeAdm, modeloAdm, materialAdm, precoAdm, imgAdm, descricaoAdm){
+        $("#idproduto").val($(idProdutoAdm).text());
+        $("#nome").val($(nomeAdm).text());
+        $("#modelo").val($(modeloAdm).text());
+        $("#tecido").val($(materialAdm).text());
+        $("#preco").val($(precoAdm).text());
+        $("#imagemAtual").val($(imgAdm).text());
+        $("#descricao").val($(descricaoAdm).text());
+    }
+    
+    $('.CamisetaAdm').on("click", "figure", function() {
+         idProdutoAdm = $(this).find($('.idProduto'));
+         nomeAdm = $(this).find($('.nomeProduto'));
+         modeloAdm = $(this).find($('.modeloProduto'));
+         materialAdm = $(this).find($('.materialProduto'));
+         precoAdm = $(this).find($('.precoProduto'));
+         imgAdm = $(this).find($('.imagemAtual'));
+         descricaoAdm = $(this).find($('.descricaoProduto'));
+         pegarIdProdutoAdm(idProdutoAdm, nomeAdm, modeloAdm, materialAdm, precoAdm, imgAdm, descricaoAdm);
+    });
+    
+    $('.CamisetaAdm').on("click", ".btnEditar", function() {
+         div = $(this).parent($('div'));
+         CamisetaAdm = $(div).parent($('.camisetaAdm'));
+         idProdutoAdm = $(CamisetaAdm).find($('.idProduto'));
+         nomeAdm = $(CamisetaAdm).find($('.nomeProduto'));
+         modeloAdm = $(CamisetaAdm).find($('.modeloProduto'));
+         materialAdm = $(CamisetaAdm).find($('.materialProduto'));
+         precoAdm = $(CamisetaAdm).find($('.precoProduto'));
+         imgAdm = $(CamisetaAdm).find($('.imagemAtual'));
+         descricaoAdm = $(CamisetaAdm).find($('.descricaoProduto'));
+         pegarIdProdutoAdm(idProdutoAdm, nomeAdm, modeloAdm, materialAdm, precoAdm, imgAdm, descricaoAdm);
+    });
+    
+    $('#existente').change(function () {
+        $('#idproduto').val(null);
+    });
+    
+    
+    $('.CamisetaAdm').on("click", ".btnExcluir", function() {
+         div = $(this).parent($('div'));
+         CamisetaAdm = $(div).parent($('.camisetaAdm'));
+         idProdutoAdm = $(CamisetaAdm).find($('.idProduto'));
+         
+        $.post("?pagina=wp_Produto_Adm&acao=excluir",{"idProduto": $(idProdutoAdm).text()},
+            function(texto){
+                alert(texto);
+                if(texto==='excluido'){
+                    $(CamisetaAdm).html("");
+                }
+            }
+        );
+    });
+    
+});
+    
+
 
 /*
 $(document).ready(function() {

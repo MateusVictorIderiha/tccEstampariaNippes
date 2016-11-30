@@ -262,6 +262,8 @@ figure.textopromo{
 .pesquisa{
     float: right;
     margin-right: 15px;
+    color: white;
+    font: 1.4rem "Century Gothic", AppleGothic, sans-serif;
     margin-bottom: 0;  
 }
 a{
@@ -477,9 +479,30 @@ margin-top:10px;
 
 #SomaQtdTotal{
     font: 2rem "oswald", "Helvetica Neue", Helvetica, Arial;
-	text-transform:uppercase;
+    text-transform:uppercase;
     color: #fff;
     width: 100%;
     margin: 0 auto 10px auto;
     text-align: center;
+}
+.sucesso{
+    font: 2rem "oswald", "Helvetica Neue", Helvetica, Arial;
+    text-transform:uppercase;
+    color: greenyellow;
+    display: block;
+}
+
+.errou{
+    font: 2rem "oswald", "Helvetica Neue", Helvetica, Arial;
+    text-transform:uppercase;
+    color: #dd0000;
+    display: block;
+}
+
+
+#errouLogin{
+    font: 2rem "oswald", "Helvetica Neue", Helvetica, Arial;
+    text-transform:uppercase;
+    color: #dd0000;
+    display: block;
 }

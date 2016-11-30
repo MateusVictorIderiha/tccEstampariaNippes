@@ -90,15 +90,26 @@ class ClienteController implements PadraoController {
     public function logarCliente() {
         $usuario = $_POST["usuario"];
         $senha = $_POST["senha"];
-
+        
         $cookie = isset($_POST["loginCookie"]) ? ($_POST["loginCookie"]) : (false);
         
         $objClienet = new ClienteModel();
         if($cookie == 1){
-            $objClienet->loginCookie($usuario, $senha);
+            $verifica = $objClienet->loginCookie($usuario, $senha);
+            if($verifica){
+                echo 1;
+            } else {
+                echo 0;
+            }
         } else {
-            $objClienet->loginSessao($usuario, $senha);
+            $verifica = $objClienet->loginSessao($usuario, $senha);
+            if($verifica){
+                echo 1;
+            } else {
+                echo 0;
+            } 
         }
+        return false;
     }
     
     public function mostrarBemVindo() {
@@ -111,6 +122,7 @@ class ClienteController implements PadraoController {
                 $lista = $objCliente->consultar($_SESSION["usuario"]);
             }
             $objBemVindo->setNome($lista['nome']); // TERMINAR
+            $objBemVindo->mostrarTopo();
             $objBemVindo->mostrarConteudo();
             $objBemVindo->mostrarRodape();
         } else {

@@ -42,7 +42,12 @@ abstract class Crud {
     public function deletar($id) {
         $comando = $this->banco->prepare("DELETE FROM $this->tabela WHERE "
                 . "$this->consultaColunaId=$id");
-        $comando->execute();
+        $verifica = $comando->execute();
+        if($verifica){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function consultar($id) {

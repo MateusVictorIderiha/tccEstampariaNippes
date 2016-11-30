@@ -69,7 +69,14 @@ class InicialController {
     }
     
     public function carregarPagina() {
+        $objCliente = new \estamparia\model\ClienteModel();
         $this->pegaController();
+
+/*        if($objCliente->verificaLoginCookie() || $objCliente->verificaLoginSessao()){
+        } else {
+            $this->controller = $this->caminho."Cliente"."Controller";
+        }*/
+        
         if(isset($this->controller)){
             $this->pegaAcao();
             if(isset($this->acao)){
