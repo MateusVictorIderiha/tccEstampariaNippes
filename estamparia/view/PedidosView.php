@@ -61,8 +61,6 @@ class PedidosView extends EstruturaView{
                                         </select>
                                     </fieldset>
                                 </div>
-                                <div id='imgCamiseta'>
-                                </div>
                                 <div id='tamanhoNormal' class='form-group'>
                                     <label for='tamanhoProduto'>Tamanho: </label>
                                     <select class='form-control focused' id='tamanho' name='tamanho' data-toggle='tooltip' title='Informe o tamanho da camiseta' data-placement='bottom' >
@@ -134,6 +132,8 @@ class PedidosView extends EstruturaView{
                         <input class='col-md-6 btn btn-primary ' type='submit' value='Fazer Pedido' data-toggle='tooltip' title='Clique aqui para finalizar e fazer seu pedido' data-placement='bottom' />
                     </div>
                 </form>
+                <div id='imgCamiseta' class='col-md-2'>
+                </div>
             </div>
         </section>";
     }

@@ -179,6 +179,7 @@ abstract class UsuarioModel extends PessoaModel {
         if (isset($_SESSION['usuario']) and isset($_SESSION['senha']) and 
                 !empty($_SESSION['usuario']) and !empty($_SESSION['senha'])) {
             $idUsuario = $_SESSION['usuario'];
+            $this->idUsuario = $idUsuario;
             $senha = base64_decode($_SESSION['senha']);
 
             $login = $this->retornaLogin($idUsuario);
@@ -196,6 +197,7 @@ abstract class UsuarioModel extends PessoaModel {
         if (isset($_COOKIE['usuario']) and isset($_COOKIE['senha']) and 
                 !empty($_COOKIE['usuario']) and !empty($_COOKIE['senha'])) {
             $idUsuario = $_COOKIE['usuario'];
+            $this->idUsuario = $idUsuario;
             $senha = base64_decode($_COOKIE['senha']);
             $login = $this->retornaLogin($idUsuario);
         }
@@ -233,7 +235,8 @@ abstract class UsuarioModel extends PessoaModel {
                 . " senha, RG, dataNascimento, nome, nivel, login) values(:cpf_usuario,"
                 . " :senha, :rg, :dataNascimento, :nome, :nivel, :login)");
         $comando->bindParam(":cpf_usuario", $this->cpf);
-        $comando->bindParam(":senha", md5($this->postSenhaLogin));
+        $senha = md5($this->postSenhaLogin);
+        $comando->bindParam(":senha", $senha);
         $comando->bindParam(":login", $this->postUsuarioLogin);
         $comando->bindParam(":rg", $this->rg);
         $comando->bindParam(":dataNascimento", $this->dataNascimento);

@@ -102,8 +102,8 @@ class CadastroView  extends EstruturaView{
                                     <input type='text' class='form-control focused' class='celularInput' id='celular' name='celular[]' data-toggle='tooltip' title='Informe seu celular' data-placement='bottom' />
                                 </div>
                             </div>
-                            <button type='button' id='addCelular' class='add btn'  title='Clique aqui para adicionar mais celulares'>+ Adicionar mais um celular</button>
-                            <fieldset>
+                            <button type='button' id='addCelular' class='add btn'  title='Clique aqui para adicionar mais celulares'>+ Adicionar mais um celular</button>";
+                            /*<fieldset>
                                 <legend>Endereço </legend>
                                 <div class='form-group'>
                                     <label for='cep'>CEP: </label>
@@ -130,8 +130,8 @@ class CadastroView  extends EstruturaView{
                                     <label for='complemento'>Complemento: </label>
                                     <input type='text' class='form-control focused' id='complemento' name='complemento' data-toggle='tooltip' title='Informe o complemento' data-placement='bottom' />
                                 </div>
-                            </fieldset>
-                        </fieldset>
+                            </fieldset>*/
+                     echo "   </fieldset>
                         <fieldset>
                             <legend>Informações da conta (Login)</legend>
                             <div class='form-group'>
@@ -139,16 +139,8 @@ class CadastroView  extends EstruturaView{
                                 <input type='email' class='form-control focused' id='email' name='email' data-toggle='tooltip' title='Preencha seu e-mail/LOGIN' data-placement='bottom' />
                             </div>
                             <div class='form-group'>
-                                <label for='RepetirEmail'>Confirme seu e-mail: </label>
-                                <input type='email' class='form-control focused' id='RepetirEmail' name='ReEmail' data-toggle='tooltip' title='Confirme seu e-mail/LOGIN' data-placement='bottom' />
-                            </div>
-                            <div class='form-group'>
                                 <label for='senha'>Senha: </label>
                                 <input type='password' class='form-control focused' id='senha' name='cadSenha' data-toggle='tooltip' title='Preencha sua senha' data-placement='bottom' />
-                            </div>
-                            <div class='form-group'>
-                                <label for='RepetirSenha'>Confirme sua senha: </label>
-                                <input type='password' class='form-control focused' id='RepetirSenha' name='ReSenha' data-toggle='tooltip' title='Confirme sua senha' data-placement='bottom' />
                             </div>
                         </fieldset>
                         <div class='form-group'>

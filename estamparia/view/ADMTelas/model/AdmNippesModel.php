@@ -21,10 +21,33 @@ class AdmNippesModel extends FuncionarioModel{
     
     public function verificaLoginCookie() {
         $login = parent::verificaLoginCookie();
-        
+        if($login){
+            $comando = $this->banco->prepare("SELECT * from $this->tabela where "
+                    . "id_usuario = :idUsuario and nivel = :nivel");
+            $comando->bindParam(":id_usuario", $this->idUsuario);
+            $comando->bindParam(":login", $this->nivel);
+            $comando->execute();
+            $login = $comando->fetch(\PDO::FETCH_ASSOC);
+            if(count($login)){
+                return true;
+            }
+        }
+        return false;
     }
     
     public function verificaLoginSessao() {
-        parent::verificaLoginSessao();
+        $login = parent::verificaLoginSessao();
+        if($login){
+            $comando = $this->banco->prepare("SELECT * from $this->tabela where "
+                    . "id_usuario = :idUsuario and nivel = :nivel");
+            $comando->bindParam(":idUsuario", $this->idUsuario);
+            $comando->bindParam(":nivel", $this->nivel);
+            $comando->execute();
+            $login = $comando->fetch(\PDO::FETCH_ASSOC);
+            if(count($login)){
+                return true;
+            }
+        }
+        return false;
     }
 }

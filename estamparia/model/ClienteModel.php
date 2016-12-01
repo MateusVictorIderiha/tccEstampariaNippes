@@ -85,6 +85,7 @@ final class ClienteModel extends UsuarioModel {
         $id = parent::inserir();
         if($id != 0){
             mkdir("../imagens/".$this->caminhoUsuario.$id);
+            return true;
         }
     }
     

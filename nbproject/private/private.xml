@@ -3,46 +3,6 @@
     <coverage xmlns="http://www.netbeans.org/ns/code-coverage/1" enabled="false"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/VendasView.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/ADMTelas/model/AdmNippesModel.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/controller/InicialController.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/ADMTelas/view/TopoAdm.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/ADMTelas/view/ADMlogar.phtml</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/ADMTelas/controller/ProdutoAdmController.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/ADMTelas/view/ADMD.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/testModels.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/ADMTelas/view/css/estilo.css</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/ADMTelas/view/css/estiloadm.css</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/ProdPersonalizadoModel.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/ProdMateriaPrimaModel.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/ADMTelas/model/FuncionarioModel.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/ClienteModel.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/db_estampariatcc_v1/localhost.sql</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/ADMTelas/controller/InicialAdmController.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/ModeloEstampaModel.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/ADMTelas/view/IndexAdmView.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/TamanhoModel.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/controller/HomeController.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/ProdLojaModel.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/CorModel.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/ADMTelas/view/ADMID.html</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/PedidosView.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/ADMTelas/view/CaracteristicasProdutoView.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/index.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/CodigoDaCorModel.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/VendaModel.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/controller/SobreController.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/ADMTelas/view/css/msg.css</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/composer.json</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/vendor/autoload.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/controller/ProdutoController.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/controller/VendaController.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/ADMTelas/view/ADMcontato.phtml</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/ADMTelas/view/AdmView.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/view/EstruturaView.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/OrcamentoModel.php</file>
-            <file>file:/E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/model/ProdutoModel.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

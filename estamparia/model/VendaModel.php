@@ -36,7 +36,7 @@ class VendaModel extends Crud {
     public function __construct($idVenda = null, $idProdutoVenda = null) {
         parent::__construct();
         $usarConsulta = empty($idProdutoVenda) ? ($this->consultar($idVenda)) :
-                ($this->consultarVendaProdutovenda($idProdutoVenda));
+                ($this->consultarVendaComProdutovenda($idProdutoVenda));
         $lista = $usarConsulta;
         if($lista) {
             (!empty($idProdutoVenda)) ? ($this->idVenda = $lista["id_venda"]) : "";
@@ -140,10 +140,10 @@ class VendaModel extends Crud {
         }
     }
 
-    public function consultarProdutoVenda($idProdutoVenda) {
+    public function consultarProdutoVenda($idVenda) {
         $comando = $this->banco->prepare("SELECT * FROM tcc_produtoVenda WHERE "
-                . "id_produtoVenda = :idProdutoVenda");
-        $comando->bindParam(":idProdutoVenda", $idProdutoVenda);
+                . "id_venda = :idVenda");
+        $comando->bindParam(":idVenda", $idVenda);
 
         $comando->execute();
         $listaProdutoVenda = $comando->fetch(\PDO::FETCH_ASSOC);
@@ -154,19 +154,18 @@ class VendaModel extends Crud {
         }
     }
 
-    public function consultarVendaComProdutovenda($idProdutoVenda) { // Consulta na Venda e ProdutoVenda
-        $listaProdutoVenda = $this->consultarProdutoVenda($idProdutoVenda);
-
+    public function consultarVendaComProdutovenda($idVenda) { // Consulta na Venda e ProdutoVenda
+        $listaProdutoVenda = $this->consultar($idVenda);
         if($listaProdutoVenda) {
-            $listaVenda = $this->consultar($listaProdutoVenda["id_venda"]); // Consulta tcc_venda
+            $listaVenda = $this->consultarProdutoVenda($listaProdutoVenda["id_venda"]); // Consulta tcc_venda
             if($listaVenda) {
-                $listaVenda["quantidade"] = $listaProdutoVenda["quantidade"];
-                $listaVenda["preco"] = $listaProdutoVenda["preco"];
-                $listaVenda["foto"] = $listaProdutoVenda["foto"];
-                $listaVenda["id_ModEstampa"] = $listaProdutoVenda["id_ModEstampa"];
-                $listaVenda["id_produto"] = $listaProdutoVenda["id_produto"];
+                $listaProdutoVenda["quantidade"] = $listaVenda["quantidade"];
+                $listaProdutoVenda["preco"] = $listaVenda["preco"];
+                $listaProdutoVenda["foto"] = $listaVenda["foto"];
+                $listaProdutoVenda["id_ModEstampa"] = $listaVenda["id_ModEstampa"];
+                $listaProdutoVenda["id_produto"] = $listaVenda["id_produto"];
 
-                return $listaVenda; // lista Venda e ProdutoVenda
+                return $listaProdutoVenda; // lista Venda e ProdutoVenda
             } else {
                 return false;
             }
@@ -175,6 +174,36 @@ class VendaModel extends Crud {
         }
     }
 
+    public function consultarVendaCliente($idCliente) {
+        $comando = $this->banco->prepare("SELECT * FROM tcc_vendas WHERE "
+                . "id_cliente = :idCliente");
+        $status = "Finalizado";
+        $comando->bindParam(":idCliente", $idCliente);
+
+        $comando->execute();
+        $listaProdutoVenda = $comando->fetchAll(\PDO::FETCH_ASSOC);
+        if($listaProdutoVenda) {
+            return $listaProdutoVenda;
+        } else {
+            return false;
+        }
+    }
+
+    /*public function consultarProdVendasCliente($id) {
+        $vendas = $this->consultarProdVendasCliente($id);
+        foreach ($vendas as $venda) {
+            $comando = $this->banco->prepare("SELECT * FROM tcc_produtoVenda WHERE "
+                    . "id_venda = :idVenda");
+            $comando->bindParam(":idVenda", $venda["id_venda"]);
+            $comando->execute();
+            $listaProdutoVenda = $comando->fetchAll(\PDO::FETCH_ASSOC);
+            if($listaProdutoVenda) {
+                $venda[] = $listaProdutoVenda;
+            }
+        }
+        return $vendas;
+    }*/
+    
     public function calcularTotal() {
         if(isset($this->produtoVenda)){
             foreach ($this->produtoVenda as $produtoVenda) {

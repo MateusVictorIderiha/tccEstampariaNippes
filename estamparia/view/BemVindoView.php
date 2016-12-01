@@ -3,7 +3,7 @@
 namespace estamparia\view;
 
 use estamparia\view\EstruturaView;
-
+use estamparia\model\OrcamentoModel;
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,6 +14,12 @@ class BemVindoView extends EstruturaView{
     private $nome;
     private $pedido;
     private $compras;
+    
+    public function __construct($compras) {
+        parent::__construct();
+        
+        $this->compras = $compras;
+    }
     
     public function getNome() {
         return $this->nome;
@@ -40,7 +46,7 @@ class BemVindoView extends EstruturaView{
     }
     
     public function mostrarConteudo() {
-        echo "        
+    echo "        
             <section class='margin-left12'>
                 <p class='font33px'> Bem-vindo $this->nome";
 
@@ -54,31 +60,38 @@ class BemVindoView extends EstruturaView{
             <section><p class='margin-left12'>Confira suas compras já realizadas</p>
 
 
-                <table class='margin-left12' style='width:50%'>
+                <table class='container'>
                     <tr>
-                        <th>Imagem do Produto</th>
-                        <th>Nome do Produto</th> 
-                        <th>Data da Compra</th>
-                    </tr>
-                    <tr>
-                        <td><figure>
-                                <img class='floatleft' width='100px' height='100px' src='img/home/home2.jpg' title='Camisa' />
+                        <th>Imagem da estampa</th>
+                        <th>Venda</th>
+                        <th>Data da iniciada</th> 
+                        <th>Data Orcamento</th>
+                        <th>Status</th>
+                        <th>Quantidade</th>
+                        <th>Preco</th>
+                        <th>Total</th>
+                    </tr>";
+        foreach ($this->compras as $venda) {
+            $objOrcamento = new OrcamentoModel();
+            
+            $listaOrcamentos = $objOrcamento->consultarVendaComProdutovenda($venda["id_venda"]);
+                   echo " <tr>
+                        <td>
+                            <figure>
+                                <img class='floatleft' width='100px' height='100px' src='' title='Camisa' />
                             </figure>
                         </td>
-                        <td><p class='font33px'>Until The Very End</p></td>
-                        <td><p class='font33px'>07/11/2016</p></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
+                        <td><p class='font15px'>".$listaOrcamentos['id_venda']."</p></td>
+                        <td><p class='font15px'>".$listaOrcamentos['dataAberto']."</p></td>
+                        <td><p class='font15px'>".$listaOrcamentos['dataOrcamento']."</p></td>
+                        <td><p class='font15px'>".$listaOrcamentos['VendaStatus']."</p></td>
+                        <td><p class='font15px'>".$listaOrcamentos['quantidade']."</p></td>
+                        <td><p class='font15px'>".$listaOrcamentos['preco']."</p></td>
+                        <td><p class='font15px'>".$listaOrcamentos['total']."</p></td>
+                    </tr>";
+            }
+        
+                echo "</table>
             </section>";
     }
 }

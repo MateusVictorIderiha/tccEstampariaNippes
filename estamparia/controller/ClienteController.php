@@ -38,13 +38,13 @@ class ClienteController implements PadraoController {
         $telefones = $_POST["telefone"];
         $celulares = $_POST["celular"];
 
-        $idCep = $_POST["cep"];
+/*        $idCep = $_POST["cep"];
         $rua = $_POST["rua"];
         $numero = $_POST["numero"];
         $cidade = $_POST["cidade"];
         $estado = $_POST["estado"];
         $complemento = $_POST["complemento"];
-        $numeroDaCasa = $_POST["numero"];
+        $numeroDaCasa = $_POST["numero"];*/
         
         $senha = $_POST["cadSenha"];
         $usuario = $_POST["email"];
@@ -58,7 +58,7 @@ class ClienteController implements PadraoController {
         $objCliente->setDataNascimento('2016-05-11');
         $objCliente->setRg($rg);
         $idCliente = $objCliente->inserir();
-        if($idCliente){
+        if($idCliente != 0){
             foreach ($telefones as $telefone){
                 $objTelefone = new ContatoModel;
                 $objTelefone->setContato($telefone);
@@ -78,12 +78,10 @@ class ClienteController implements PadraoController {
             $objEndereco->setIdCep(1);
             $objEndereco->setNumeroDaCasa('173');
             $objEndereco->setIdCliente($idCliente);
-            $objEndereco->setComplemento($complemento);
+            //$objEndereco->setComplemento($complemento);
             $objEndereco->inserir();
             
-            echo "cadastrado com sucesso!";
-        } else {
-            echo 'errou';
+            header("location: ?pagina=wp_login");
         }
     }
     
@@ -115,12 +113,16 @@ class ClienteController implements PadraoController {
     public function mostrarBemVindo() {
         $objCliente = new ClienteModel();
         if($objCliente->verificaLoginSessao() || $objCliente->verificaLoginCookie()){
-            $objBemVindo = new BemVindoView();
             if(isset($_COOKIE["usuario"])){
                 $lista = $objCliente->consultar($_COOKIE["usuario"]);
             } elseif ($_SESSION["usuario"]) {
                 $lista = $objCliente->consultar($_SESSION["usuario"]);
             }
+            $idUsuario = $lista["id_usuario"];
+            $objVenda = new \estamparia\model\OrcamentoModel();
+            $listaOrcamentos = $objVenda->consultarVendaCliente($idUsuario);
+            
+            $objBemVindo = new BemVindoView($listaOrcamentos);
             $objBemVindo->setNome($lista['nome']); // TERMINAR
             $objBemVindo->mostrarTopo();
             $objBemVindo->mostrarConteudo();

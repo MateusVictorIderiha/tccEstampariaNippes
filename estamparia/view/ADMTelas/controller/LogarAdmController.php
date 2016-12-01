@@ -21,14 +21,15 @@ class LogarAdmController extends TopoAdm implements PadraoController{
     public function mostrarPagina() {
         $this->head();
         echo " <fieldset class='loginAdm'>
-                <form id='login' action='?acao=logar' method='POST'>
+                <form id='loginAdm' action='?acao=logar' method='POST'>
                     <h1 class='whitecolor textcenter'>Login</h1>
+                     <div id='errouLogin'>Usúario ou senha incorretos</div>
                     <div class='form-group'> 
-                        <label for='usuario'>Login: </label>
+                        <label for='usuarioAdm'>Login: </label>
                         <input type='text' class='form-control focused' id='usuarioAdm' name='usuarioAdm' data-toggle='tooltip' title='Login' data-placement='bottom' />
                     </div>
                     <div class='form-group'>
-                        <label for='senha'>Senha: </label>
+                        <label for='senhaAdm'>Senha: </label>
                         <input type='password' class='form-control focused' id='senhaAdm' name='senhaAdm' data-toggle='tooltip' title='Senha' data-placement='bottom' />
                     </div>
                     <div class='form-group'>
@@ -36,9 +37,7 @@ class LogarAdmController extends TopoAdm implements PadraoController{
                         <label for='loginCookie'>Matenha-se conectado </label>
                     </div>
                     <div class='form-group cadastrar'>
-                        <input id='logar' class='col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-primary logar' type='button' value='Entrar' data-toggle='tooltip' title='Clique aqui para ENTRAR' data-placement='bottom' />
-                    </div>
-                    <div id='msgLogin'>
+                        <input id='logar' class='col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-primary logar' type='submit' value='Entrar' data-toggle='tooltip' title='Clique aqui para ENTRAR' data-placement='bottom' />
                     </div>
                 </form>
             </fieldset>";
@@ -55,15 +54,18 @@ class LogarAdmController extends TopoAdm implements PadraoController{
         if($cookie == 1){
             $verifica = $objAdm->loginCookie($usuario, $senha);
             if($verifica){
-                header("location:?pagina=wp_produto");
+                echo 1;
+            } else {
+                echo 0;
             }
         } else {
             $verifica = $objAdm->loginSessao($usuario, $senha);
             if($verifica){
-                header("location:?pagina=wp_produto");
+                echo 1;
+            } else {
+                echo 0;
             }
         }
-        return false;
     }
     
     public function paginaInicial(){

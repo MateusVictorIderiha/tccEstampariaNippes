@@ -133,6 +133,20 @@ class OrcamentoModel extends VendaModel {
         $comando->execute();
         return $this->banco->lastInsertId();
     }
+        
+    public function consultarOrcamentosAberto() {
+        $comando = $this->banco->prepare("SELECT * FROM $this->tabela"
+                . " WHERE VendaStatus = :status");
+        $status = "Solicitado";
+        $comando->bundParam(":status", $status);
+        $comando->execute();
+        $produto = $comando->fetchAll(\PDO::FETCH_ASSOC);
+        if($produto["VendaStatus"] == "Solicitado"){
+            return true;
+        } else {
+            return false;
+        }
+    }
     
     public function inserirProdutoVenda() {
        /* foreach ($this->produtosVenda as $produtoVenda){

@@ -50,7 +50,7 @@ class ProdutoAdmController implements PadraoController{
             if($extensao == ".jpeg" || $extensao == ".jpeg2000" || $extensao == ".png" ||
                     $extensao == ".eps" || $extensao == ".crd" || $extensao == ".ai" ||
                     $extensao == ".svg" || $extensao == ".jpg"){
-                echo $novoNome = date('Y-m-d_H-i-s').$extensao;
+                $novoNome = date('Y-m-d_H-i-s').$extensao;
                 move_uploaded_file($_FILES["imagem"]["tmp_name"], $caminho.$novoNome);
                 return $novoNome;
             }
@@ -59,13 +59,13 @@ class ProdutoAdmController implements PadraoController{
     
     public function salvar() {
         array_filter($_POST);
-        var_dump($_POST);
+        
         if($_POST["personalizavel"] == "N"){
             $classe = '\estamparia\model\ProdLojaModel';
         } elseif ($_POST["personalizavel"] == "S") {
             $classe = '\estamparia\model\ProdMateriaPrimaModel';
         }
-        if(!isset($_POST["idProduto"]) || empty($_POST["idProduto"])){
+        if($_POST["personalizavel"] == 'N' && $_POST["quantidadeestoque"] >= 0){
             $objProduto = new $classe();
             $objProduto->setNome($_POST["nome"]);
             $objProduto->setModelo($_POST["modelo"]);
@@ -73,11 +73,16 @@ class ProdutoAdmController implements PadraoController{
             $objProduto->setIdCor($_POST["cor"]);
             $objProduto->setIdTamanho($_POST["tamanho"]);
             $objProduto->setPreco($_POST["preco"]);
-            $objProduto->setQuantidadeTotal($_POST["quantidadeestoque"]);
-            //$caminho = "E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/imagens/usuarios/produtos/";
-//            getcwd();dir
-            $nomeFoto = $objProduto->fazerUploadFoto($caminho);
+            $objProduto->setDescricao($_POST["descricao"]);
+            if(isset($_POST["quantidadeestoque"]) && $_POST["quantidadeestoque"] >= 0){
+                $objProduto->setQuantidadeTotal($_POST["quantidadeestoque"]);
+            }
+            $caminhoAdm = $_SERVER["DOCUMENT_ROOT"];
+            $caminhoImg = $caminhoAdm."tcc/estamparia/imagens/produtos/";
+            $nomeFoto = $this->fazerUploadFoto($caminhoImg);
             $objProduto->setFotoProduto("produtos/".$nomeFoto);
+
+
             $verifica = $objProduto->inserir();
             if($verifica){
                 header("location: ?pagina=wp_Produto_Adm");
@@ -91,21 +96,26 @@ class ProdutoAdmController implements PadraoController{
             $objProduto->setIdCor($_POST["cor"]);
             $objProduto->setIdTamanho($_POST["tamanho"]);
             $objProduto->setPreco($_POST["preco"]);
-            $quantidadeTotal = $objProduto->getQuantidadeTotal() - $_POST["quantidadeestoque"];
-            $objProduto->setQuantidadeTotal($quantidadeTotal);
-            if(isset($_FILES)){
-                var_dump($_FILES);
-                $caminho = "E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/estamparia/imagens/usuarios/produtos/";
-                $nomeFoto = $this->fazerUploadFoto($caminho);
+            $objProduto->setDescricao($_POST["descricao"]);
+
+            if($_POST["personalizavel"] == 'N' && $_POST["quantidadeestoque"] >= 0){
+                $quantidadeTotal = $objProduto->getQuantidadeTotal() + $_POST["quantidadeestoque"];
+                $objProduto->setQuantidadeTotal($quantidadeTotal);
+            }
+            if(isset($_FILES["imagem"])){
+                $caminhoAdm = $_SERVER["DOCUMENT_ROOT"];
+                $caminhoImg = $caminhoAdm."tcc/estamparia/imagens/produtos/";
+                $nomeFoto = $this->fazerUploadFoto($caminhoImg);
                 $objProduto->setFotoProduto("produtos/".$nomeFoto);
             } else {
                 $objProduto->setFotoProduto($_POST["imagemAtual"]);
             }
-           /* $verifica = $objProduto->editar($_POST["idProduto"]);
+            var_dump($objProduto);
+            $verifica = $objProduto->editar($_POST["idProduto"]);
             if($verifica){
                 header("location:?pagina=wp_Produto_Adm");
                 echo "PRODUTO EDITADO COM SUCESSO!!!";
-            }*/
+            }
         }
     }
     

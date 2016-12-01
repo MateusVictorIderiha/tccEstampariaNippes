@@ -86,8 +86,12 @@ class PedidosController implements PadraoController{
         $this->idProduto = $_POST["idProduto"];
         $objProdMateria = new ProdMateriaPrimaModel($this->idProduto);
         $listaProdutos = $objProdMateria->mostraFotoProduto($_POST["cor"]);
-        echo "<a href='?pagina=wp_produto&acao=consultar_img_produto&id="
-            .$listaProdutos['id_produto']."' target='_blank'>Ver a camiseta</a>";
+       // echo "<a href='?pagina=wp_produto&acao=consultar_img_produto&id="
+         //   .$listaProdutos['id_produto']."' target='_blank'>Ver a camiseta</a>";
+        $objProd = new \estamparia\model\ProdLojaModel($listaProdutos["id_produto"]);
+        $foto = $objProd->getFotoProduto();
+        $caminho = "../imagens/".$foto;
+        echo "<img src='".$caminho."' />";
     }
     
     public function pegarTamanhos() {
@@ -198,18 +202,24 @@ class PedidosController implements PadraoController{
             
             $objModEstampa = new ModeloEstampaModel();
             $objModEstampa->setDescricaoModelo($this->descricao);
-            $objModEstampa->setCaminhoImagem("E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/"
-                    . "estamparia/imagens/usuarios/pedidos/".$this->idUsuario."/");
+            /*$objModEstampa->setCaminhoImagem("E:/ETEC/3TIPIT/DS2/UwAmp/www/tcc/"
+                    . "estamparia/imagens/usuarios/pedidos/".$this->idUsuario."/");*/
+            $caminhoPadrao = $_SERVER["DOCUMENT_ROOT"];
+            $caminho = $caminhoPadrao."tcc/estamparia/imagens/";
+            $caminhoImg = "usuarios/pedidos/".$objCliente->getIdUsuario()."/";
+
+            $objModEstampa->setCaminhoImagem($caminhoImg);
             $this->idModeloEstampa = $objModEstampa->inserir();
             $this->idModeloEstampa = 10;
 
             if($this->formandos === "true"){
                 $verificando = $this->cadastrarProdutoVendaFormandos();
-                $verificando != 0 ? ($this->fazerUploadFoto($objModEstampa->getCaminhoImagem())) : "";
+                $verificando != 0 ? ($this->fazerUploadFoto($caminho.$caminhoImg)) : "";
+                header("location: ?pagina=wp_bem_vindo&acao=mostrar_bem_vindo");
             } else {
                 $verificando = $this->cadastrarProdutoVenda();
-                var_dump($objModEstampa->getCaminhoImagem());
-                $verificando != 0 ? $this->fazerUploadFoto($objModEstampa->getCaminhoImagem()) : "";
+                $verificando != 0 ? $this->fazerUploadFoto($caminho.$caminhoImg) : "";
+                header("location: ?pagina=wp_bem_vindo&acao=mostrar_bem_vindo");
             }
             $continua = isset($_POST["continuar"]) ? $_POST["continuar"] : false;
 

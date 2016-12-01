@@ -356,10 +356,7 @@ $(document).ready(function() {
             );
             $.post("?pagina=wp_pedidos&acao=pegar_img",{"idProduto": idProduto, "cor":$("#cor").val()},
                 function(texto){
-                    if(imgAtual !== texto){
-                        $("#imgCamiseta").html(texto);
-                        imgAtual = texto;
-                    }
+                    $("#imgCamiseta").html(texto);
                 }
             );
         }
@@ -379,14 +376,34 @@ $(document).ready(function() {
         );
     });
     */
+    $("#errouLogin").hide();
+    $("#loginAdm").submit(function () {
+        var login = $("#usuarioAdm").val();
+        var senha = $("#senhaAdm").val();
+        $.ajax({
+            url: "?acao=logar",
+            type: "post",
+            data: "usuarioAdm="+login+"&senhaAdm="+senha,
+            success: function (resultado) {
+                if(resultado == 1){
+                    location.href='?pagina=wp_produto_adm';
+                } else {
+                    $("#errouLogin").show();
+                }
+            }
+        })
+        return false;
+    });
+   
     function pegarIdProdutoAdm(idProdutoAdm, nomeAdm, modeloAdm, materialAdm, precoAdm, imgAdm, descricaoAdm){
         $("#idproduto").val($(idProdutoAdm).text());
         $("#nome").val($(nomeAdm).text());
         $("#modelo").val($(modeloAdm).text());
         $("#tecido").val($(materialAdm).text());
         $("#preco").val($(precoAdm).text());
-        $("#imagemAtual").val($(imgAdm).text());
+        $("#imagemAtual").val($(imgAdm).val());
         $("#descricao").val($(descricaoAdm).text());
+        focarExistente();
     }
     
     $('.CamisetaAdm').on("click", "figure", function() {
@@ -433,6 +450,9 @@ $(document).ready(function() {
         );
     });
     
+    function focarExistente() {
+        $("#modelo").focus();
+    }
 });
     
 

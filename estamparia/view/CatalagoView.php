@@ -37,22 +37,22 @@ class CatalagoView extends EstruturaView{
         foreach ($this->listaProdutos as $produto) {
                 $preco = "R$ ".number_format($produto['preco'], 2, ',', '.');
                 echo "<figure class='catalogovenda'>
-                    <img src='". $this->caminhoImagem.$produto['fotoProduto']. "' ".
+                    <a href='?pagina=wp_produto&acao=consultar_produto&id=".$produto["id_produto"]."'> "
+                    ."<img src='". $this->caminhoImagem.$produto['fotoProduto']. "' ".
                         "data-toggle='tooltip' data-placement='top' title='Camiseta ".
                         $produto['nome']." a ".$preco."'/>
                     <figcaption>
                         <p>
-                            <a href='?pagina=wp_produto&acao=consultar_produto&id=".$produto["id_produto"]."'> "
-                                .$produto['descricao']." a partir de <b>".$preco.
+                                ".$produto['descricao']." a partir de <b>".$preco.
                             "</b> </a>
                         </p>
                     </figcaption>
                 </figure>";
         }
  	echo "
-                <div class='botaovermais'>
-                    <input class='col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-primary' type='submit' value='Ver Mais' data-toggle='tooltip' title='Clique aqui para ENTRAR' data-placement='bottom'/>
-                </div>		
             </section>";
+/*                <div class='botaovermais'>
+                    <input class='col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-primary' type='submit' value='Ver Mais' data-toggle='tooltip' title='Clique aqui para ENTRAR' data-placement='bottom'/>
+                </div>		*/
     }
 }

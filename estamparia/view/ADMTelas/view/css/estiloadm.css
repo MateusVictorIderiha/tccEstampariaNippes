@@ -400,3 +400,13 @@ figure.banner p{
 .CamisetaAdm:hover{ 
     background-color: #888;
 }
+
+#erroLogin{
+    border: 1px solid red;
+    color: red;
+    font-weight: bold;
+    background-color: #99CCFF;
+    margin: 6px 0;
+    width: 120px;
+    text-align: center;
+}

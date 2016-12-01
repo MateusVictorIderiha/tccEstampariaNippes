@@ -62,12 +62,8 @@ class TopoAdm {
                         <nav class='espacoentre'>
                             <ul>
                                 <br>
-                                <li><a class='espacoentre' href='ADMprodutos.html'> PRODUTOS</a></li>
-                                <li><a class='espacoentre' href='ADMcliente.html'> CLIENTE</a></li>
-                                <li><a class='espacoentre' href='ADMcontato.html'> CONTATO</a></li>
-                                <li><a class='espacoentre' href='ADMID.html'> ID INFORM</a></li>
-                                <li><a class='espacoentre' href='ADMpromocao.html'> PROMOÇÕES</a></li>
-                                <li><a class='espacoentre' href='ADMvenda.html'> ORCAMENTOS</a></li>
+                                <li><a class='espacoentre' href='?pagina=wp_produto_adm'> PRODUTOS</a></li>
+                                <li><a class='espacoentre' href='?pagina=wp_orcamento_adm'> ORCAMENTOS</a></li>
                             </ul>
                         </nav>";
         /*echo "<!doctype html>

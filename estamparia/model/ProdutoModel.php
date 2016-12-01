@@ -58,12 +58,6 @@ abstract class ProdutoModel extends Crud {
                 $this->quantidadeTotal = $lista["quantidade"];
             }
     }
-    
-    public function __set($name, $value) {
-        if($value != null && !empty($value)){
-            $name = $value;
-        }
-    }
 
     public function __get($propriedade) {
         if($propriedade == "Cor") {
@@ -158,7 +152,11 @@ abstract class ProdutoModel extends Crud {
     }
 
     public function setPreco($preco) {
-        $this->preco = $preco;
+        if(!empty($preco)){
+            $this->preco = $preco;
+        } else {
+            $this->preco = null;
+        }        
     }
 
     public function setFotoProduto($fotoProduto) {
@@ -166,7 +164,11 @@ abstract class ProdutoModel extends Crud {
     }
 
     public function setPeso($peso) {
-        $this->peso = $peso;
+       if(!empty($peso)){
+           $this->peso = $peso;
+        } else {
+            $this->peso = null;
+        }
     }
 
     public function setTipoProduto($tipoProduto) {
@@ -262,7 +264,8 @@ abstract class ProdutoModel extends Crud {
         $comando = $this->banco->prepare("UPDATE $this->tabela SET "
                 . "nome=:nome, preco=:preco, fotoProduto=:fotoProduto,"
                 . " modelo=:id_modelo, material=:id_material, id_cor=:id_cor,"
-                . " categoria=:id_categoria, tipoProduto=:id_tipoProduto, peso=:peso, id_tamanho=:tamanho"
+                . " categoria=:id_categoria, tipoProduto=:id_tipoProduto, "
+                . "peso=:peso, id_tamanho=:tamanho, quantidade=:quantidade"
                 . " WHERE $this->consultaColunaId = $id");
         $comando->bindParam(":nome", $this->nome);
         $comando->bindParam(":preco", $this->preco);
@@ -274,6 +277,7 @@ abstract class ProdutoModel extends Crud {
         $comando->bindParam(":id_tipoProduto", $this->tipoProduto);
         $comando->bindParam(":peso", $this->peso);
         $comando->bindParam(":tamanho", $this->idTamanho);
+        $comando->bindParam(":quantidade", $this->quantidadeTotal);
         var_dump($comando);
         $verifica = $comando->execute();
 
